@@ -12,14 +12,18 @@ public class Manager
         */
         iu = new InterfazDeUsuario();
         jugadores = new Jugador[2];
+
+        iu.cambiarAPantalla(0);
     }
 
     public void jugar()
     {
         /*
-        * Llama a la interfaz de usuario a comenzar con el Nivel 1
+        * Comienza el juego llamando a nombrar a los jugadores
+        * Posteriormente avanza al siguiente nivel
          */
-        throw new UnsupportedOperationException("Not supported yet.");
+        iu.cambiarAPantalla(1);
+        irASiguienteNivel();
     }
 
     public void mostrarInfoJugador(Jugador jugador)
@@ -48,6 +52,13 @@ public class Manager
         * Revisa si el jugador cuenta con los requisitos para avanzar de nivel
         * Si es así, llama a la interfaz de usuario a avanzar de nivel
          */
-        throw new UnsupportedOperationException("Not supported yet.");
+        int nivelAct = iu.getPantallaActual();
+        int sigNivel = nivelAct == 1 ? 3 : nivelAct++;
+        do {
+            iu.cambiarAPantalla(2);
+            iu.cambiarAPantalla(sigNivel);
+            sigNivel++;
+        }while(iu.getPantallaActual() == 6 && sigNivel < 5);
+
     }
 }

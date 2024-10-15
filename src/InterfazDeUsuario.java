@@ -11,11 +11,13 @@ public class InterfazDeUsuario
 
     public void cambiarAPantalla(int pantalla)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        pantallaActual = 0;
+        mostrarPantalla();
     }
 
     private void mostrarPantalla()
     {
+        borrarPantalla();
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
