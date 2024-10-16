@@ -14,6 +14,25 @@ public class Manager {
         jugadores = new ArrayList<Jugador>();
     };
 
+    public int irAMenu(int numPantalla)
+    {
+        Menu menu = (Menu) iu.cambiarAPantalla(numPantalla);
+        menu.mostrar();
+        return menu.getOpcionElegida();
+    }
+
+    public void irAPantalla(int numPantalla)
+    {
+        iu.cambiarAPantalla(numPantalla);
+    }
+
+    public void irAMenu(int numPantalla, String[] argumentos)
+    {
+        iu.actualizarPantalla(numPantalla, argumentos);
+        Menu menu = (Menu) iu.cambiarAPantalla(numPantalla);
+        menu.mostrar();
+    }
+
     public void procesarRespuesta(Jugador jugador, boolean esCorrecta, int consecuencia) {
         /*
          * Revisa si la respuesta del jugador es correcta o no
