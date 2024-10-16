@@ -11,7 +11,6 @@ public class Jugador {
         this.nombre = nombre; //Asigna nombre al atributo nombre
         this.puntos = 0; //Inicializa en 0 la cantidad de puntos
         this.vidas = 5; //Inicializa en 5 la cantidad de vidas iniciales
-
     }
 
 

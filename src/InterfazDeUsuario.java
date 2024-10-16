@@ -11,22 +11,31 @@ public class InterfazDeUsuario
 
     public void cambiarAPantalla(int pantalla)
     {
-        pantallaActual = 0;
+        pantallaActual = pantalla;
         mostrarPantalla();
+    }
+
+    public void actualizarPantalla(int pantalla, String[] argumentos)
+    {
+        Pantalla pantallaActualizar = pantallas[pantalla];
+        if(pantallaActualizar.getCantidadArgumentos() <= argumentos.length)
+        {
+            for (int i = 0; i < argumentos.length; i++)
+            {
+                pantallaActualizar.setArgumento(i, argumentos[i]);
+            }
+        }
+
     }
 
     private void mostrarPantalla()
     {
         borrarPantalla();
-        throw new UnsupportedOperationException("Not supported yet.");
+        pantallas[pantallaActual].mostrar();
     }
 
-    private void borrarPantalla()
-    {
+    private void borrarPantalla() {
+        System.out.println("\u000C");
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public int getPantallaActual() {
-        return pantallaActual;
     }
 }

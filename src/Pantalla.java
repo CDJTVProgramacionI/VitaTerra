@@ -25,6 +25,12 @@ public class Pantalla {
 
     }
 
+    public int getCantidadArgumentos(){
+
+        return argumentos.length;
+
+    }
+
     public void setArgumento(int i, String valor){
 
         if (i >= 0 && i < argumentos.length){

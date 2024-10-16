@@ -1,64 +1,42 @@
-public class Manager
-{
+import java.util.ArrayList;
+
+public class Manager {
     private InterfazDeUsuario iu;
-    private Jugador[] jugadores;
+    private ArrayList<Jugador> jugadores;
 
     //Constructor de clase
-    public Manager()
-    {
+    public Manager() {
         /*
-        * Se crean las pantallas a través de la interfaz de usuario
-        * Se crean los jugadores sin valores iniciales
-        */
+         * Se crean las pantallas a través de la interfaz de usuario
+         * Se crean los jugadores sin valores iniciales
+         */
         iu = new InterfazDeUsuario();
-        jugadores = new Jugador[2];
+        jugadores = new ArrayList<Jugador>();
+    };
 
-        iu.cambiarAPantalla(0);
+    public void procesarRespuesta(Jugador jugador, boolean esCorrecta, int consecuencia) {
+        /*
+         * Revisa si la respuesta del jugador es correcta o no
+         */
+        if(esCorrecta)
+        {
+            jugador.aumentarPuntosEn(consecuencia);
+        }
+        else
+        {
+            jugador.disminuirVidasEn(consecuencia);
+        }
     }
 
-    public void jugar()
-    {
+    public void reiniciarJugadores() {
         /*
-        * Comienza el juego llamando a nombrar a los jugadores
-        * Posteriormente avanza al siguiente nivel
+         * Reinicia los valores de los jugadores
          */
-        iu.cambiarAPantalla(1);
-        irASiguienteNivel();
+
+        jugadores = new ArrayList<Jugador>();
     }
 
-    public void mostrarInfoJugador(Jugador jugador)
-    {
-        /*
-        * Muestra la información del jugador seleccionado
-        *
-        * @param jugador:  Jugador a mostrar
-         */
-        System.out.println("Nombre: " + jugador.getNombre());
-        System.out.println("Puntaje: " + jugador.getPuntaje());
-        System.out.println("Vidas: " + jugador.getVidas());
-    }
-
-    public void procesarRespuesta()
-    {
-        /*
-        * Revisa si la respuesta del jugador es correcta o no
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void irASiguienteNivel()
-    {
-        /*
-        * Revisa si el jugador cuenta con los requisitos para avanzar de nivel
-        * Si es así, llama a la interfaz de usuario a avanzar de nivel
-         */
-        int nivelAct = iu.getPantallaActual();
-        int sigNivel = nivelAct == 1 ? 3 : nivelAct++;
-        do {
-            iu.cambiarAPantalla(2);
-            iu.cambiarAPantalla(sigNivel);
-            sigNivel++;
-        }while(iu.getPantallaActual() == 6 && sigNivel < 5);
-
+    public Jugador getNesimoJugador(int n) {
+        return jugadores.get(n);
     }
 }
