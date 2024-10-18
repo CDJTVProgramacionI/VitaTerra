@@ -29,7 +29,7 @@ public class Manager {
     public void irAMenu(int numPantalla, String[] argumentos)
     {
         iu.actualizarPantalla(numPantalla, argumentos);
-        Menu menu = (Menu) iu.cambiarAPantalla(numPantalla);
+        Menu menu = (Menu)iu.cambiarAPantalla(numPantalla);
         menu.mostrar();
     }
 

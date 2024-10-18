@@ -8,8 +8,8 @@ public class InterfazDeUsuario
         //TODO: CREAR EL RESTO DE PANTALLAS
         pantallas = new Pantalla[]
                 {
-                        new Menu("Bienvenid@ al juego Vita Terra\n1.Jugar\n2.Salir", null),
-                        new Menu("Elige el jugador que queires ser:\n-Jugador 1\n-Jugador 2 ",null),
+                        new Menu("Bienvenid@ al juego Vita Terra\n1.Jugar\n2.Salir", 0),
+                        new Menu("Elige el jugador que queires ser:\n-Jugador 1\n-Jugador 2 ",0),
                         new Pantalla("Intrucciones:\n 1. Se presentan por nivel 10 desechos a clasficar" +
                                 "dentro del contenedor correcto. Por cada desecho clasificado correctamente" +
                                 "se obtendrá una cierta cantidad de puntos y por cada desecho clasificado" +
@@ -20,26 +20,37 @@ public class InterfazDeUsuario
                                 "cada desecho y se tiene que eligir el orden correcto en el que van estos pasos.\n 3. Si" +
                                 "el jugador trata correctamente la cantidad mínima de desechos del nivel, pasa al siguiente nivel" +
                                 "y si es el último nivel gana el juego.\n4. El juego termina cuando se han clasificado todos" +
-                                "los desechos o cuando el jugador pierde todas sus vidas.",null),
+                                "los desechos o cuando el jugador pierde todas sus vidas.",0),
                         new Menu("Datos del jugador: {0}\nDesecho a clasificar: {1}\n¿En qué contenedor debes meter el desecho?\n" +
-                                "Elige un contenedor de los siguientes:\n{2}"),
+                                "Elige un contenedor de los siguientes:\n{2}", 3),
                         new Pantalla("¡Muy bien!, has clasificado correctamente la cantidad mínima de desechos para este nivel.\n" +
-                                "Ahora continuamos llevando estos desechos a la Planta Tratadora"),
-                        new Menu("Datos del jugador: {0}\nDesecho a tratar: {1}\n¿Cómo se trata este desecho?\n{2}"),
-                        new Menu("¡Correcto!\nAhora organiza los pasos a seguir para tratar el desecho:\n{0}"),
-                        new Pantalla("Incorrecto"),
-                        new Pantalla("Fin del juego, perdiste"),
-                        new Pantalla ("¡Felicidades!, {0} ganado")
-                }
-
-
+                                "Ahora continuamos llevando estos desechos a la Planta Tratadora", 0),
+                        new Menu("Datos del jugador: {0}\nDesecho a tratar: {1}\n¿Cómo se trata este desecho?\n{2}", 3),
+                        new Menu("¡Correcto!\nAhora organiza los pasos a seguir para tratar el desecho:\n{0}", 1),
+                        new Pantalla("Incorrecto", 0),
+                        new Pantalla("Fin del juego, perdiste", 0),
+                        new Pantalla ("¡Felicidades!, {0} ganado", 1)
+                };
         pantallaActual = 0;
     }
 
-    public void cambiarAPantalla(int pantalla)
+    public Pantalla cambiarAPantalla(int pantalla)
     {
-        pantallaActual = 0;
+        pantallaActual = pantalla;
         mostrarPantalla();
+        return pantallas[pantalla];
+    }
+
+    public void actualizarPantalla(int pantalla, String[] argumentos)
+    {
+        Pantalla pantallaActualizar = pantallas[pantalla];
+        if(pantallaActualizar.getCantidadArgumentos() <= argumentos.length)
+        {
+            for (int i = 0; i < argumentos.length; i++)
+            {
+                pantallaActualizar.setArgumento(i, argumentos[i]);
+            }
+        }
     }
 
     private void mostrarPantalla()

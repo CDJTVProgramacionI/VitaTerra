@@ -4,6 +4,11 @@ public class Menu extends Pantalla
 {
     private int opcionElegida;
 
+    public Menu(String textoActual, int cant_argumentos)
+    {
+        super(textoActual, cant_argumentos);
+    }
+
     @Override
     public void mostrar()
     {

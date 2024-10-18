@@ -2,15 +2,14 @@ public class Pantalla {
 
 
     private String textoActual;
-    private String [] argumentos;
+    protected String [] argumentos;
 
 
     //Constructor pantalla
-    public Pantalla (String textoActual, String[] ar){
+    public Pantalla (String textoActual, int cant_argumentos){
 
         this.textoActual = textoActual;
-        this.argumentos = ar;
-        
+        this.argumentos = cant_argumentos <= 0 ? null : new String [cant_argumentos];
     }
 
     public void mostrar(){
