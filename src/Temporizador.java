@@ -19,9 +19,9 @@ public class Temporizador
         }
     };
 
-    public Temporizador(int segundos)
+    public Temporizador()
     {
-        this.segundos = segundos;
+        this.segundos = 0;
     }
 
     public void comenzar()
@@ -41,6 +41,10 @@ public class Temporizador
 
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
+    }
+
+    public void setTiempo(int segundos) {
+        this.segundos = segundos;
     }
 
 }

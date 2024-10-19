@@ -8,6 +8,24 @@ public class Plastico extends Desecho {
         this.espesura = espesura;
     }
 
+    public static Desecho generaAleatorio() {
+        int random = (int) (Math.random() * 6);
+        return switch (random) {
+            case 0 -> new Plastico("Botella de agua", 3);
+            case 1 -> new Plastico("Bolsa de supermercado", 2);
+            case 2 -> new Plastico("Envase de yogurt", 1);
+            case 3 -> new Plastico("Envase de shampoo", 4);
+            case 4 -> new Plastico("Envase de aceite", 5);
+            case 5 -> new Plastico("Envase de detergente", 6);
+            default -> null;
+        };
+    }
+
+    @Override
+    public String getInfo() {
+        return "Espesura: " + espesura;
+    }
+
     //Si la espesura es menor o igual a 5, se puede fusionar
     public String[] fusionar()
     {

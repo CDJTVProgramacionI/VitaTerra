@@ -75,7 +75,7 @@ public class Main {
             for (int i = 0; i < juego.getNumeroDeJugadores(); i++)
             {
                 Jugador jugador = juego.getNesimoJugador(i);
-                ganadores += jugador.getNombre() + " con " + jugador.getPuntos() + " puntos\n";
+                ganadores += jugador.getInfo();
             }
             String[] argumentos = new String[]
                     {

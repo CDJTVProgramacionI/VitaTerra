@@ -9,6 +9,21 @@ public class Baterias extends Desecho {
         this.tipo = tipo;
     }
 
+    public static Desecho generaAleatorio() {
+        int random = (int) (Math.random() * 3);
+        return switch (random) {
+            case 0 -> new Baterias("Niquel-Cadmio", "Niquel-Cadmio");
+            case 1 -> new Baterias("Plomo-Acido", "Plomo-Acido");
+            case 2 -> new Baterias("Litio", "Litio");
+            default -> null;
+        };
+    }
+
+    @Override
+    public String getInfo() {
+        return "tipo: " + tipo;
+    }
+
     //Si es Niquel-Cadmio, se puede recuperar
     public String[] recuperarMateriales()
     {

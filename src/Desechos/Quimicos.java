@@ -11,6 +11,24 @@ public class Quimicos extends Desecho {
         this.toxico = toxico;
     }
 
+    public static Desecho generaAleatorio() {
+        int random = (int) (Math.random() * 6);
+        return switch (random) {
+            case 0 -> new Quimicos("Plomo", false, true);
+            case 1 -> new Quimicos("Cloro", true, false);
+            case 2 -> new Quimicos("Acido clorhidrico", true, true);
+            case 3 -> new Quimicos("Estaño", false, false);
+            case 4 -> new Quimicos("Acido acetico", true, false);
+            case 5 -> new Quimicos("Acido fosforico", true, true);
+            default -> null;
+        };
+    }
+
+    @Override
+    public String getInfo() {
+        return "Liquido: " + (liquido? "Sí" : "No") + " Toxico: " + (toxico? "Sí" : "No");
+    }
+
     //Si es no es toxico y no es liquido, se pasa por procesos quimicos
     public String[] procesosQuimicos()
     {

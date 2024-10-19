@@ -13,6 +13,24 @@ public class Medicamentos extends Desecho {
         this.solido = solido;
     }
 
+    public static Desecho generaAleatorio() {
+        int random = (int) (Math.random() * 6);
+        return switch (random) {
+            case 0 -> new Medicamentos("Paracetamol", false, false, true);
+            case 1 -> new Medicamentos("Ibuprofeno", false, false, true);
+            case 2 -> new Medicamentos("Amoxicilina", false, true, true);
+            case 3 -> new Medicamentos("Omeprazol", false, false, false);
+            case 4 -> new Medicamentos("Diazepam", true, false, true);
+            case 5 -> new Medicamentos("Insulina", false, true, false);
+            default -> null;
+        };
+    }
+
+    @Override
+    public String getInfo(){
+        return "Inflamable: " + (inflamable? "Sí" : "No") + " Reactivo: " + (reactivo? "Sí" : "No") + " Solido: " + (solido? "Si" : "No");
+    }
+
     //Si es inflamable y no es reactivo, se puede incinerar
     public String[] incinerar(){
         if(inflamable && !reactivo)

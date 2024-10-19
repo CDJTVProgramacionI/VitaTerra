@@ -16,16 +16,12 @@ public class Jugador {
 
     //METODOS
 
-    //Metodo para obtener nombre
-    public String getNombre(){
-        return nombre; //Retorna el nombre
+    //Metodo para obtener info
+    public String getInfo()
+    {
+        //Retorna el nombre, los puntos y las vidas del jugador
+        return nombre + " Puntos:" + puntos + " Vidas:" + vidas;
     }
-
-    //Metodo para obtener puntos
-    public int getPuntos(){
-        return puntos; //Retorna la cantidad de puntos
-    }
-
     //Metodo para aumentar puntos
     public void aumentarPuntosEn(int puntosRespuestaCorrecta){
 

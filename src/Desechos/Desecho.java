@@ -10,9 +10,7 @@ public abstract class Desecho
         this.clasificacion = clasificacion;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public abstract String getInfo();
 
     public String getClasificacion() {
         return clasificacion;

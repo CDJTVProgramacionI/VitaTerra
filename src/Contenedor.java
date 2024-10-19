@@ -1,21 +1,24 @@
+import Desechos.Desecho;
+
+import java.util.ArrayList;
+
 public class Contenedor {
     // Atributos
     private String etiqueta; // Etiqueta del contenedor
-    private int cantidadDesechos; // Cantidad de desechos en el contenedor
+    private ArrayList<Desecho> desechos; // Cantidad de desechos en el contenedor
 
     // Constructor
     public Contenedor(String etiqueta) {
         this.etiqueta = etiqueta;
-        this.cantidadDesechos = 0; // Inicializa la cantidad de desechos a 0
+        this.desechos = new ArrayList<Desecho>(); // Inicializa la lista de desechos
     }
 
     // Método para insertar un desecho
     public void insertarDesecho(Desecho desecho) {
     if (desecho.getClasificacion().equals(etiqueta)) {
-        cantidadDesechos++; // Aumenta la cantidad de desechos si la clasificación coincide exactamente
+        desechos.add(desecho); // Aumenta la cantidad de desechos si la clasificación coincide exactamente
     }
 }
-
 
     // Método para obtener la etiqueta
     public String getEtiqueta() {
@@ -24,6 +27,6 @@ public class Contenedor {
 
     // Método para obtener la cantidad de desechos
     public int getCantidadDesechos() {
-        return cantidadDesechos; // Retorna la cantidad de desechos
+        return desechos.size(); // Retorna la cantidad de desechos
     }
 }

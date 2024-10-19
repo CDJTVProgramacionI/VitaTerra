@@ -10,6 +10,23 @@ public class Carton extends Desecho {
         this.grosor = grosor;
     }
 
+    public static Desecho generaAleatorio() {
+        int random = (int) (Math.random() * 4);
+        return switch (random) {
+            case 0 -> new Carton("Tetrapack", true, 10);
+            case 1 -> new Carton("Caja de pizza", false, 5);
+            case 2 -> new Carton("Caja de zapatos", false, 7);
+            case 3 -> new Carton("Caja de cereal", false, 3);
+            default -> null;
+        };
+    }
+
+    @Override
+    public String getInfo()
+    {
+        return "Multicapa: " + (multicapa ? "Sí" : "No") + "Grosor: " + grosor;
+    }
+
     //Si el cartón es multicapa, se puede reciclar
     public String[] reciclarCapas()
     {
