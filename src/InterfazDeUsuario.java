@@ -1,7 +1,6 @@
 public class InterfazDeUsuario
 {
     private Pantalla[] pantallas;
-    private int pantallaActual;
 
     public InterfazDeUsuario()
     {
@@ -30,12 +29,10 @@ public class InterfazDeUsuario
                         new Pantalla("Fin del juego, perdiste", 0),
                         new Pantalla ("¡Felicidades!, {0} ganado", 1)
                 };
-        pantallaActual = 0;
     }
 
     public Pantalla cambiarAPantalla(int pantalla)
     {
-        pantallaActual = pantalla;
         mostrarPantalla();
         return pantallas[pantalla];
     }
@@ -63,7 +60,4 @@ public class InterfazDeUsuario
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public int getPantallaActual() {
-        return pantallaActual;
-    }
 }

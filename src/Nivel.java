@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import Desechos.Desecho;
 
 public class Nivel
 {
@@ -23,6 +24,7 @@ public class Nivel
 
     public boolean ejecutarConResultado()
     {
+        Temporizador temporizador = new Temporizador(segundosPorTurno);
         return true;
     }
 

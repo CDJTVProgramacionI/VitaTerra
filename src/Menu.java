@@ -3,17 +3,17 @@ import java.util.Scanner;
 public class Menu extends Pantalla
 {
     private int opcionElegida;
+    private Scanner scanner;
 
     public Menu(String textoActual, int cant_argumentos)
     {
         super(textoActual, cant_argumentos);
+        scanner = new Scanner(System.in);
     }
 
     @Override
     public void mostrar()
     {
-        //Crea un objeto escaner
-        Scanner scanner = new Scanner(System.in);
         super.mostrar(); //Muestra las opciones
         do
         {
@@ -27,10 +27,13 @@ public class Menu extends Pantalla
             }
 
         }while(opcionElegida <= 0 || opcionElegida > argumentos.length);
-
     }
 
     public int getOpcionElegida() {
         return opcionElegida;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
     }
 }

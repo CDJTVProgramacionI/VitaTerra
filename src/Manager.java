@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Manager {
     private InterfazDeUsuario iu;
     private ArrayList<Jugador> jugadores;
+    private Pantalla pantallaActual;
 
     //Constructor de clase
     public Manager() {
@@ -14,23 +15,19 @@ public class Manager {
         jugadores = new ArrayList<Jugador>();
     };
 
-    public int irAMenu(int numPantalla)
-    {
-        Menu menu = (Menu) iu.cambiarAPantalla(numPantalla);
-        menu.mostrar();
-        return menu.getOpcionElegida();
+    public Pantalla getPantallaActual() {
+        return pantallaActual;
     }
 
-    public void irAPantalla(int numPantalla)
-    {
-        iu.cambiarAPantalla(numPantalla);
-    }
-
-    public void irAMenu(int numPantalla, String[] argumentos)
-    {
-        iu.actualizarPantalla(numPantalla, argumentos);
-        Menu menu = (Menu)iu.cambiarAPantalla(numPantalla);
-        menu.mostrar();
+    public void irAPantalla(int n, String[] argumentos) {
+        /*
+         * Cambia la pantalla actual a la pantalla n
+         */
+        if(argumentos != null)
+        {
+            iu.actualizarPantalla(n, argumentos);
+        }
+        pantallaActual = iu.cambiarAPantalla(n);
     }
 
     public void procesarRespuesta(Jugador jugador, boolean esCorrecta, int consecuencia) {
