@@ -6,7 +6,7 @@ public class InterfazDeUsuario
     {
         pantallas = new Pantalla[]
                 {
-                        new Menu("Bienvenid@ al juego Vita Terra\n1.Jugar\n2.Salir", 0),
+                        new Menu("Bienvenid@ al juego Vita Terra\n1.Jugar\n2.Ver Instrucciones\n3.Salir", 0),
                         new Menu("Elige la cantidad de jugadores:\n",0),
                         new Pantalla("Intrucciones:\n 1. Se presentan por nivel 10 desechos a clasficar" +
                                 "dentro del contenedor correcto. Por cada desecho clasificado correctamente" +

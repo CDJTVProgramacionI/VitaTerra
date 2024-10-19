@@ -15,8 +15,21 @@ public class Manager {
         jugadores = new ArrayList<Jugador>();
     };
 
-    public Pantalla getPantallaActual() {
-        return pantallaActual;
+    public int getOpcionElegida() {
+        return ((Menu)pantallaActual).getOpcionElegida();
+    }
+
+    public void setJugadores()
+    {
+        int cantidadJugadores = getOpcionElegida();
+        for(int i = 0; i < cantidadJugadores; i++)
+        {
+            jugadores.add(new Jugador("Jugador " + (i + 1)));
+        }
+    }
+
+    public int getNumeroDeJugadores() {
+        return jugadores.size();
     }
 
     public void irAPantalla(int n, String[] argumentos) {
