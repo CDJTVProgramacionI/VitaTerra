@@ -26,6 +26,15 @@ public class Plastico extends Desecho {
         return "Espesura: " + espesura;
     }
 
+    @Override
+    public String[] tratar(String metodo) {
+        return switch (metodo) {
+            case "Fusionar" -> fusionar();
+            case "Crear ecoladrillo" -> creaEcoladrillo();
+            default -> null;
+        };
+    }
+
     //Si la espesura es menor o igual a 5, se puede fusionar
     public String[] fusionar()
     {

@@ -12,6 +12,8 @@ public abstract class Desecho
 
     public abstract String getInfo();
 
+    public abstract String[] tratar(String metodo);
+
     public String getNombre() {
         return nombre;
     }

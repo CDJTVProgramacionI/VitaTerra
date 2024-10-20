@@ -30,6 +30,17 @@ public class Biologicos extends Desecho {
         return "Peligroso: " + (peligroso ? "Sí" : "Falso") + "Nivel de microorganismos: " + nivelMicroorganismos + "\n";
     }
 
+    @Override
+    public String[] tratar(String metodo) {
+        return switch (metodo) {
+            case "Desinfectar" -> desinfectar();
+            case "Incinerar" -> incinerar();
+            case "Radiar" -> radiar();
+            case "Usar autoclave" -> pasarAutoclave();
+            default -> null;
+        };
+    }
+
     //Si el nivel de microorganismos está entre 1 y 3, se puede desinfectar
     public String[] desinfectar()
     {

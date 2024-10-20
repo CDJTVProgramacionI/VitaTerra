@@ -31,6 +31,23 @@ public class Medicamentos extends Desecho {
         return "Inflamable: " + (inflamable? "Sí" : "No") + " Reactivo: " + (reactivo? "Sí" : "No") + " Solido: " + (solido? "Si" : "No");
     }
 
+    @Override
+    public String[] tratar(String metodo){
+        switch(metodo)
+        {
+            case "Incinerar":
+                return incinerar();
+            case "Neutralizar":
+                return neutralizar();
+            case "Triturar":
+                return triturar();
+            case "Diluir":
+                return diluir();
+            default:
+                return null;
+        }
+    }
+
     //Si es inflamable y no es reactivo, se puede incinerar
     public String[] incinerar(){
         if(inflamable && !reactivo)

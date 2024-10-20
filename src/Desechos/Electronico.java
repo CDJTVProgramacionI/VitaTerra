@@ -30,6 +30,17 @@ public class Electronico extends Desecho {
         return "Estado: " + estado + " Cantidad de metales: " + cantidadDeMetales;
     }
 
+    @Override
+    public String[] tratar(String metodo)
+    {
+        return switch (metodo) {
+            case "Desensamblar" -> desensamblar();
+            case "Actualizar" -> actualizar();
+            case "Bricolar" -> bricolar();
+            default -> null;
+        };
+    }
+
     //Si el estado es malo y la cantidad de metales es mayor a 3, se puede desensamblar
     public String[] desensamblar(){
         if(estado.equals("malo") && cantidadDeMetales > 3){

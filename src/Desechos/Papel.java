@@ -28,6 +28,16 @@ public class Papel extends Desecho {
         return "Entintado: " + (entintado ? "Sí" : "No");
     }
 
+    @Override
+    public String[] tratar(String metodo)
+    {
+        return switch (metodo) {
+            case "Blanquear" -> blanquear();
+            case "Desintegrar" -> desintegrar();
+            default -> null;
+        };
+    }
+
     //Si eliges blanquear, el papel no debe estar entintado
     public String[] blanquear(){
         if(!entintado){

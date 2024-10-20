@@ -120,6 +120,19 @@ public class Nivel {
         return ultimaRespuestaCorrecta && numJugadores > 0;
     }
 
+    private String[] desorganizaPasos(String[] pasos) {
+        String[] pasosDesorganizados = new String[pasos.length];
+        int pasosRestantes = pasos.length;
+        for (int i = 0; i < pasosRestantes; i++)
+        {
+            int random = (int) (Math.random() * pasosRestantes);
+            pasosDesorganizados[i] = pasos[random];
+            pasos[random] = pasos[pasosRestantes - 1];
+            pasosRestantes--;
+        }
+        return pasosDesorganizados;
+    }
+
     public int getPuntos() {
         return puntosPorRespuestaCorrecta;
     }

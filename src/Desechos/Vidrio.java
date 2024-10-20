@@ -30,6 +30,16 @@ public class Vidrio extends Desecho {
         return "Es Envase: " + (envase ? "Sí" : "No") + " Roto: " + (roto ? "Sí" : "No");
     }
 
+    @Override
+    public String[] tratar(String metodo) {
+        return switch (metodo) {
+            case "Fundir" -> fundir();
+            case "Desinfectar" -> desinfectar();
+            case "Crear Material" -> crearMaterial();
+            default -> null;
+        };
+    }
+
     //Si eliges fundir, el vidrio debe ser un envase y roto
     public String[] fundir() {
         if (envase && roto) {

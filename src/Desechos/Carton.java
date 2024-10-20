@@ -27,6 +27,17 @@ public class Carton extends Desecho {
         return "Multicapa: " + (multicapa ? "Sí" : "No") + "Grosor: " + grosor;
     }
 
+    @Override
+    public String[] tratar(String metodo)
+    {
+        return switch (metodo) {
+            case "Reciclar capas" -> reciclarCapas();
+            case "Compostar" -> compostar();
+            case "Laminar" -> laminar();
+            default -> null;
+        };
+    }
+
     //Si el cartón es multicapa, se puede reciclar
     public String[] reciclarCapas()
     {

@@ -29,6 +29,17 @@ public class Quimicos extends Desecho {
         return "Liquido: " + (liquido? "Sí" : "No") + " Toxico: " + (toxico? "Sí" : "No");
     }
 
+    @Override
+    public String[] tratar(String metodo) {
+        return switch (metodo) {
+            case "Procesar quimicos" -> procesosQuimicos();
+            case "Filtrar" -> filtracionQuimicos();
+            case "Neutralizar" -> neutralizar();
+            case "Diluir" -> diluir();
+            default -> null;
+        };
+    }
+
     //Si es no es toxico y no es liquido, se pasa por procesos quimicos
     public String[] procesosQuimicos()
     {

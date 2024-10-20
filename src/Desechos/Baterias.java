@@ -37,6 +37,16 @@ public class Baterias extends Desecho {
         }
     }
 
+    @Override
+    public String[] tratar(String metodo) {
+        return switch (metodo) {
+            case "Recuperar materiales" -> recuperarMateriales();
+            case "Neutralizar" -> neutralizar();
+            case "Extraer químicos" -> extraerQuimicos();
+            default -> null;
+        };
+    }
+
     //Si es Plomo-Acido, se puede neutralizar
     public String[] neutralizar(){
         if(tipo.equals(("Plomo-Acido"))){

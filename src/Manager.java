@@ -64,10 +64,12 @@ public class Manager {
             jugador.aumentarPuntosEn(nivelData.getPuntos());
         } else if (!restaTiempo)
         {
+            //Mostrar pantalla se acabó el tiempo y quitar al jugador
             irAPantalla(12, null);
             jugadores.remove(jugador);
         } else
         {
+            //Mostrar pantalla respuesta incorrecta
             irAPantalla(7, null);
             jugador.disminuirVidasEn(nivelData.getVidas());
             if(!jugador.jugadorEstaVivo())

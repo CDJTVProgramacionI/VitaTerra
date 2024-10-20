@@ -27,6 +27,15 @@ public class Organico extends Desecho {
         return "Compostable: " + (compostable? "Sí" : "No");
     }
 
+    @Override
+    public String[] tratar(String metodo) {
+        return switch (metodo) {
+            case "Compostar" -> compostar();
+            case "Biodigerir" -> biodigerir();
+            default -> null;
+        };
+    }
+
     //Si es compostable, se puede compostar
     public String[] compostar() {
         if(compostable)
