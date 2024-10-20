@@ -29,7 +29,7 @@ public class Baterias extends Desecho {
     {
         if(tipo.equals("Niquel-Cadmio"))
         {
-            return new String[]{"Litio", "Cobre", "Aluminio"};
+            return new String[]{"Recolectando y separando baterias","Desmontado","Tratando","Separando por flotacion cadmio del niquel","Destilando cadmio","Purificando Niquel"};
         }
         else
         {
@@ -50,7 +50,7 @@ public class Baterias extends Desecho {
     //Si es Plomo-Acido, se puede neutralizar
     public String[] neutralizar(){
         if(tipo.equals(("Plomo-Acido"))){
-            return new String[]{"Agua", "Bicarbonato de sodio"};
+            return new String[]{"Recolectand y separando baterias", "Desmontando","neutralizando con carbonato de sodio","Fundiendo y purficando plomo","Limpiando y reciclando carcasa de baterias"};
         }
         else{
             return null;
@@ -61,7 +61,7 @@ public class Baterias extends Desecho {
     public String[] extraerQuimicos(){
         if(tipo.equals("Litio"))
         {
-            return new String[]{"Cobre", "Aluminio"};
+            return new String[]{"Recolectando y clasificando baterias", "Descargando bateria","Desmontando y triturando","","Separando y recuperando cobre, aluminio y electrodos de litio", "disolverviendo electrodos extrayendo litio","Recuperando litio"};
         }
         else
         {
