@@ -72,7 +72,7 @@ public class Biologicos extends Desecho {
     {
         if(!peligroso && nivelMicroorganismos > 5)
         {
-            return new String[]{"Someter a rayos gamma","Controlar niveles de radiacion","Aislar desechos"};
+            return new String[]{"Someter a rayos gamma","Controlar niveles de radiación","Aislar desechos"};
         }
         else
         {

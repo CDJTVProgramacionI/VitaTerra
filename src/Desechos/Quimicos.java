@@ -26,7 +26,7 @@ public class Quimicos extends Desecho {
 
     @Override
     public String getInfo() {
-        return "Liquido: " + (liquido? "Sí" : "No") + " Toxico: " + (toxico? "Sí" : "No");
+        return "Nombre: " + getNombre() + "Liquido: " + (liquido? "Sí" : "No") + " Toxico: " + (toxico? "Sí" : "No");
     }
 
     @Override

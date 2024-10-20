@@ -5,7 +5,7 @@ public class Electronico extends Desecho {
     private int cantidadDeMetales;
 
     public Electronico(String nombre, String estado, int cantidadDeMetales) {
-        super(nombre, "Electrónico");
+        super(nombre, "Electrónicos");
         this.estado = estado;
         this.cantidadDeMetales = cantidadDeMetales;
     }
