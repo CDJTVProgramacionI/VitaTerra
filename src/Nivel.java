@@ -24,40 +24,34 @@ public class Nivel {
         Temporizador temporizador = new Temporizador();
         int numJugadores = gameManager.getNumeroDeJugadores() - 1;
         int desechosCorrectos = 0;
+        boolean ultimaRespuestaCorrecta = true;
 
         for (int i = numJugadores; i >= 0; i--) {
             Jugador jugadorActual = gameManager.getNesimoJugador(i);
-            temporizador.setTiempo(segundosPorTurno/3);
+            temporizador.setTiempo(segundosPorTurno / 3);
 
             gameManager.irAPantalla(11, new String[]{jugadorActual.getNombre()});
 
-            for (int j = 0; j < 10 && JugadorVivoYConTiempo(jugadorActual, temporizador); j++) {
+            for (int j = 0; j < 10 && JugadorVivoYConTiempo(jugadorActual, temporizador) && respuestaCorrectaYMultijugador(ultimaRespuestaCorrecta, numJugadores); j++) {
                 String infoJugador = jugadorActual.getInfo();
                 Desecho desecho = generarDesechoAleatorio();
 
                 temporizador.comenzar();
                 gameManager.irAPantalla(3, new String[]{infoJugador, desecho.getNombre(), generarListaContenedores(), String.valueOf(temporizador.getTiempo())});
                 temporizador.detener();
-                int respuesta = gameManager.getOpcionElegida();
 
-                boolean respuestaCorrecta = contenedores[respuesta-1].insertarDesecho(desecho);
-                gameManager.procesarRespuesta(jugadorActual, temporizador.restaTiempo(), respuestaCorrecta, puntosPorRespuestaCorrecta, vidasRespuestaIncorrecta);
+                ultimaRespuestaCorrecta = gameManager.procesarRespuesta(jugadorActual, temporizador.restaTiempo(), this, desecho);
 
-                if(respuestaCorrecta)
-                {
+                if (ultimaRespuestaCorrecta) {
                     desechosCorrectos++;
                 }
-
-                if(!respuestaCorrecta && numJugadores > 1)
-                {
-                    break;
-                }
-
             }
 
+            //Mostrar contenedor con más desechos
             Contenedor maxContenedor = getMaxContenedor();
             gameManager.irAPantalla(13, new String[]{maxContenedor.getEtiqueta(), String.valueOf(maxContenedor.getCantidadDesechos())});
 
+            //Si no se llega a la cantidad de desechos mínimos, se salta al siguiente jugador
             if (desechosCorrectos < desechosMinimosParaSeguir) {
                 continue;
             }
@@ -104,8 +98,7 @@ public class Nivel {
         };
     }
 
-    private Contenedor getMaxContenedor()
-    {
+    private Contenedor getMaxContenedor() {
         Contenedor max = contenedores[0];
         for (Contenedor contenedor : contenedores) {
             if (contenedor.getCantidadDesechos() > max.getCantidadDesechos()) {
@@ -117,5 +110,21 @@ public class Nivel {
 
     private boolean JugadorVivoYConTiempo(Jugador jugador, Temporizador temporizador) {
         return jugador.jugadorEstaVivo() && temporizador.restaTiempo();
+    }
+
+    public Contenedor getContenedor(int i) {
+        return contenedores[i];
+    }
+
+    private boolean respuestaCorrectaYMultijugador(boolean ultimaRespuestaCorrecta, int numJugadores) {
+        return ultimaRespuestaCorrecta && numJugadores > 0;
+    }
+
+    public int getPuntos() {
+        return puntosPorRespuestaCorrecta;
+    }
+
+    public int getVidas() {
+        return vidasRespuestaIncorrecta;
     }
 }

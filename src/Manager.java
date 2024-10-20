@@ -1,3 +1,5 @@
+import Desechos.Desecho;
+
 import java.util.ArrayList;
 
 public class Manager {
@@ -49,13 +51,17 @@ public class Manager {
         }
     }
 
-    public void procesarRespuesta(Jugador jugador, boolean restaTiempo, boolean esCorrecta, int puntos, int vidas) {
+    public boolean procesarRespuesta(Jugador jugador, boolean restaTiempo, Nivel nivelData, Desecho desecho) {
         /*
          * Revisa si la respuesta del jugador es correcta o no
          */
+
+        int respuesta = getOpcionElegida() - 1;
+        boolean esCorrecta = nivelData.getContenedor(respuesta).insertarDesecho(desecho);
+
         if(esCorrecta && restaTiempo)
         {
-            jugador.aumentarPuntosEn(puntos);
+            jugador.aumentarPuntosEn(nivelData.getPuntos());
         } else if (!restaTiempo)
         {
             irAPantalla(12, null);
@@ -63,12 +69,13 @@ public class Manager {
         } else
         {
             irAPantalla(7, null);
-            jugador.disminuirVidasEn(vidas);
+            jugador.disminuirVidasEn(nivelData.getVidas());
             if(!jugador.jugadorEstaVivo())
             {
                 jugadores.remove(jugador);
             }
         }
+        return esCorrecta;
     }
 
     public void reiniciarJugadores() {

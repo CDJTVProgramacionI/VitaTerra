@@ -15,12 +15,17 @@ public class Contenedor {
 
     // Método para insertar un desecho
     public boolean insertarDesecho(Desecho desecho) {
-    if (desecho.getClasificacion().equals(etiqueta)) {
-        desechos.add(desecho); // Aumenta la cantidad de desechos si la clasificación coincide exactamente
-        return true;
+        if (desecho.getClasificacion().equals(etiqueta)) {
+            desechos.add(desecho); // Aumenta la cantidad de desechos si la clasificación coincide exactamente
+            return true;
+        } else return false;
     }
-    else return false;
-}
+
+    public ArrayList<Desecho> vaciarContenedor() {
+        ArrayList<Desecho> desechos = new ArrayList<Desecho>(this.desechos); // Crea una copia de la lista de desechos
+        this.desechos.clear(); // Limpia la lista de desechos
+        return desechos; // Retorna la lista de desechos
+    }
 
     // Método para obtener la etiqueta
     public String getEtiqueta() {
