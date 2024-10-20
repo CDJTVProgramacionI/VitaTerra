@@ -52,7 +52,7 @@ public class Medicamentos extends Desecho {
     public String[] incinerar(){
         if(inflamable && !reactivo)
         {
-            return new String[]{"Recolectando y clasificando","Empaquetando","Preparando incinerado a 1200°C","Realizando combustion","Recogiendo cenizas"};
+            return new String[]{"Recolectar y clasificar","Empaquetar","Preparar incinerador a 1200°C","Realizar combustión","Recoger cenizas"};
         }
         else
         {
@@ -64,7 +64,7 @@ public class Medicamentos extends Desecho {
     public String[] neutralizar(){
         if(reactivo)
         {
-            return new String[]{"Identificando residuo","Se seleciona neutralizante Bicarbonato","Mezclando residuos con el neutralizante","Monitoreando proceso","Manipulacion completa"};
+            return new String[]{"Seleccionar neutralizante bicarbonato","Mezclar residuos con el neutralizante","Monitorear proceso"};
         }
         else
         {
@@ -76,7 +76,7 @@ public class Medicamentos extends Desecho {
     public String[] triturar(){
         if(!reactivo && !inflamable && solido)
         {
-            return new String[]{"Recolectando y clasificando","Desinfectando","Triturando","Recolectando"};
+            return new String[]{"Recolectar y clasificar","Triturar","Recolectar residuos"};
         }
         else
         {
@@ -88,7 +88,7 @@ public class Medicamentos extends Desecho {
     public String[] diluir(){
         if(!reactivo && !inflamable && !solido)
         {
-            return new String[]{"Identificando residuos liquidos","Verificando liquido","Diluyendo","Descargando mezcla"};
+            return new String[]{"Verificar líquido","Diluir","Descargar mezcla"};
         }
         else
         {
