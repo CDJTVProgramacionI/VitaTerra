@@ -43,7 +43,7 @@ public class Carton extends Desecho {
     {
         if(multicapa)
         {
-            return new String[]{};
+            return new String[]{"Recolectando y clasificando","Triturando","colocando triturado en tanque de agua","Reciclando fibras de papel",""};
         }
         else
         {
@@ -56,7 +56,7 @@ public class Carton extends Desecho {
     {
         if(grosor <=7 && !multicapa)
         {
-            return new String[]{};
+            return new String[]{"Recolectando y Selecionando","Triturando","Mezclando con mas materiales organicos","Controlando humedad y aireación","Descomponiendo carton"};
         }
         else
         {
@@ -68,7 +68,7 @@ public class Carton extends Desecho {
     public String[] laminar(){
         if(grosor > 7 && !multicapa)
         {
-            return new String[]{};
+            return new String[]{"Cortando carton","Aplicando adhesivo","Presionando lamina protectora","Prensando","Secando","Cortando"};
         }
         else
         {
