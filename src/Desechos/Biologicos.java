@@ -46,7 +46,7 @@ public class Biologicos extends Desecho {
     {
         if(!peligroso && nivelMicroorganismos >=1 && nivelMicroorganismos <= 3)
         {
-            return new String[]{"Desinfectado"};
+            return new String[]{"Recolectando desechos","Seleccionando desinfectante peroxido de hidrogeno","Rociando desechos con desinfectante","Preoarando siguiente proceso"};
         }
         else
         {
@@ -59,7 +59,7 @@ public class Biologicos extends Desecho {
     {
         if(!peligroso && nivelMicroorganismos >=4 && nivelMicroorganismos <= 5)
         {
-            return new String[]{"Incinerado"};
+            return new String[]{"Clasificando y separando desechos","Prendiendo incinerador a 1200°C","Quemando desechos","Recogiendo cenizas","Tratando cenizas"};
         }
         else
         {
@@ -72,7 +72,7 @@ public class Biologicos extends Desecho {
     {
         if(!peligroso && nivelMicroorganismos > 5)
         {
-            return new String[]{"Radiado"};
+            return new String[]{"Colocando desechos en contenedores seguros","Sometiendo a rayos gamma","Controlando niveles de Radiacion","Manipulando y preparando para siguiente proceso"};
         }
         else
         {
@@ -84,7 +84,7 @@ public class Biologicos extends Desecho {
     public String[] pasarAutoclave(){
         if(peligroso)
         {
-            return new String[]{"Pasar por autoclave"};
+            return new String[]{"Introduciendo en bolsas especiales","Colocando material en el autoclave","Calentando y presionando desechos","Enfriando desechos"};
         }
         else
         {
