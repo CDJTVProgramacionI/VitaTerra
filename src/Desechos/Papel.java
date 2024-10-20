@@ -29,11 +29,11 @@ public class Papel extends Desecho {
     }
 
     @Override
-    public String[] tratar(String metodo)
+    public String[] tratar(int metodo)
     {
         return switch (metodo) {
-            case "Blanquear" -> blanquear();
-            case "Desintegrar" -> desintegrar();
+            case 1-> blanquear();
+            case 2 -> desintegrar();
             default -> null;
         };
     }

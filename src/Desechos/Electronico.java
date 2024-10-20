@@ -31,12 +31,12 @@ public class Electronico extends Desecho {
     }
 
     @Override
-    public String[] tratar(String metodo)
+    public String[] tratar(int metodo)
     {
         return switch (metodo) {
-            case "Desensamblar" -> desensamblar();
-            case "Actualizar" -> actualizar();
-            case "Bricolar" -> bricolar();
+            case 1 -> desensamblar();
+            case 2 -> actualizar();
+            case 3 -> bricolar();
             default -> null;
         };
     }

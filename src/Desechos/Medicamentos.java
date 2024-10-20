@@ -32,16 +32,16 @@ public class Medicamentos extends Desecho {
     }
 
     @Override
-    public String[] tratar(String metodo){
+    public String[] tratar(int metodo){
         switch(metodo)
         {
-            case "Incinerar":
+            case 1:
                 return incinerar();
-            case "Neutralizar":
+            case 2:
                 return neutralizar();
-            case "Triturar":
+            case 3:
                 return triturar();
-            case "Diluir":
+            case 4:
                 return diluir();
             default:
                 return null;

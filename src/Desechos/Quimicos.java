@@ -30,12 +30,12 @@ public class Quimicos extends Desecho {
     }
 
     @Override
-    public String[] tratar(String metodo) {
+    public String[] tratar(int metodo) {
         return switch (metodo) {
-            case "Procesar quimicos" -> procesosQuimicos();
-            case "Filtrar" -> filtracionQuimicos();
-            case "Neutralizar" -> neutralizar();
-            case "Diluir" -> diluir();
+            case 1 -> procesosQuimicos();
+            case 2 -> filtracionQuimicos();
+            case 3 -> neutralizar();
+            case 4 -> diluir();
             default -> null;
         };
     }

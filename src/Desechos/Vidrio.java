@@ -31,11 +31,11 @@ public class Vidrio extends Desecho {
     }
 
     @Override
-    public String[] tratar(String metodo) {
+    public String[] tratar(int metodo) {
         return switch (metodo) {
-            case "Fundir" -> fundir();
-            case "Desinfectar" -> desinfectar();
-            case "Crear Material" -> crearMaterial();
+            case 1 -> fundir();
+            case 2 -> desinfectar();
+            case 3 -> crearMaterial();
             default -> null;
         };
     }
@@ -43,7 +43,7 @@ public class Vidrio extends Desecho {
     //Si eliges fundir, el vidrio debe ser un envase y roto
     public String[] fundir() {
         if (envase && roto) {
-            return new String[]{"Vidrio fundido"};
+            return new String[]{"Mezclar", "Triturar", "Fusionar", "Moldear"};
         } else {
             return null;
         }
@@ -52,7 +52,7 @@ public class Vidrio extends Desecho {
     //Si eliges desinfectar, el vidrio debe ser un envase y no debe estar roto
     public String[] desinfectar() {
         if (envase && !roto) {
-            return new String[]{"Vidrio desinfectado"};
+            return new String[]{"Lavar", "Desinfectar por calor", "Enfriar"};
         } else {
             return null;
         }
@@ -61,7 +61,7 @@ public class Vidrio extends Desecho {
     //Si eliges crearMaterial, el vidrio no debe ser un envase
     public String[] crearMaterial() {
         if (!envase) {
-            return new String[]{"Material de vidrio"};
+            return new String[]{"Clasificar por color", "Limpiar", "Triturar", "Fundir", "Moldear", "Enfriar"};
         } else {
             return null;
         }

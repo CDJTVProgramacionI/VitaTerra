@@ -31,12 +31,12 @@ public class Biologicos extends Desecho {
     }
 
     @Override
-    public String[] tratar(String metodo) {
+    public String[] tratar(int metodo) {
         return switch (metodo) {
-            case "Desinfectar" -> desinfectar();
-            case "Incinerar" -> incinerar();
-            case "Radiar" -> radiar();
-            case "Usar autoclave" -> pasarAutoclave();
+            case 1 -> desinfectar();
+            case 2 -> incinerar();
+            case 3 -> radiar();
+            case 4 -> pasarAutoclave();
             default -> null;
         };
     }

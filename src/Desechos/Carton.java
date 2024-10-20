@@ -22,56 +22,43 @@ public class Carton extends Desecho {
     }
 
     @Override
-    public String getInfo()
-    {
+    public String getInfo() {
         return "Multicapa: " + (multicapa ? "Sí" : "No") + "Grosor: " + grosor;
     }
 
     @Override
-    public String[] tratar(String metodo)
-    {
+    public String[] tratar(int metodo) {
         return switch (metodo) {
-            case "Reciclar capas" -> reciclarCapas();
-            case "Compostar" -> compostar();
-            case "Laminar" -> laminar();
+            case 1 -> reciclarCapas();
+            case 2 -> compostar();
+            case 3 -> laminar();
             default -> null;
         };
     }
 
     //Si el cartón es multicapa, se puede reciclar
-    public String[] reciclarCapas()
-    {
-        if(multicapa)
-        {
-            return new String[]{};
-        }
-        else
-        {
+    public String[] reciclarCapas() {
+        if (multicapa) {
+            return new String[]{"Enjuagar", "Separar", "Compactar"};
+        } else {
             return null;
         }
     }
 
     //Si el cartón es monocapa y su grosor es menor o igual a 7, se puede compostar
-    public String[] compostar()
-    {
-        if(grosor <=7 && !multicapa)
-        {
-            return new String[]{};
-        }
-        else
-        {
+    public String[] compostar() {
+        if (grosor <= 7 && !multicapa) {
+            return new String[]{"Cortar", "Humedecer", "Mezclar", "Descomponer", "Aplicar"};
+        } else {
             return null;
         }
     }
 
     //Si el cartón es monocapa y su grosor es mayor a 7, se puede laminar
-    public String[] laminar(){
-        if(grosor > 7 && !multicapa)
-        {
-            return new String[]{};
-        }
-        else
-        {
+    public String[] laminar() {
+        if (grosor > 7 && !multicapa) {
+            return new String[]{"Cortar", "Aplanar", "Pegar", "Secar", "Prensar"};
+        } else {
             return null;
         }
     }

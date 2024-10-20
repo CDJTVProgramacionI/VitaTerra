@@ -28,10 +28,10 @@ public class Organico extends Desecho {
     }
 
     @Override
-    public String[] tratar(String metodo) {
+    public String[] tratar(int metodo) {
         return switch (metodo) {
-            case "Compostar" -> compostar();
-            case "Biodigerir" -> biodigerir();
+            case 1 -> compostar();
+            case 2 -> biodigerir();
             default -> null;
         };
     }

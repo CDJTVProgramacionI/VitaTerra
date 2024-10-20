@@ -38,11 +38,11 @@ public class Baterias extends Desecho {
     }
 
     @Override
-    public String[] tratar(String metodo) {
+    public String[] tratar(int metodo) {
         return switch (metodo) {
-            case "Recuperar materiales" -> recuperarMateriales();
-            case "Neutralizar" -> neutralizar();
-            case "Extraer químicos" -> extraerQuimicos();
+            case 1 -> recuperarMateriales();
+            case 2 -> neutralizar();
+            case 3 -> extraerQuimicos();
             default -> null;
         };
     }

@@ -27,10 +27,10 @@ public class Plastico extends Desecho {
     }
 
     @Override
-    public String[] tratar(String metodo) {
+    public String[] tratar(int metodo) {
         return switch (metodo) {
-            case "Fusionar" -> fusionar();
-            case "Crear ecoladrillo" -> creaEcoladrillo();
+            case 1 -> fusionar();
+            case 2 -> creaEcoladrillo();
             default -> null;
         };
     }
