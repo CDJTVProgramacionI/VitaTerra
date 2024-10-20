@@ -8,17 +8,17 @@ public class InterfazDeUsuario
                 {
                         new Menu("Bienvenid@ al juego Vita Terra\n1.Jugar\n2.Ver Instrucciones\n3.Salir", 0, 3),
                         new Menu("Elige la cantidad de jugadores:\n1. Un jugador\n2. Dos Jugadores",0, 2),
-                        new Pantalla("Intrucciones:\n 1. Se presentan por nivel 10 desechos a clasficar" +
-                                "dentro del contenedor correcto. Por cada desecho clasificado correctamente" +
-                                "se obtendrá una cierta cantidad de puntos y por cada desecho clasificado" +
-                                "incorrectamente se pierde una cierta cantidad de vidas; estas cantidades" +
-                                "dependen del nivel en el que se encuentre el jugador.\n2. Al conseguir clasificar" +
-                                "el mínimo de desechos que tiene cada nivel, se pasa a una segunda etapa que es tratar" +
-                                "estos desechos en la planta tratadora. En esta etapa muestran los pasos de cómo tratar" +
-                                "cada desecho y se tiene que eligir el orden correcto en el que van estos pasos.\n 3. Si" +
-                                "el jugador trata correctamente la cantidad mínima de desechos del nivel, pasa al siguiente nivel" +
-                                "y si es el último nivel gana el juego.\n4. El juego termina cuando se han clasificado todos" +
-                                "los desechos o cuando el jugador pierde todas sus vidas.",0),
+                        new Pantalla("Intrucciones:\n1. Se presentan por nivel 10 desechos a clasficar" +
+                                " dentro del contenedor correcto. Por cada desecho clasificado correctamente" +
+                                " se obtendrá una cierta cantidad de puntos \n   y por cada desecho clasificado" +
+                                " incorrectamente se pierde una cierta cantidad de vidas; estas cantidades" +
+                                " dependen del nivel en el que se encuentre el jugador.\n2. Al conseguir clasificar" +
+                                " el mínimo de desechos que tiene cada nivel, se pasa a una segunda etapa que es tratar" +
+                                " estos desechos en la planta tratadora. En esta etapa \n   muestran los pasos de cómo tratar" +
+                                " cada desecho y se tiene que eligir el orden correcto en el que van estos pasos.\n3. Si" +
+                                " el jugador trata correctamente la cantidad mínima de desechos del nivel, pasa al siguiente nivel" +
+                                " y si es el último nivel gana el juego.\n4. El juego termina cuando se han clasificado todos" +
+                                " los desechos o cuando el jugador pierde todas sus vidas.",0),
                         new Menu("Tiempo restante {3} segundos\nDatos del jugador: {0}\nDesecho a clasificar: {1}\n¿En qué contenedor debes meter el desecho?\n" +
                                 "Elige un contenedor de los siguientes:\n{2}", 4, 4),
                         new Pantalla("¡Muy bien!, has clasificado correctamente la cantidad mínima de desechos para este nivel.\n" +
