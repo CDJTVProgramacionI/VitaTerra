@@ -45,7 +45,7 @@ public class Quimicos extends Desecho {
     {
         if(!toxico && !liquido)
         {
-            return new String[]{"Diluir"};
+            return new String[]{"Identificar desecho","Seleccionar tratamiento","Monitorear proceso","Controlar temperatura","Recolectar producto final"};
         }
         else
         {
@@ -57,7 +57,7 @@ public class Quimicos extends Desecho {
     public String[] filtracionQuimicos(){
         if(toxico && liquido)
         {
-            return new String[]{"Filtrar","Neutralizar"};
+            return new String[]{"Selecionar filtro","Precipitar","Recoger residudos","Analizar liquido"};
         }
         else
         {
@@ -69,7 +69,7 @@ public class Quimicos extends Desecho {
     public String[] neutralizar() {
         if(toxico && !liquido)
         {
-            return new String[]{""};
+            return new String[]{"Seleccionar neutralizante","Aplicar neutralizante","Ajustar PH","Verificar neutralizacion"};
         }
         else
         {
@@ -81,7 +81,7 @@ public class Quimicos extends Desecho {
     public String[] diluir(){
         if(!toxico && liquido)
         {
-            return new String[]{""};
+            return new String[]{"Confirmar reactividad","Mezclar con agua","Medir concentracion","Verificar dilucion"};
         }
         else
         {
