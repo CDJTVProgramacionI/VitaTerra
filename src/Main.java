@@ -28,9 +28,9 @@ public class Main {
 
         //Instacias de nivel
         Nivel[] niveles = new Nivel[]{
-                new Nivel(10, 1, contenedoresN1, 7, juego, 130),
-                new Nivel(15, 1, contenedoresN2, 8, juego, 110),
-                new Nivel(20, 2, contenedoresN3, 9, juego, 100)
+                new Nivel(10, 1, contenedoresN1, 7, juego, 150),
+                new Nivel(15, 1, contenedoresN2, 8, juego, 140),
+                new Nivel(20, 2, contenedoresN3, 9, juego, 120)
         };
 
         //Juego principal

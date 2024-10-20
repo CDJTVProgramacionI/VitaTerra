@@ -37,12 +37,12 @@ class PlantaTratadora {
     private String[] desorganizarTratamiento()
     {
         String[] pasosDesorganizados = new String[tratamiento.length];
+        String[] tratamiento = this.tratamiento.clone();
         int pasosRestantes = tratamiento.length;
         for (int i = 0; i < pasosRestantes; i++) {
-            int random = (int) (Math.random() * pasosRestantes);
+            int random = (int) (Math.random() * (pasosRestantes-i));
             pasosDesorganizados[i] = tratamiento[random];
-            tratamiento[random] = tratamiento[pasosRestantes - 1];
-            pasosRestantes--;
+            tratamiento[random] = tratamiento[(pasosRestantes - i - 1)];
         }
         return pasosDesorganizados;
     }
@@ -80,7 +80,7 @@ class PlantaTratadora {
 
     public boolean realizarTratamiento(ArrayList<Integer> pasosJugador) {
         for (int i = 0; i < pasosJugador.size(); i++) {
-            if (!tratamientoDesorganizado[i].equals(tratamiento[pasosJugador.get(i) - 1])) {
+            if (!tratamientoDesorganizado[pasosJugador.get(i) - 1].equals(tratamiento[i])) {
                 return false;
             }
         }

@@ -28,7 +28,7 @@ public class Medicamentos extends Desecho {
 
     @Override
     public String getInfo(){
-        return "Inflamable: " + (inflamable? "Sí" : "No") + " Reactivo: " + (reactivo? "Sí" : "No") + " Solido: " + (solido? "Si" : "No");
+        return "Nombre: " + getNombre() + " Inflamable: " + (inflamable? "Sí" : "No") + " Reactivo: " + (reactivo? "Sí" : "No") + " Solido: " + (solido? "Si" : "No");
     }
 
     @Override

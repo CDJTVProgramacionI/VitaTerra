@@ -32,7 +32,7 @@ public class InterfazDeUsuario
                         new Pantalla("¡Ahora es turno del {0}!", 1),
                         new Pantalla("¡Se acabó el tiempo!", 0),
                         new Pantalla("El contenedor {0} es el más lleno con {1} desechos", 2),
-                        new Pantalla("Correcto", 0)
+                        new Pantalla("No has clasificado y tratado suficientes desechos", 0)
                 };
     }
 

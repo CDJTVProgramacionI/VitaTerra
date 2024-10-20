@@ -23,7 +23,7 @@ public class Plastico extends Desecho {
 
     @Override
     public String getInfo() {
-        return "Espesura: " + espesura;
+        return "Nombre: "+ getNombre() + " Espesura: " + espesura;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Plastico extends Desecho {
     {
         if(espesura <= 5)
         {
-            return new String[] {"Se puede fusionar"};
+            return new String[]{"Separar por color", "Triturar", "Derretir", "Moldear"};
         }
         else
         {
@@ -52,7 +52,7 @@ public class Plastico extends Desecho {
     public String[] creaEcoladrillo(){
         if(espesura > 5)
         {
-            return new String[] {"Se puede crear un ecoladrillo"};
+            return new String[] {"Rellenar", "Compactar", "Sellar"};
         }
         else
         {

@@ -24,7 +24,7 @@ public class Carton extends Desecho {
     @Override
     public String getInfo()
     {
-        return "Multicapa: " + (multicapa ? "Sí" : "No") + "Grosor: " + grosor;
+        return "Nombre: " + getNombre() + " Multicapa: " + (multicapa ? "Sí" : "No") + "Grosor: " + grosor;
     }
 
     @Override

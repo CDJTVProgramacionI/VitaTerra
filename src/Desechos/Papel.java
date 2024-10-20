@@ -25,7 +25,7 @@ public class Papel extends Desecho {
     @Override
     public String getInfo()
     {
-        return "Entintado: " + (entintado ? "Sí" : "No");
+        return "Nombre: "+ getNombre() + " Entintado: " + (entintado ? "Sí" : "No");
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Papel extends Desecho {
     //Si eliges blanquear, el papel no debe estar entintado
     public String[] blanquear(){
         if(!entintado){
-            return new String[]{"Papel blanqueado"};
+            return new String[]{"Pulpar", "Usar peróxido de hidrógeno", "Lavar y secar"};
         }
         else
         {
@@ -52,7 +52,7 @@ public class Papel extends Desecho {
     //Si eliges desintegrar, el papel debe estar entintado
     public String[] desintegrar(){
         if(entintado){
-            return new String[]{"Papel desintegrado"};
+            return new String[]{"Triturar", "Pulpar", "Secar", "Prensar"};
         }
         else
         {

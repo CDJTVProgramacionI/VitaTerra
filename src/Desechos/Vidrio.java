@@ -27,7 +27,7 @@ public class Vidrio extends Desecho {
 
     @Override
     public String getInfo() {
-        return "Es Envase: " + (envase ? "Sí" : "No") + " Roto: " + (roto ? "Sí" : "No");
+        return "Nombre: " + getNombre() + " Es Envase: " + (envase ? "Sí" : "No") + " Roto: " + (roto ? "Sí" : "No");
     }
 
     @Override

@@ -109,7 +109,7 @@ public class Manager {
         return respuestaCorrecta && restaTiempo;
     }
 
-    public void procesarRespuesta(Jugador jugador, boolean restaTiempo, Nivel nivelData, ArrayList<Integer> pasos, PlantaTratadora planta)
+    public boolean procesarRespuesta(Jugador jugador, boolean restaTiempo, Nivel nivelData, ArrayList<Integer> pasos, PlantaTratadora planta)
     {
         boolean esCorrecto = planta.realizarTratamiento(pasos);
         if(esCorrecto && restaTiempo)
@@ -130,6 +130,18 @@ public class Manager {
                 jugadores.remove(jugador);
             }
         }
+        return esCorrecto;
+    }
+
+    public void confirmarJugadorConDesechosMinimos(Jugador jugador, int desechosMinimos, int desechosCorrectos)
+    {
+        if (desechosCorrectos < desechosMinimos)
+        {
+            //Pantalla no lograste clasificar y tratar suficientes desechos
+            irAPantalla(14, null);
+            jugadores.remove(jugador);
+        }
+
     }
 
     public void reiniciarJugadores() {

@@ -4,8 +4,8 @@ public class Electronico extends Desecho {
     private String estado;
     private int cantidadDeMetales;
 
-    public Electronico(String nombre, String estado, int cantidadDeMetales){
-        super(nombre,"Electrónico");
+    public Electronico(String nombre, String estado, int cantidadDeMetales) {
+        super(nombre, "Electrónico");
         this.estado = estado;
         this.cantidadDeMetales = cantidadDeMetales;
     }
@@ -25,14 +25,12 @@ public class Electronico extends Desecho {
     }
 
     @Override
-    public String getInfo()
-    {
-        return "Estado: " + estado + " Cantidad de metales: " + cantidadDeMetales;
+    public String getInfo() {
+        return "Nombre: " + getNombre() + " Estado: " + estado + " Cantidad de metales: " + cantidadDeMetales;
     }
 
     @Override
-    public String[] tratar(int metodo)
-    {
+    public String[] tratar(int metodo) {
         return switch (metodo) {
             case 1 -> desensamblar();
             case 2 -> actualizar();
@@ -44,7 +42,7 @@ public class Electronico extends Desecho {
     //Si el estado es malo y la cantidad de metales es mayor a 3, se puede desensamblar
     public String[] desensamblar(){
         if(estado.equals("malo") && cantidadDeMetales > 3){
-            return new String[]{"Recolectando y clasificando","Desconectando aparato","Desmomtando","Clasificando piezas"};
+            return new String[] {"Separar componentes", "Valorar", "Reciclar", "Triturar"};
         }
         else
         {
@@ -53,23 +51,19 @@ public class Electronico extends Desecho {
     }
 
     //Si el estado es bueno, se puede actualizar
-    public String[] actualizar(){
-        if(estado.equals("bueno")){
-            return new String[]{"Revisando dspositivo","Adquiriendo piezsas de repuesto","Instalando nuevps componentes","Probando dispositivo"};
-        }
-        else
-        {
+    public String[] actualizar() {
+        if (estado.equals("bueno")) {
+            return new String[]{"Desmontar", "Desoldar", "Limpiar", "Soldar nuevos componentes"};
+        } else {
             return null;
         }
     }
 
     //Si el estado es malo y la cantidad de metales es menor o igual a 3, se puede bricolar
-    public String[] bricolar(){
-        if(estado.equals("malo") && cantidadDeMetales <= 3){
-            return new String[]{"Selecionando piezas reutilizables","Diseñando nuevo dispositivo","Ensamblando nuevo dispositivo","Probando dispositivo"};
-        }
-        else
-        {
+    public String[] bricolar() {
+        if (estado.equals("malo") && cantidadDeMetales <= 3) {
+            return new String[]{"Desmontar", "Reparar", "Sustituir componentes"};
+        } else {
             return null;
         }
     }

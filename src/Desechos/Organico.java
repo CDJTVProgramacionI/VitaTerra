@@ -24,7 +24,7 @@ public class Organico extends Desecho {
     @Override
     public String getInfo()
     {
-        return "Compostable: " + (compostable? "Sí" : "No");
+        return "Nombre: " + getNombre() + " Compostable: " + (compostable? "Sí" : "No");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Organico extends Desecho {
     public String[] compostar() {
         if(compostable)
         {
-            return new String[]{"Compostar"};
+            return new String[]{"Llenar compostador", "Revolver periódicamente", "Obtener abono"};
         }
         else
         {
@@ -52,7 +52,7 @@ public class Organico extends Desecho {
     public String[] biodigerir() {
         if(!compostable)
         {
-            return new String[]{"Biodigerir"};
+            return new String[]{"Llenar biodigestor", "Fermentar", "Obtener biogás"};
         }
         else
         {

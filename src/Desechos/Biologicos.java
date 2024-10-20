@@ -27,7 +27,7 @@ public class Biologicos extends Desecho {
 
     @Override
     public String getInfo() {
-        return "Peligroso: " + (peligroso ? "Sí" : "Falso") + "Nivel de microorganismos: " + nivelMicroorganismos + "\n";
+        return "Nombre: " + getNombre() + " Peligroso: " + (peligroso ? "Sí" : "Falso") + "Nivel de microorganismos: " + nivelMicroorganismos + "\n";
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Biologicos extends Desecho {
     {
         if(!peligroso && nivelMicroorganismos >=1 && nivelMicroorganismos <= 3)
         {
-            return new String[]{"Recolectando desechos","Seleccionando desinfectante peroxido de hidrogeno","Rociando desechos con desinfectante","Preoarando siguiente proceso"};
+            return new String[]{"Desinfectar con peróxido de hidrógeno","Rociar desinfectante","Dejar secar"};
         }
         else
         {
@@ -59,7 +59,7 @@ public class Biologicos extends Desecho {
     {
         if(!peligroso && nivelMicroorganismos >=4 && nivelMicroorganismos <= 5)
         {
-            return new String[]{"Clasificando y separando desechos","Prendiendo incinerador a 1200°C","Quemando desechos","Recogiendo cenizas","Tratando cenizas"};
+            return new String[]{"Prender incinerador a 1200°C","Quemar desechos","Recoger cenizas","Tratar cenizas"};
         }
         else
         {
@@ -72,7 +72,7 @@ public class Biologicos extends Desecho {
     {
         if(!peligroso && nivelMicroorganismos > 5)
         {
-            return new String[]{"Colocando desechos en contenedores seguros","Sometiendo a rayos gamma","Controlando niveles de Radiacion","Manipulando y preparando para siguiente proceso"};
+            return new String[]{"Someter a rayos gamma","Controlar niveles de radiacion","Aislar desechos"};
         }
         else
         {
@@ -84,7 +84,7 @@ public class Biologicos extends Desecho {
     public String[] pasarAutoclave(){
         if(peligroso)
         {
-            return new String[]{"Introduciendo en bolsas especiales","Colocando material en el autoclave","Calentando y presionando desechos","Enfriando desechos"};
+            return new String[]{"Introducir en bolsas especiales","Colocar material en el autoclave","Calentar y presurizar desechos","Enfriar desechos"};
         }
         else
         {

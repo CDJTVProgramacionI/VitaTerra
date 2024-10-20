@@ -51,7 +51,9 @@ public class Nivel {
             gameManager.irAPantalla(13, new String[]{maxContenedor.getEtiqueta(), String.valueOf(maxContenedor.getCantidadDesechos())});
 
             //Si no se llega a la cantidad de desechos mínimos, se salta al siguiente jugador
-            if (desechosCorrectos < desechosMinimosParaSeguir) {
+            if (desechosCorrectos < desechosMinimosParaSeguir)
+            {
+                gameManager.confirmarJugadorConDesechosMinimos(jugadorActual, desechosMinimosParaSeguir, desechosCorrectos);
                 continue;
             }
 
@@ -61,7 +63,7 @@ public class Nivel {
             PlantaTratadora planta = new PlantaTratadora(contenedores);
 
             // Bucle que se repite mientras haya contenedores sin revisar y el jugador esté vivo
-            for (int j = 0; j < contenedores.length && jugadorVivoYConTiempo(jugadorActual, temporizador); j++) {
+            for (int j = 0; j < contenedores.length && jugadorVivoYConTiempo(jugadorActual, temporizador) && desechosCorrectos >= desechosMinimosParaSeguir; j++) {
                 Contenedor contenedorActual = planta.getContenedor(j); // Obtener el i-ésimo contenedor
                 ArrayList<Desecho> desechos = contenedorActual.vaciarContenedor(); // Vaciar el contenedor
                 for(int des = 0; des < desechos.size() && jugadorVivoYConTiempo(jugadorActual, temporizador); des++)
@@ -82,14 +84,24 @@ public class Nivel {
                         for(int k = 0; k < planta.getCantidadPasos(); k++)
                         {
                             //Mostrar pasos de tratamiento
-                            gameManager.irAPantalla(14, new String[]{jugadorActual.getInfo(), desecho.getInfo(), planta.getTratamientoDesorganizado(), String.valueOf(temporizador.getTiempo()), String.valueOf(k + 1)});
+                            gameManager.irAPantalla(6, new String[]{jugadorActual.getInfo(), desecho.getInfo(), planta.getTratamientoDesorganizado(), String.valueOf(temporizador.getTiempo()), String.valueOf(k + 1)});
                             pasosJugador.add(gameManager.getOpcionElegida());
                         }
                         temporizador.detener();
-                        gameManager.procesarRespuesta(jugadorActual, temporizador.restaTiempo(), this, pasosJugador, planta);
+                        if(!gameManager.procesarRespuesta(jugadorActual, temporizador.restaTiempo(), this, pasosJugador, planta))
+                        {
+                            desechosCorrectos--;
+                        }
+                    }
+                    else
+                    {
+                        desechosCorrectos--;
                     }
                 }
             }
+
+            //Confirmar que jugador ha clasificado y tratado suficientes desechos
+            gameManager.confirmarJugadorConDesechosMinimos(jugadorActual, desechosMinimosParaSeguir, desechosCorrectos);
         }
 
         temporizador.dispose();
