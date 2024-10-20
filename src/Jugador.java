@@ -22,6 +22,10 @@ public class Jugador {
         //Retorna el nombre, los puntos y las vidas del jugador
         return nombre + " Puntos:" + puntos + " Vidas:" + vidas;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
     //Metodo para aumentar puntos
     public void aumentarPuntosEn(int puntosRespuestaCorrecta){
 

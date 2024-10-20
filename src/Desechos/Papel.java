@@ -5,7 +5,7 @@ public class Papel extends Desecho {
     private boolean entintado;
     public Papel(String nombre, boolean entintado){
 
-        super(nombre, "organico");
+        super(nombre, "Papel");
         this.entintado = entintado;
     }
 

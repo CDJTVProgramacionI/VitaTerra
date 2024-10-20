@@ -4,7 +4,7 @@ public class Organico extends Desecho {
     private boolean compostable;
 
     public Organico(String nombre, boolean compostable) {
-        super(nombre, "organico");
+        super(nombre, "Orgánico");
         this.compostable = compostable;
     }
 
@@ -24,7 +24,7 @@ public class Organico extends Desecho {
     @Override
     public String getInfo()
     {
-        return "Compostable: " + compostable;
+        return "Compostable: " + (compostable? "Sí" : "No");
     }
 
     //Si es compostable, se puede compostar

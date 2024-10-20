@@ -12,9 +12,9 @@ public class Baterias extends Desecho {
     public static Desecho generaAleatorio() {
         int random = (int) (Math.random() * 3);
         return switch (random) {
-            case 0 -> new Baterias("Niquel-Cadmio", "Niquel-Cadmio");
-            case 1 -> new Baterias("Plomo-Acido", "Plomo-Acido");
-            case 2 -> new Baterias("Litio", "Litio");
+            case 0 -> new Baterias("Batería de Niquel-Cadmio", "Niquel-Cadmio");
+            case 1 -> new Baterias("Batería de Plomo-Acido", "Plomo-Acido");
+            case 2 -> new Baterias("Batería de Litio", "Litio");
             default -> null;
         };
     }

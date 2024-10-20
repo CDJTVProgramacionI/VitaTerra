@@ -2,13 +2,15 @@ import java.util.Scanner;
 
 public class Menu extends Pantalla
 {
+    private int cantOpciones;
     private int opcionElegida;
     private Scanner scanner;
 
-    public Menu(String textoActual, int cant_argumentos)
+    public Menu(String textoActual, int cant_argumentos, int cantOpciones)
     {
         super(textoActual, cant_argumentos);
         scanner = new Scanner(System.in);
+        this.cantOpciones = cantOpciones;
     }
 
     @Override
@@ -21,12 +23,12 @@ public class Menu extends Pantalla
             opcionElegida = scanner.nextInt(); //Lee la opción del usuario
 
             //Validar
-            if(opcionElegida <= 0 || opcionElegida > argumentos.length)
+            if(opcionElegida <= 0 || opcionElegida > cantOpciones)
             {
                 System.out.println("Opción no válida");
             }
 
-        }while(opcionElegida <= 0 || opcionElegida > argumentos.length);
+        }while(opcionElegida <= 0 || opcionElegida > cantOpciones);
     }
 
     public int getOpcionElegida() {

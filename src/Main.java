@@ -15,7 +15,7 @@ public class Main {
                 {
                         new Contenedor("Electrónicos"),
                         new Contenedor("Vidrio"),
-                        new Contenedor("Pilas"),
+                        new Contenedor("Baterías"),
                         new Contenedor("Cartón"),
                 };
 
@@ -54,7 +54,7 @@ public class Main {
                     System.out.println("Gracias por jugar");
                     break;
             }
-        } while (opcion != 2);
+        } while (opcion != 3);
     }
 
     public static void Jugar(Manager juego, Nivel[] niveles)
@@ -66,6 +66,12 @@ public class Main {
         for (int i = 0; i < 3 && hayJugadores; i++) {
             //Jugar los niveles
             hayJugadores = niveles[i].ejecutarConResultado();
+
+            if(hayJugadores && i < 2)
+            {
+                //Ir a pantalla de cambio de nivel
+                juego.irAPantalla(10, null);
+            }
         }
 
         if(hayJugadores)

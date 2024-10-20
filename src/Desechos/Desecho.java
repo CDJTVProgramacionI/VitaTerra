@@ -12,6 +12,10 @@ public abstract class Desecho
 
     public abstract String getInfo();
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public String getClasificacion() {
         return clasificacion;
     }

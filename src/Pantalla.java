@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Pantalla {
 
 
@@ -14,14 +16,22 @@ public class Pantalla {
 
     public void mostrar(){
 
-        for(int i =  0; i < argumentos.length; i++){
+        String textoModificado = textoActual;
+        if(argumentos != null)
+        {
+            for(int i =  0; i < argumentos.length; i++){
 
-            textoActual.replace("{"+i+"}", argumentos [i]);
-
+                textoModificado = textoModificado.replace("{"+i+"}", argumentos [i]);
+            }
         }
 
-        System.out.println(textoActual);
+        System.out.println(textoModificado);
+    }
 
+    public void esperarTecla()
+    {
+        System.out.println("Presione ENTER para continuar");
+        new Scanner(System.in).nextLine();
     }
 
     public int getCantidadArgumentos(){

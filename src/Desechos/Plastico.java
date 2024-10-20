@@ -4,7 +4,7 @@ public class Plastico extends Desecho {
     private int espesura;
 
     public Plastico(String nombre, int espesura){
-        super(nombre,"Plastico");
+        super(nombre,"Plástico");
         this.espesura = espesura;
     }
 

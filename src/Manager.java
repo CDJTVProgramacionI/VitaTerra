@@ -22,9 +22,9 @@ public class Manager {
     public void setJugadores()
     {
         int cantidadJugadores = getOpcionElegida();
-        for(int i = 0; i < cantidadJugadores; i++)
+        for(int i = cantidadJugadores; i > 0; i--)
         {
-            jugadores.add(new Jugador("Jugador " + (i + 1)));
+            jugadores.add(new Jugador("Jugador " + (i)));
         }
     }
 
@@ -40,20 +40,34 @@ public class Manager {
         {
             iu.actualizarPantalla(n, argumentos);
         }
-        pantallaActual = iu.cambiarAPantalla(n);
+        pantallaActual = iu.mostrarPantalla(n);
+
+        //Esperar tecla solo si es pantalla
+        if(pantallaActual.getClass().equals(Pantalla.class))
+        {
+            pantallaActual.esperarTecla();
+        }
     }
 
-    public void procesarRespuesta(Jugador jugador, boolean esCorrecta, int consecuencia) {
+    public void procesarRespuesta(Jugador jugador, boolean restaTiempo, boolean esCorrecta, int puntos, int vidas) {
         /*
          * Revisa si la respuesta del jugador es correcta o no
          */
-        if(esCorrecta)
+        if(esCorrecta && restaTiempo)
         {
-            jugador.aumentarPuntosEn(consecuencia);
-        }
-        else
+            jugador.aumentarPuntosEn(puntos);
+        } else if (!restaTiempo)
         {
-            jugador.disminuirVidasEn(consecuencia);
+            irAPantalla(12, null);
+            jugadores.remove(jugador);
+        } else
+        {
+            irAPantalla(7, null);
+            jugador.disminuirVidasEn(vidas);
+            if(!jugador.jugadorEstaVivo())
+            {
+                jugadores.remove(jugador);
+            }
         }
     }
 

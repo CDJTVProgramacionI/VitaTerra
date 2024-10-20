@@ -5,15 +5,14 @@ import java.util.Scanner;
 public class Temporizador
 {
     private int segundos;
-    private Timer timer = new Timer();
-    private Scanner scanner;
+    private int decremento;
+    private Timer timer;
 
     private TimerTask decrementTask = new TimerTask() {
         @Override
         public void run() {
-            segundos--;
-            if (segundos == 0) {
-                scanner.close();
+            segundos -= decremento;
+            if (segundos == 0) {;
                 timer.cancel();
             }
         }
@@ -22,16 +21,19 @@ public class Temporizador
     public Temporizador()
     {
         this.segundos = 0;
+        this.timer = new Timer();
+        this.decremento = 0;
+        timer.schedule(decrementTask, 0, 1000);
     }
 
     public void comenzar()
     {
-        timer.schedule(decrementTask, 0, 1000);
+        decremento = 1;
     }
 
     public void detener()
     {
-        timer.cancel();
+        decremento = 0;
     }
 
     public boolean restaTiempo()
@@ -39,8 +41,14 @@ public class Temporizador
         return segundos > 0;
     }
 
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
+    public void dispose()
+    {
+        timer.cancel();
+    }
+
+    public int getTiempo()
+    {
+        return segundos;
     }
 
     public void setTiempo(int segundos) {

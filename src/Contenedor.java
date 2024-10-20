@@ -14,10 +14,12 @@ public class Contenedor {
     }
 
     // Método para insertar un desecho
-    public void insertarDesecho(Desecho desecho) {
+    public boolean insertarDesecho(Desecho desecho) {
     if (desecho.getClasificacion().equals(etiqueta)) {
         desechos.add(desecho); // Aumenta la cantidad de desechos si la clasificación coincide exactamente
+        return true;
     }
+    else return false;
 }
 
     // Método para obtener la etiqueta
