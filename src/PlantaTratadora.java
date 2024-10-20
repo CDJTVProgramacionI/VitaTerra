@@ -1,9 +1,11 @@
 import Desechos.Desecho;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 class PlantaTratadora {
-    private ArrayList<Contenedor> contenedores;
+    private Contenedor[] contenedores;
+    private String[] tratamiento;
+    private String[] tratamientoDesorganizado;
 
     private final String metodosBaterias = "1.Recuperar materiales\n2. Neutralizar\n3. Extraer químicos";
     private final String metodosBiologicos = "1. Desinfectar\n2. Incinerar\n3. Radiar\n4.Usar autoclave";
@@ -18,40 +20,70 @@ class PlantaTratadora {
 
 
     // Constructor que recibe una lista de contenedores
-    public PlantaTratadora(ArrayList<Contenedor> contenedores) {
+    public PlantaTratadora(Contenedor[] contenedores) {
         this.contenedores = contenedores; // Asignar la lista recibida
     }
 
+    public void setTratamiento(String[] pasos) {
+        this.tratamiento = pasos;
+        tratamientoDesorganizado = desorganizarTratamiento();
+    }
+
+    public int getCantidadPasos()
+    {
+        return tratamiento.length;
+    }
+
+    private String[] desorganizarTratamiento()
+    {
+        String[] pasosDesorganizados = new String[tratamiento.length];
+        int pasosRestantes = tratamiento.length;
+        for (int i = 0; i < pasosRestantes; i++) {
+            int random = (int) (Math.random() * pasosRestantes);
+            pasosDesorganizados[i] = tratamiento[random];
+            tratamiento[random] = tratamiento[pasosRestantes - 1];
+            pasosRestantes--;
+        }
+        return pasosDesorganizados;
+    }
+
+    public String getTratamientoDesorganizado()
+    {
+        String texto = "";
+        for (int i = 0; i < tratamientoDesorganizado.length; i++) {
+            texto += (i + 1) + ". " + tratamientoDesorganizado[i] + "\n";
+        }
+        return texto;
+    }
+
+    public Contenedor getContenedor(int i) {
+        return contenedores[i];
+    }
+
+
     public String getMetodosParaContenedorN(int i) {
-        String etiqueta = contenedores.get(i).getEtiqueta();
+        String etiqueta = contenedores[i].getEtiqueta();
         return switch (etiqueta) {
-            case "Baterias" -> metodosBaterias;
-            case "Biologicos" -> metodosBiologicos;
-            case "Carton" -> metodosCarton;
-            case "Electronicos" -> metodosElectronicos;
+            case "Baterías" -> metodosBaterias;
+            case "Biológicos" -> metodosBiologicos;
+            case "Cartón" -> metodosCarton;
+            case "Electrónicos" -> metodosElectronicos;
             case "Medicamentos" -> metodosMedicamentos;
-            case "Organicos" -> metodosOrganicos;
+            case "Orgánico" -> metodosOrganicos;
             case "Papel" -> metodosPapel;
-            case "Plasticos" -> metodosPlasticos;
-            case "Quimicos" -> metodosQuimicos;
+            case "Plástico" -> metodosPlasticos;
+            case "Químicos" -> metodosQuimicos;
             case "Vidrio" -> metodosVidrio;
             default -> "No se encontraron métodos para el contenedor";
         };
     }
 
-
-
-    public boolean realizarTratamiento(Desecho desecho, ArrayList<String> pasosCorrectos) {
-        ArrayList<String> pasosJugador = new ArrayList<>();
-
-        boolean respCorrecta = true;
-
-        // Validar si los pasos seleccionados coinciden con los correctos
-        for(String paso : pasosJugador)
-        {
-            respCorrecta &= paso.equals(pasosCorrectos);
+    public boolean realizarTratamiento(ArrayList<Integer> pasosJugador) {
+        for (int i = 0; i < pasosJugador.size(); i++) {
+            if (!tratamientoDesorganizado[i].equals(tratamiento[pasosJugador.get(i) - 1])) {
+                return false;
+            }
         }
-
-        return respCorrecta;
+        return true;
     }
 }

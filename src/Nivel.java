@@ -1,7 +1,8 @@
-import java.util.Scanner;
-
 import Desechos.*;
 import Desechos.Plastico;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Nivel {
     private int puntosPorRespuestaCorrecta;
@@ -24,25 +25,23 @@ public class Nivel {
         Temporizador temporizador = new Temporizador();
         int numJugadores = gameManager.getNumeroDeJugadores() - 1;
         int desechosCorrectos = 0;
-        boolean ultimaRespuestaCorrecta = true;
 
         for (int i = numJugadores; i >= 0; i--) {
             Jugador jugadorActual = gameManager.getNesimoJugador(i);
-            temporizador.setTiempo(segundosPorTurno / 3);
+            temporizador.setTiempo(segundosPorTurno);
 
+            //Texto de inicio de turno
             gameManager.irAPantalla(11, new String[]{jugadorActual.getNombre()});
 
-            for (int j = 0; j < 10 && JugadorVivoYConTiempo(jugadorActual, temporizador) && respuestaCorrectaYMultijugador(ultimaRespuestaCorrecta, numJugadores); j++) {
-                String infoJugador = jugadorActual.getInfo();
+            //Clasificar desechos
+            for (int j = 0; j < 10 && jugadorVivoYConTiempo(jugadorActual, temporizador); j++) {
                 Desecho desecho = generarDesechoAleatorio();
 
                 temporizador.comenzar();
-                gameManager.irAPantalla(3, new String[]{infoJugador, desecho.getNombre(), generarListaContenedores(), String.valueOf(temporizador.getTiempo())});
+                gameManager.irAPantalla(3, new String[]{jugadorActual.getInfo(), desecho.getNombre(), generarListaContenedores(), String.valueOf(temporizador.getTiempo())});
                 temporizador.detener();
 
-                ultimaRespuestaCorrecta = gameManager.procesarRespuesta(jugadorActual, temporizador.restaTiempo(), this, desecho);
-
-                if (ultimaRespuestaCorrecta) {
+                if (gameManager.procesarRespuesta(jugadorActual, temporizador.restaTiempo(), this, desecho)) {
                     desechosCorrectos++;
                 }
             }
@@ -56,8 +55,41 @@ public class Nivel {
                 continue;
             }
 
-            //Planta tratadora
-            gameManager.irAPantalla(4, null);
+            //Texto de conexión
+            gameManager.irAPantalla(4, null); // Llamar a ver plata tratadora
+
+            PlantaTratadora planta = new PlantaTratadora(contenedores);
+
+            // Bucle que se repite mientras haya contenedores sin revisar y el jugador esté vivo
+            for (int j = 0; j < contenedores.length && jugadorVivoYConTiempo(jugadorActual, temporizador); j++) {
+                Contenedor contenedorActual = planta.getContenedor(j); // Obtener el i-ésimo contenedor
+                ArrayList<Desecho> desechos = contenedorActual.vaciarContenedor(); // Vaciar el contenedor
+                for(int des = 0; des < desechos.size() && jugadorVivoYConTiempo(jugadorActual, temporizador); des++)
+                {
+                    Desecho desecho = desechos.get(des);
+                    //Elije tratamiento
+                    String metodos = planta.getMetodosParaContenedorN(j);
+
+                    temporizador.comenzar();
+                    //Mostrar métodos de tratamiento
+                    gameManager.irAPantalla(5, new String[]{jugadorActual.getInfo(), desecho.getInfo(), metodos, String.valueOf(temporizador.getTiempo())}); // Llamar a ver plata tratadora
+                    temporizador.detener();
+
+                    if(gameManager.procesarRespuesta(jugadorActual, temporizador.restaTiempo(), this, desecho, planta))
+                    {
+                        ArrayList<Integer> pasosJugador = new ArrayList<Integer>();
+                        temporizador.comenzar();
+                        for(int k = 0; k < planta.getCantidadPasos(); k++)
+                        {
+                            //Mostrar pasos de tratamiento
+                            gameManager.irAPantalla(14, new String[]{jugadorActual.getInfo(), desecho.getInfo(), planta.getTratamientoDesorganizado(), String.valueOf(temporizador.getTiempo()), String.valueOf(k + 1)});
+                            pasosJugador.add(gameManager.getOpcionElegida());
+                        }
+                        temporizador.detener();
+                        gameManager.procesarRespuesta(jugadorActual, temporizador.restaTiempo(), this, pasosJugador, planta);
+                    }
+                }
+            }
         }
 
         temporizador.dispose();
@@ -108,7 +140,7 @@ public class Nivel {
         return max;
     }
 
-    private boolean JugadorVivoYConTiempo(Jugador jugador, Temporizador temporizador) {
+    private boolean jugadorVivoYConTiempo(Jugador jugador, Temporizador temporizador) {
         return jugador.jugadorEstaVivo() && temporizador.restaTiempo();
     }
 
@@ -117,20 +149,7 @@ public class Nivel {
     }
 
     private boolean respuestaCorrectaYMultijugador(boolean ultimaRespuestaCorrecta, int numJugadores) {
-        return ultimaRespuestaCorrecta && numJugadores > 0;
-    }
-
-    private String[] desorganizaPasos(String[] pasos) {
-        String[] pasosDesorganizados = new String[pasos.length];
-        int pasosRestantes = pasos.length;
-        for (int i = 0; i < pasosRestantes; i++)
-        {
-            int random = (int) (Math.random() * pasosRestantes);
-            pasosDesorganizados[i] = pasos[random];
-            pasos[random] = pasos[pasosRestantes - 1];
-            pasosRestantes--;
-        }
-        return pasosDesorganizados;
+        return ultimaRespuestaCorrecta && numJugadores > 1;
     }
 
     public int getPuntos() {

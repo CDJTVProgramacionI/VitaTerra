@@ -24,14 +24,15 @@ public class InterfazDeUsuario
                         new Pantalla("¡Muy bien!, has clasificado correctamente la cantidad mínima de desechos para este nivel.\n" +
                                 "Ahora continuamos llevando estos desechos a la Planta Tratadora", 0),
                         new Menu("Tiempo restante {3} segundos\nDatos del jugador: {0}\nDesecho a tratar: {1}\n¿Cómo se trata este desecho?\n{2}", 4, 4),
-                        new Menu("¡Correcto!\nAhora organiza los pasos a seguir para tratar el desecho:\n{0}", 1, 4),
+                        new Menu("Tiempo restante {3} segundos\nDatos del jugador: {0}\nDesecho a tratar: {1}\nOrganiza el tratamiento, elige el paso {4}\n{2}", 5, 4),
                         new Pantalla("Incorrecto", 0),
                         new Pantalla("Fin del juego, perdiste", 0),
                         new Pantalla ("¡Felicidades!, {0} ganado", 1),
                         new Pantalla("¡Vamos al siguiente nivel!", 0),
                         new Pantalla("¡Ahora es turno del {0}!", 1),
                         new Pantalla("¡Se acabó el tiempo!", 0),
-                        new Pantalla("El contenedor {0} es el más lleno con {1} desechos", 2)
+                        new Pantalla("El contenedor {0} es el más lleno con {1} desechos", 2),
+                        new Pantalla("Correcto", 0)
                 };
     }
 

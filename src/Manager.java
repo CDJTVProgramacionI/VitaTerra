@@ -80,6 +80,58 @@ public class Manager {
         return esCorrecta;
     }
 
+    public boolean procesarRespuesta(Jugador jugador, boolean restaTiempo, Nivel nivelData, Desecho desecho, PlantaTratadora planta) {
+        /*
+         * Revisa si la respuesta del jugador es correcta o no
+         */
+
+        String[] tratamiento = desecho.tratar(getOpcionElegida());
+        boolean respuestaCorrecta = tratamiento != null;
+
+        if(respuestaCorrecta && restaTiempo)
+        {
+            planta.setTratamiento(tratamiento);
+        } else if (!restaTiempo)
+        {
+            //Mostrar pantalla se acabó el tiempo y quitar al jugador
+            irAPantalla(12, null);
+            jugadores.remove(jugador);
+        } else
+        {
+            //Mostrar pantalla respuesta incorrecta
+            irAPantalla(7, null);
+            jugador.disminuirVidasEn(nivelData.getVidas());
+            if(!jugador.jugadorEstaVivo())
+            {
+                jugadores.remove(jugador);
+            }
+        }
+        return respuestaCorrecta && restaTiempo;
+    }
+
+    public void procesarRespuesta(Jugador jugador, boolean restaTiempo, Nivel nivelData, ArrayList<Integer> pasos, PlantaTratadora planta)
+    {
+        boolean esCorrecto = planta.realizarTratamiento(pasos);
+        if(esCorrecto && restaTiempo)
+        {
+            jugador.aumentarPuntosEn(nivelData.getPuntos());
+        } else if (!restaTiempo)
+        {
+            //Mostrar pantalla se acabó el tiempo y quitar al jugador
+            irAPantalla(12, null);
+            jugadores.remove(jugador);
+        } else
+        {
+            //Mostrar pantalla respuesta incorrecta
+            irAPantalla(7, null);
+            jugador.disminuirVidasEn(nivelData.getVidas());
+            if(!jugador.jugadorEstaVivo())
+            {
+                jugadores.remove(jugador);
+            }
+        }
+    }
+
     public void reiniciarJugadores() {
         /*
          * Reinicia los valores de los jugadores
