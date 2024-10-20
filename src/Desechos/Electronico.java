@@ -44,7 +44,7 @@ public class Electronico extends Desecho {
     //Si el estado es malo y la cantidad de metales es mayor a 3, se puede desensamblar
     public String[] desensamblar(){
         if(estado.equals("malo") && cantidadDeMetales > 3){
-            return new String[]{};
+            return new String[]{"Recolectando y clasificando","Desconectando aparato","Desmomtando","Clasificando piezas"};
         }
         else
         {
@@ -55,7 +55,7 @@ public class Electronico extends Desecho {
     //Si el estado es bueno, se puede actualizar
     public String[] actualizar(){
         if(estado.equals("bueno")){
-            return new String[]{};
+            return new String[]{"Revisando dspositivo","Adquiriendo piezsas de repuesto","Instalando nuevps componentes","Probando dispositivo"};
         }
         else
         {
@@ -66,7 +66,7 @@ public class Electronico extends Desecho {
     //Si el estado es malo y la cantidad de metales es menor o igual a 3, se puede bricolar
     public String[] bricolar(){
         if(estado.equals("malo") && cantidadDeMetales <= 3){
-            return new String[]{};
+            return new String[]{"Selecionando piezas reutilizables","Diseñando nuevo dispositivo","Ensamblando nuevo dispositivo","Probando dispositivo"};
         }
         else
         {
