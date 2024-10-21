@@ -13,7 +13,7 @@ public class Temporizador
         public void run() {
             segundos -= decremento;
             if (segundos == 0) {;
-                timer.cancel();
+                decremento = 0;
             }
         }
     };
@@ -51,7 +51,9 @@ public class Temporizador
         return segundos;
     }
 
-    public void setTiempo(int segundos) {
+    public void setTiempo(int segundos)
+    {
+        decremento = 0;
         this.segundos = segundos;
     }
 

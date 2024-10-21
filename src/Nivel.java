@@ -51,7 +51,7 @@ public class Nivel {
             gameManager.irAPantalla(13, new String[]{maxContenedor.getEtiqueta(), String.valueOf(maxContenedor.getCantidadDesechos())});
 
             //Si no se llega a la cantidad de desechos mínimos, se salta al siguiente jugador
-            if (desechosCorrectos < desechosMinimosParaSeguir)
+            if (desechosCorrectos < desechosMinimosParaSeguir || !jugadorVivoYConTiempo(jugadorActual, temporizador))
             {
                 gameManager.confirmarJugadorConDesechosMinimos(jugadorActual, desechosMinimosParaSeguir, desechosCorrectos);
                 continue;

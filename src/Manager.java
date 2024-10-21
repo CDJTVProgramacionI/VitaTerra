@@ -135,7 +135,7 @@ public class Manager {
 
     public void confirmarJugadorConDesechosMinimos(Jugador jugador, int desechosMinimos, int desechosCorrectos)
     {
-        if (desechosCorrectos < desechosMinimos)
+        if (desechosCorrectos < desechosMinimos && jugador.jugadorEstaVivo())
         {
             //Pantalla no lograste clasificar y tratar suficientes desechos
             irAPantalla(14, null);
