@@ -7,7 +7,7 @@ public class Medicamentos extends Desecho {
     private boolean solido;
 
     public Medicamentos(String nombre, boolean inflamable, boolean reactivo, boolean solido) {
-        super(nombre, "Medicamento");
+        super(nombre, "Medicamentos");
         this.inflamable = inflamable;
         this.reactivo = reactivo;
         this.solido = solido;
