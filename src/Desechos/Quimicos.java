@@ -6,7 +6,7 @@ public class Quimicos extends Desecho {
     private boolean toxico;
 
     public Quimicos(String nombre, boolean liquido, boolean toxico){
-        super(nombre,"Quimicos");
+        super(nombre,"Químicos");
         this.liquido = liquido;
         this.toxico = toxico;
     }
