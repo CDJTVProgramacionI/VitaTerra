@@ -13,6 +13,7 @@ public class Medicamentos extends Desecho {
         this.solido = solido;
     }
 
+
     public static Desecho generaAleatorio() {
         int random = (int) (Math.random() * 6);
         return switch (random) {
