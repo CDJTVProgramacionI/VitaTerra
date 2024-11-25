@@ -41,7 +41,6 @@ public class Biologicos extends Desecho {
         };
     }
 
-    //Si el nivel de microorganismos está entre 1 y 3, se puede desinfectar
     public String[] desinfectar()
     {
         if(!peligroso && nivelMicroorganismos >=1 && nivelMicroorganismos <= 3)
@@ -50,9 +49,10 @@ public class Biologicos extends Desecho {
         }
         else
         {
-            return null;
+           throw new MetodoIncorrectoException(this, "desinfectar");
         }
     }
+
 
     //Si el nivel de microorganismos está entre 4 y 5, se puede incinerar
     public String[] incinerar()
@@ -63,9 +63,8 @@ public class Biologicos extends Desecho {
         }
         else
         {
-            return null;
+            throw new MetodoIncorrectoException(this, "incinerar");
         }
-    }
 
     //Si el nivel de microorganismos es mayor a 5, se puede radiar
     public String[] radiar()
@@ -76,7 +75,7 @@ public class Biologicos extends Desecho {
         }
         else
         {
-            return null;
+            throw new MetodoIncorrectoException(this, "radiar");
         }
     }
 
@@ -88,7 +87,7 @@ public class Biologicos extends Desecho {
         }
         else
         {
-            return null;
+            throw new MetodoIncorrectoException(this, "pasarAutoclave");
         }
     }
 }
