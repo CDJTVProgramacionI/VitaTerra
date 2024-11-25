@@ -36,7 +36,6 @@ public class Organico extends Desecho {
         };
     }
 
-    //Si es compostable, se puede compostar
     public String[] compostar() {
         if(compostable)
         {
@@ -44,9 +43,10 @@ public class Organico extends Desecho {
         }
         else
         {
-            return null;
+            throw new MetodoIncorrectoException(this, "compostar");
         }
     }
+
 
     //Si no es compostable, se puede biodigerir
     public String[] biodigerir() {
@@ -56,7 +56,8 @@ public class Organico extends Desecho {
         }
         else
         {
-            return null;
+           throw new MetodoIncorrectoException(this, "biodigerir");
         }
     }
 }
+
