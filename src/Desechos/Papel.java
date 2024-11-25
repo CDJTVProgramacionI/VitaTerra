@@ -1,17 +1,21 @@
 package Desechos;
 
-public class Papel extends Desecho {
+public class Papel extends Desecho 
+{
 
     private boolean entintado;
-    public Papel(String nombre, boolean entintado){
+    public Papel(String nombre, boolean entintado)
+    {
 
         super(nombre, "Papel");
         this.entintado = entintado;
     }
 
-    public static Desecho generaAleatorio() {
+    public static Desecho generaAleatorio() 
+    {
         int random = (int) (Math.random() * 6);
-        return switch (random) {
+        return switch (random) 
+        {
             case 0 -> new Papel("Opalina", false);
             case 1 -> new Papel("Periódico", true);
             case 2 -> new Papel("Papel cartulina", false);
@@ -38,6 +42,7 @@ public class Papel extends Desecho {
         };
     }
 
+
     //Si eliges blanquear, el papel no debe estar entintado
     public String[] blanquear(){
         if(!entintado){
@@ -60,3 +65,5 @@ public class Papel extends Desecho {
              throw new MetodoIncorrectoException(this, "desintegrar");
         }
     }
+}
+
