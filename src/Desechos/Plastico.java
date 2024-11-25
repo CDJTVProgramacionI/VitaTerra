@@ -44,9 +44,10 @@ public class Plastico extends Desecho {
         }
         else
         {
-            return null;
+            throw new MetodoIncorrectoException(this, "fusionar");
         }
     }
+
 
     //Si la espesura es mayor a 5, se puede crear un ecoladrillo
     public String[] creaEcoladrillo(){
@@ -56,7 +57,6 @@ public class Plastico extends Desecho {
         }
         else
         {
-            return null;
+            throw new MetodoIncorrectoException(this, "creaEcoladrillo");
         }
     }
-}
