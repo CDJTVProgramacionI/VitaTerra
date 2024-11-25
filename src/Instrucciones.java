@@ -1,10 +1,7 @@
-package GUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.w3c.dom.Text;
 
 public class Instrucciones extends Pantallas {
     @Override
@@ -85,7 +82,7 @@ public class Instrucciones extends Pantallas {
             @Override 
             public void actionPerformed(ActionEvent e){
                 //lleva a la ventana de instrucciones (no se como hacerle perdon)
-                //new Pantallas(); 
+                new PantallaMenu();
                 dispose();  //Cierra el menu
             } 
         });
@@ -95,14 +92,5 @@ public class Instrucciones extends Pantallas {
         // Añadir la etiqueta al panel principal
         panelPrincipal.add(etiquetaInstrucciones, disposicion1);
         panelPrincipal.add(cuadroInstrucciones, disposicion2);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Instrucciones();
-            }
-        });
     }
 }

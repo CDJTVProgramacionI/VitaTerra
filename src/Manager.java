@@ -21,13 +21,8 @@ public class Manager {
         return ((Menu)pantallaActual).getOpcionElegida();
     }
 
-    public void setJugadores()
-    {
-        int cantidadJugadores = getOpcionElegida();
-        for(int i = cantidadJugadores; i > 0; i--)
-        {
-            jugadores.add(new Jugador("Jugador " + (i)));
-        }
+    public void setJugadores(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
     }
 
     public int getNumeroDeJugadores() {

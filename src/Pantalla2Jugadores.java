@@ -1,11 +1,18 @@
-package GUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 
 public class Pantalla2Jugadores extends Pantallas {
+    private Manager gameManager;
+
+    public Pantalla2Jugadores(Manager gameManager) {
+        super();
+        this.gameManager = gameManager;
+    }
+
     @Override
     public void inicializar() {
         String hexColor="#B7D2B6";
@@ -68,14 +75,10 @@ public class Pantalla2Jugadores extends Pantallas {
             @Override
             public void actionPerformed(ActionEvent e){
                 //lleva a la ventana de instrucciones (no se como hacerle perdon)
-                //new Pantallas();
+                ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
                 dispose();  //Cierra el menu
             }
         });
         panelPrincipal.add(botonJugar);
-    }
-
-    public static void main(String[] args) {
-        new Pantalla2Jugadores();
     }
 }
