@@ -39,28 +39,29 @@ public class Baterias extends Desecho {
         if (tipo.equals("Niquel-Cadmio")) {
             return new String[]{"Separar", "Disolver", "Filtrar", "Purificar"};
         } else {
-            return null;
+            throw new MetodoIncorrectoException(this, "recuperarmateriales");
         }
     }
+
 
     //Si es Plomo-Acido, se puede neutralizar
     public String[] neutralizar() {
         if (tipo.equals(("Plomo-Acido"))) {
             return new String[]{"Vertir", "Separar ácido", "Añadir bicarbonato", "Descontaminar herramientas"};
         } else {
-            return null;
+            throw new MetodoIncorrectoException(this, "neutralizar");
         }
     }
+
 
     //Si es Litio, se puede extraer quimicos
     public String[] extraerQuimicos() {
         if (tipo.equals("Litio")) {
             return new String[]{"Descargar", "Desmontar", "Filtrar"};
         } else {
-            return null;
+            throw new MetodoIncorrectoException(this, "extarerquimicos");
         }
     }
-
 }
 
 
