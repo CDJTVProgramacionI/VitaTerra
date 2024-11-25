@@ -49,7 +49,6 @@ public class Medicamentos extends Desecho {
         }
     }
 
-    //Si es inflamable y no es reactivo, se puede incinerar
     public String[] incinerar(){
         if(inflamable && !reactivo)
         {
@@ -57,9 +56,10 @@ public class Medicamentos extends Desecho {
         }
         else
         {
-            return null;
+            throw new MetodoIncorrectoException(this, "incinerar");
         }
     }
+
 
     //Si es reactivo, se puede neutralizar
     public String[] neutralizar(){
@@ -69,9 +69,10 @@ public class Medicamentos extends Desecho {
         }
         else
         {
-            return null;
+            throw new MetodoIncorrectoException(this, "neutralizar");
         }
     }
+
 
     //Si no es reactivo, inflamable y es solido, se puede triturar
     public String[] triturar(){
@@ -81,9 +82,10 @@ public class Medicamentos extends Desecho {
         }
         else
         {
-            return null;
+            throw new MetodoIncorrectoException(this, "triturar");
         }
     }
+
 
     //Si no es reactivo, inflamable y no es solido, se puede diluir
     public String[] diluir(){
@@ -93,8 +95,8 @@ public class Medicamentos extends Desecho {
         }
         else
         {
-            return null;
+            throw new MetodoIncorrectoException(this, "diluir");
         }
     }
-    
+   
 }
