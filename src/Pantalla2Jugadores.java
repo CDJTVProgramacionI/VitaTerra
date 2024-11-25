@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import Excepciones.DatosIncorrectosException;
+
 
 public class Pantalla2Jugadores extends Pantallas {
     private Manager gameManager;
@@ -76,6 +78,14 @@ public class Pantalla2Jugadores extends Pantallas {
             public void actionPerformed(ActionEvent e){
                 //lleva a la ventana de instrucciones (no se como hacerle perdon)
                 ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+                try {
+                    jugadores.add(new Jugador(campoNombre.getText(), Integer.parseInt(campoEdad.getText())));
+                    jugadores.add(new Jugador(campoNombre2.getText(), Integer.parseInt(campoEdad2.getText())));
+                }
+                catch (DatosIncorrectosException ex)
+                {
+                    //Aquí va la pantallita de Jou
+                }
                 dispose();  //Cierra el menu
             }
         });

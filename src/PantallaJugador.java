@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import Excepciones.DatosIncorrectosException;
+
 public class PantallaJugador extends Pantallas {
 
     private Manager gameManager;
@@ -54,12 +56,14 @@ public class PantallaJugador extends Pantallas {
         botonJugar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                gameManager.setJugadores(new ArrayList<Jugador>()
+                ArrayList<Jugador> jugadores = new ArrayList<>();
+                try {
+                    jugadores.add(new Jugador(campoNombre.getText(), Integer.parseInt(campoEdad.getText())));
+                }
+                catch (DatosIncorrectosException ex)
                 {
-                    {
-                        add(new Jugador(campoNombre.getText(), Integer.parseInt(campoEdad.getText())));
-                    }
-                });
+
+                }
                 dispose();  //Cierra el menu
             }
         });
