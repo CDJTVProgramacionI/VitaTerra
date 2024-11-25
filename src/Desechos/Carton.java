@@ -42,25 +42,27 @@ public class Carton extends Desecho {
         if (multicapa) {
             return new String[]{"Enjuagar", "Separar", "Compactar"};
         } else {
-            return null;
+            throw new MetodoIncorrectoException(this, "reciclarcapas");
         }
     }
+
 
     //Si el cartón es monocapa y su grosor es menor o igual a 7, se puede compostar
     public String[] compostar() {
         if (grosor <= 7 && !multicapa) {
             return new String[]{"Cortar", "Humedecer", "Mezclar", "Descomponer", "Aplicar"};
         } else {
-            return null;
+            throw new MetodoIncorrectoException(this, "compostar");
         }
     }
+
 
     //Si el cartón es monocapa y su grosor es mayor a 7, se puede laminar
     public String[] laminar() {
         if (grosor > 7 && !multicapa) {
             return new String[]{"Cortar", "Aplanar", "Pegar", "Secar", "Prensar"};
         } else {
-            return null;
+            throw new MetodoIncorrectoException(this, "laminar");
         }
     }
 }
