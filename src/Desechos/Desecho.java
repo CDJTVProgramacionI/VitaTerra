@@ -1,4 +1,5 @@
 package Desechos;
+import Excepciones.MetodoIncorrectoException;
 
 public abstract class Desecho
 {
@@ -12,7 +13,7 @@ public abstract class Desecho
 
     public abstract String getInfo();
 
-    public abstract String[] tratar(int metodo);
+    public abstract String[] tratar(int metodo) throws MetodoIncorrectoException;
 
     public String getNombre() {
         return nombre;

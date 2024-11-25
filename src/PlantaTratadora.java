@@ -1,4 +1,4 @@
-import Desechos.Desecho;
+import Excepciones.RespuestaIncorrectaException;
 
 import java.util.ArrayList;
 
@@ -78,12 +78,12 @@ class PlantaTratadora {
         };
     }
 
-    public boolean realizarTratamiento(ArrayList<Integer> pasosJugador) {
+    public boolean realizarTratamiento(ArrayList<Integer> pasosJugador) throws RespuestaIncorrectaException {
         for (int i = 0; i < pasosJugador.size(); i++) {
             if (!tratamientoDesorganizado[pasosJugador.get(i) - 1].equals(tratamiento[i])) {
-                return false;
+                throw new RespuestaIncorrectaException("Respuesta incorrecta: " + pasosJugador.get(i));
             }
         }
-        return true;
+    return true;
     }
 }
