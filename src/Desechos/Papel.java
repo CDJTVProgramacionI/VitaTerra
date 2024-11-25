@@ -45,9 +45,10 @@ public class Papel extends Desecho {
         }
         else
         {
-            return null;
+             throw new MetodoIncorrectoException(this, "blanquear");
         }
     }
+
 
     //Si eliges desintegrar, el papel debe estar entintado
     public String[] desintegrar(){
@@ -56,7 +57,6 @@ public class Papel extends Desecho {
         }
         else
         {
-            return null;
+             throw new MetodoIncorrectoException(this, "desintegrar");
         }
     }
-}
