@@ -41,6 +41,7 @@ public class Quimicos extends Desecho {
     }
 
     //Si es no es toxico y no es liquido, se pasa por procesos quimicos
+        //Si es no es toxico y no es liquido, se pasa por procesos quimicos
     public String[] procesosQuimicos()
     {
         if(!toxico && !liquido)
@@ -49,9 +50,10 @@ public class Quimicos extends Desecho {
         }
         else
         {
-            return null;
+      throw new MetodoIncorrectoException(this, "procesosquimicos");
         }
     }
+
 
     //Si es toxico y liquido, se puede filtrar
     public String[] filtracionQuimicos(){
@@ -61,9 +63,10 @@ public class Quimicos extends Desecho {
         }
         else
         {
-            return null;
+             throw new MetodoIncorrectoException(this, "filtracionquimica");
         }
     }
+
 
     //Si es toxico y no es liquido, se puede neutralizar
     public String[] neutralizar() {
@@ -73,9 +76,10 @@ public class Quimicos extends Desecho {
         }
         else
         {
-            return null;
+             throw new MetodoIncorrectoException(this, "neutralizar");
         }
     }
+
 
     //Si no es toxico y es liquido, se puede diluir
     public String[] diluir(){
@@ -85,9 +89,10 @@ public class Quimicos extends Desecho {
         }
         else
         {
-            return null;
+             throw new MetodoIncorrectoException(this, "diluir");
         }
     }
 }
+
     
 
