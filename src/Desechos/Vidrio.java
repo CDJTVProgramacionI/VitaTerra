@@ -40,30 +40,30 @@ public class Vidrio extends Desecho {
         };
     }
 
-    //Si eliges fundir, el vidrio debe ser un envase y roto
+    // Si eliges fundir, el vidrio debe ser un envase y roto
     public String[] fundir() {
         if (envase && roto) {
             return new String[]{"Mezclar", "Triturar", "Fusionar", "Moldear"};
         } else {
-            return null;
+            throw new MetodoIncorrectoException(this, "fundir");
         }
     }
 
-    //Si eliges desinfectar, el vidrio debe ser un envase y no debe estar roto
+    // Si eliges desinfectar, el vidrio debe ser un envase y no debe estar roto
     public String[] desinfectar() {
         if (envase && !roto) {
             return new String[]{"Lavar", "Desinfectar por calor", "Enfriar"};
         } else {
-            return null;
+           throw new MetodoIncorrectoException(this, "desinfectar");
         }
     }
 
-    //Si eliges crearMaterial, el vidrio no debe ser un envase
+    // Si eliges crearMaterial, el vidrio no debe ser un envase
     public String[] crearMaterial() {
         if (!envase) {
             return new String[]{"Clasificar por color", "Limpiar", "Triturar", "Fundir", "Moldear", "Enfriar"};
         } else {
-            return null;
+            throw new MetodoIncorrectoException(this, "crearmaterial");
         }
     }
 }
