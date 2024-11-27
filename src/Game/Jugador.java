@@ -1,6 +1,7 @@
 package Game;
 
 import Excepciones.DatosIncorrectosException;
+import Excepciones.VidasInsuficientesException;
 
 public class Jugador {
 
@@ -57,17 +58,11 @@ public class Jugador {
     }
 
     //Metodo para disminuir vidas
-    public void disminuirVidasEn(int vidasRespuestaIncorrecta) {
+    public void disminuirVidasEn(int vidasRespuestaIncorrecta) throws VidasInsuficientesException {
 
         //A las vidas les resta las vidas de las respuestas incorrectas de la clase Game.Nivel??
         vidas -= vidasRespuestaIncorrecta;
-    }
 
-    //Metodo para saber si el jugador está vivo
-    public boolean jugadorEstaVivo() {
-
-        //Verifica si la cantidad de vidas en mayor a 0, es decir, si está vivo el jugador
-        //Si está vivo retorna true, sino retorna false
-        return vidas > 0;
+        if(vidas <= 0) throw new VidasInsuficientesException();
     }
 }

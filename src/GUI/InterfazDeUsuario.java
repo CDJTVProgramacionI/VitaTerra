@@ -26,4 +26,7 @@ public class InterfazDeUsuario
         pantallas[pantalla].mostrar();
         return pantallas[pantalla];
     }
+
+    public void construirDialogo(String title, String message) {
+    }
 }

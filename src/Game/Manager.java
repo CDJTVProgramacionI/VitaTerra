@@ -1,8 +1,10 @@
 package Game;
 
 import Desechos.Desecho;
+import Excepciones.DesechosInsuficientesException;
 import Excepciones.MetodoIncorrectoException;
 import Excepciones.RespuestaIncorrectaException;
+import Excepciones.VidasInsuficientesException;
 import GUI.InterfazDeUsuario;
 
 import java.util.ArrayList;
@@ -25,17 +27,19 @@ public class Manager {
         jugadores = new ArrayList<>();
         this.niveles = niveles;
         Temporizador temporizador = new Temporizador(this);
+
+        iu.mostrarPantalla(0);
     }
 
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
 
-    public int getNumeroDeJugadores() {
-        return jugadores.size();
+    public void mostrarDialogo(String title, String message) {
+        iu.construirDialogo(title, message);
     }
 
-    public void Jugar(int nivel)
+    public void jugar(int nivel)
     {
         if(nivel == 3)
         {
@@ -47,22 +51,32 @@ public class Manager {
         for(Jugador jugador : jugadores)
         {
             niveles[nivel].ejecutar(this, temporizador, jugador);
-            Jugar(nivel + 1);
+            jugar(nivel + 1);
         }
     }
 
-    public void esperarPantalla(String pantalla, String[] argumentos)
+    public void esperarPantalla(String pantalla, String[] argumentos) throws RespuestaIncorrectaException
     {
-        //TODO: Esperar a que se obtenga una respuesta de la pantalla en turno
+        try
+        {
+            //TODO: Esperar a que se obtenga una respuesta de la pantalla en turno
+        }
+        catch (VidasInsuficientesException ex)
+        {
+            iu.construirDialogo("Perdiste", "Se te acabaron las vidas");
+            jugadores.remove(numJugadorActivo);
+            jugar(nivelActual);
+        }
     }
 
     protected void finTiempo() {
         //Cuadro de dialogo se acabó el tiempo y quitar al jugador
-        iu.mostrarPantalla(12);
+        iu.construirDialogo("Perdiste", "Se te acabó el tiempo");
         jugadores.remove(numJugadorActivo);
+        jugar(nivelActual);
     }
 
-    public void procesarRespuesta(int respuesta, Desecho desecho) throws RespuestaIncorrectaException {
+    public void procesarRespuesta(int respuesta, Desecho desecho) throws RespuestaIncorrectaException, VidasInsuficientesException {
         /*
          * Revisa si la respuesta del jugador es correcta o no
          */
@@ -82,14 +96,23 @@ public class Manager {
         }
         else
         {
+            jugador.disminuirVidasEn(nivelData.getVidas());
             throw new RespuestaIncorrectaException(desecho.getNombre() + " se debe clasificar en " + desecho.getClasificacion());
         }
     }
 
-    public void procesarRespuesta(int respuesta, Desecho desecho, PlantaTratadora planta) throws RespuestaIncorrectaException {
+    public void procesarRespuesta(int respuesta, Desecho desecho, PlantaTratadora planta) throws RespuestaIncorrectaException, VidasInsuficientesException {
         /*
          * Revisa si la respuesta del jugador es correcta o no
          */
+
+        temporizador.detener();
+
+        //Obtener jugador activo
+        Jugador jugador = jugadores.get(numJugadorActivo);
+
+        //Obtener nivel actual
+        Nivel nivelData = niveles[nivelActual];
 
         try
         {
@@ -97,40 +120,39 @@ public class Manager {
             planta.setTratamiento(tratamiento);
         }
         catch (MetodoIncorrectoException ex) {
+            jugador.disminuirVidasEn(nivelData.getVidas());
             throw new RespuestaIncorrectaException(desecho.getNombre() + " no se puede tratar de esa forma");
         }
     }
 
-    public void procesarRespuesta(Nivel nivelData, ArrayList<Integer> pasos, PlantaTratadora planta) throws RespuestaIncorrectaException
+    public void procesarRespuesta(ArrayList<Integer> pasos, PlantaTratadora planta) throws RespuestaIncorrectaException, VidasInsuficientesException
     {
-        Jugador jugador = jugadores.get(numJugadorActivo);
+        temporizador.detener();
 
-        planta.realizarTratamiento(pasos);
-        jugador.aumentarPuntosEn(nivelData.getPuntos());
+        Jugador jugador = jugadores.get(numJugadorActivo);
+        //Obtener nivel actual
+        Nivel nivelData = niveles[nivelActual];
+
+        try
+        {
+            planta.realizarTratamiento(pasos); //Lanza excepción si se equivoca
+        }catch (RespuestaIncorrectaException ex)
+        {
+            jugador.disminuirVidasEn(nivelData.getVidas());
+            throw new RespuestaIncorrectaException("Error en el tratamiento de desechos");
+        }
     }
 
-    public void confirmarJugadorConDesechosMinimos(int desechosMinimos, int desechosCorrectos)
+    public void confirmarJugadorConDesechosMinimos(int desechosMinimos, int desechosCorrectos) throws DesechosInsuficientesException
     {
         Jugador jugador = jugadores.get(numJugadorActivo);
-        if (desechosCorrectos < desechosMinimos && jugador.jugadorEstaVivo())
+        if (desechosCorrectos < desechosMinimos)
         {
             //Cuadro de dialogo no lograste clasificar y tratar suficientes desechos
-            iu.mostrarPantalla(14);
+            iu.construirDialogo("Fin de tu turno", "No lograste clasificar y tratar suficientes desechos");
             jugadores.remove(jugador);
+            throw new DesechosInsuficientesException();
         }
 
-    }
-
-    public void reiniciarJugadores() {
-        /*
-         * Reinicia los valores de los jugadores
-         */
-
-        jugadores.clear();
-    }
-
-    public Jugador getNesimoJugador(int n) {
-        numJugadorActivo = n;
-        return jugadores.get(n);
     }
 }

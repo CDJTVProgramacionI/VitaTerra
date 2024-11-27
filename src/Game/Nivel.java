@@ -22,7 +22,7 @@ public class Nivel {
         this.segundosPorTurno = segundosPorTurno;
     }
 
-    public void ejecutar(Manager gameManager, Temporizador temporizador, Jugador jugadorActual) throws DesechosInsuficientesException {
+    public void ejecutar(Manager gameManager, Temporizador temporizador, Jugador jugadorActual) throws DesechosInsuficientesException, RespuestaIncorrectaException {
         int desechosCorrectos = 0;
 
         temporizador.setTiempo(segundosPorTurno);
@@ -47,10 +47,10 @@ public class Nivel {
 
         //Mostrar contenedor con más desechos
         Contenedor maxContenedor = getMaxContenedor();
-        gameManager.irAPantalla(13, new String[]{maxContenedor.getEtiqueta(), String.valueOf(maxContenedor.getCantidadDesechos())});
+        gameManager.mostrarDialogo("Contenedor con más desechos", maxContenedor.getEtiqueta() + " tiene " + maxContenedor.getCantidadDesechos() + " desechos.");
 
         //Si no se llega a la cantidad de desechos mínimos, se acaba el turno
-        if (desechosCorrectos < desechosMinimosParaSeguir || !jugadorVivoYConTiempo(jugadorActual, temporizador)) {
+        if (desechosCorrectos < desechosMinimosParaSeguir) {
             throw new DesechosInsuficientesException();
         }
 
@@ -76,7 +76,6 @@ public class Nivel {
                                         String.valueOf(temporizador.getTiempo())
                                 });
 
-                ArrayList<Integer> pasosJugador = new ArrayList<Integer>();
                 temporizador.comenzar();
                 for (int k = 0; k < planta.getCantidadPasos(); k++) {
                     //Mostrar pasos de tratamiento
@@ -97,7 +96,7 @@ public class Nivel {
             }
 
             //Confirmar que jugador ha clasificado y tratado suficientes desechos
-            gameManager.confirmarJugadorConDesechosMinimos(jugadorActual, desechosMinimosParaSeguir, desechosCorrectos);
+            gameManager.confirmarJugadorConDesechosMinimos(desechosMinimosParaSeguir, desechosCorrectos);
         }
     }
 
@@ -143,10 +142,6 @@ public class Nivel {
             }
         }
         return max;
-    }
-
-    private boolean jugadorVivoYConTiempo(Jugador jugador, Temporizador temporizador) {
-        return jugador.jugadorEstaVivo() && temporizador.restaTiempo();
     }
 
     public Contenedor getContenedor(int i) {

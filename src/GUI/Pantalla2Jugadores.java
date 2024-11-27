@@ -87,7 +87,7 @@ public class Pantalla2Jugadores extends Pantalla {
                     jugadores.add(new Jugador(campoNombre.getText(), Integer.parseInt(campoEdad.getText())));
                     jugadores.add(new Jugador(campoNombre2.getText(), Integer.parseInt(campoEdad2.getText())));
                     gameManager.setJugadores(jugadores);
-                    gameManager.Jugar(0);
+                    gameManager.jugar(0);
                 }
                 catch (DatosIncorrectosException ex)
                 {
