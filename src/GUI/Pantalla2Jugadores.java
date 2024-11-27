@@ -1,17 +1,22 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import Game.Manager;
+import Game.Jugador;
 import java.util.ArrayList;
 
 import Excepciones.DatosIncorrectosException;
 
 
-public class Pantalla2Jugadores extends Pantallas {
-    private Manager gameManager;
+public class Pantalla2Jugadores extends Pantalla {
 
-    public Pantalla2Jugadores(Manager gameManager) {
-        super();
+    private Manager gameManager;
+   public Pantalla2Jugadores(InterfazDeUsuario iu, Manager gameManager) {
+        super(iu);
         this.gameManager = gameManager;
     }
 
@@ -81,6 +86,8 @@ public class Pantalla2Jugadores extends Pantallas {
                 try {
                     jugadores.add(new Jugador(campoNombre.getText(), Integer.parseInt(campoEdad.getText())));
                     jugadores.add(new Jugador(campoNombre2.getText(), Integer.parseInt(campoEdad2.getText())));
+                    gameManager.setJugadores(jugadores);
+                    gameManager.Jugar(0);
                 }
                 catch (DatosIncorrectosException ex)
                 {

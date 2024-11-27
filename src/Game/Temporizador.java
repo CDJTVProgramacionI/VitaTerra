@@ -1,3 +1,5 @@
+package Game;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -6,6 +8,7 @@ public class Temporizador
     private int segundos;
     private int decremento;
     private Timer timer;
+    private Manager gameManager;
 
     private TimerTask decrementTask = new TimerTask() {
         @Override
@@ -13,15 +16,17 @@ public class Temporizador
             segundos -= decremento;
             if (segundos == 0) {;
                 decremento = 0;
+                gameManager.finTiempo();
             }
         }
     };
 
-    public Temporizador()
+    public Temporizador(Manager gameManager)
     {
         this.segundos = 0;
         this.timer = new Timer();
         this.decremento = 0;
+        this.gameManager = gameManager;
         timer.schedule(decrementTask, 0, 1000);
     }
 

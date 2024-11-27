@@ -1,10 +1,16 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener; 
 
 
-public class PantallaMenu extends Pantallas {
+public class PantallaMenu extends Pantalla {
+    public PantallaMenu(InterfazDeUsuario iu) {
+        super(iu);
+    }
+
     @Override
     protected void inicializar() {
         String hexColor="#B7D2B6";
@@ -19,7 +25,7 @@ public class PantallaMenu extends Pantallas {
         InicioLabel.setFont(font);
         panelPrincipal.add(InicioLabel); 
     
-        // Crear boton que se supone va a llevar a las instrucciones  
+        // Crear boton que lleva a jugar
         JButton botonJugar = new JButton("Jugar");
         botonJugar.setBounds(220,115,260,61);
         botonJugar.setBackground(Color.decode(hexColor2));
@@ -27,7 +33,8 @@ public class PantallaMenu extends Pantallas {
             @Override 
             public void actionPerformed(ActionEvent e){
                 //lleva a la ventana de instrucciones (no se como hacerle perdon)
-                //new Pantallas(); 
+                //new Pantallas();
+                iu.mostrarPantalla(1);
                 dispose();  //Cierra el menu
             } 
         });
@@ -41,7 +48,7 @@ public class PantallaMenu extends Pantallas {
             @Override
             public void actionPerformed(ActionEvent e){
                 //LLeva a la ventana de instrucciones
-                new Instrucciones();
+                iu.mostrarPantalla(2);
                 dispose(); 
             }
         });

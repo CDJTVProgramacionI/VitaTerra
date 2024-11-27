@@ -27,7 +27,7 @@ public class Biologicos extends Desecho {
 
     @Override
     public String getInfo() {
-        return "Nombre: " + getNombre() + " Peligroso: " + (peligroso ? "Sí" : "Falso") + "Nivel de microorganismos: " + nivelMicroorganismos + "\n";
+        return "Nombre: " + getNombre() + " Peligroso: " + (peligroso ? "Sí" : "Falso") + "Game.Nivel de microorganismos: " + nivelMicroorganismos + "\n";
     }
 
     @Override

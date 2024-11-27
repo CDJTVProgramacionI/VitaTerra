@@ -1,9 +1,15 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Instrucciones extends Pantallas {
+public class Instrucciones extends Pantalla {
+    public Instrucciones(InterfazDeUsuario iu) {
+        super(iu);
+    }
+
     @Override
     protected void inicializar() {
         String hexColor="#B7D2B6";
@@ -13,7 +19,7 @@ public class Instrucciones extends Pantallas {
         //se define color de la pantalla 
         panelPrincipal.setBackground(Color.decode(hexColor));
         //CREAR ETIQUETA QUE DIGA INSTRUCCIONES
-        JLabel etiquetaInstrucciones = new JLabel("Instrucciones");
+        JLabel etiquetaInstrucciones = new JLabel("GUI.Instrucciones");
         //Ponerle fuente al texto
         etiquetaInstrucciones.setFont(new Font("Arial",Font.BOLD,30));
         //Ponerle color al texto
@@ -82,7 +88,7 @@ public class Instrucciones extends Pantallas {
             @Override 
             public void actionPerformed(ActionEvent e){
                 //lleva a la ventana de instrucciones (no se como hacerle perdon)
-                new PantallaMenu();
+                iu.mostrarPantalla(0);
                 dispose();  //Cierra el menu
             } 
         });

@@ -1,3 +1,5 @@
+package Game;
+
 import Desechos.Desecho;
 import Excepciones.ContenedorVacioException;
 import Excepciones.RespuestaIncorrectaException;

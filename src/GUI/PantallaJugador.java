@@ -1,17 +1,20 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import Game.Manager;
+import Game.Jugador;
 
 import Excepciones.DatosIncorrectosException;
 
-public class PantallaJugador extends Pantallas {
+public class PantallaJugador extends Pantalla {
 
     private Manager gameManager;
-
-    public PantallaJugador(Manager gameManager) {
-        super();
+    public PantallaJugador(InterfazDeUsuario iu, Manager gameManager) {
+        super(iu);
         this.gameManager = gameManager;
     }
 
@@ -24,7 +27,7 @@ public class PantallaJugador extends Pantallas {
         setTitle("Menu");
 
         Font font = new Font("Bauhaus 93", Font.BOLD, 18);
-        JLabel InicioLabel = new JLabel("1 Jugador",SwingConstants.CENTER);
+        JLabel InicioLabel = new JLabel("1 Game.Jugador",SwingConstants.CENTER);
         InicioLabel.setBounds(300,49,110,37);
         InicioLabel.setFont(font);
         panelPrincipal.add(InicioLabel);
@@ -56,13 +59,15 @@ public class PantallaJugador extends Pantallas {
         botonJugar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                ArrayList<Jugador> jugadores = new ArrayList<>();
+                ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
                 try {
                     jugadores.add(new Jugador(campoNombre.getText(), Integer.parseInt(campoEdad.getText())));
+                    gameManager.setJugadores(jugadores);
+                    gameManager.Jugar();
                 }
                 catch (DatosIncorrectosException ex)
                 {
-
+                    //TODO: Cuadro de dialogo con error
                 }
                 dispose();  //Cierra el menu
             }
