@@ -47,6 +47,7 @@ public class Nivel {
 
         //Mostrar contenedor con más desechos
         Contenedor maxContenedor = getMaxContenedor();
+        //JOU: Hacer cuadro de diálogo de "Contenedor con más desechos"
         gameManager.mostrarDialogo("Contenedor con más desechos", maxContenedor.getEtiqueta() + " tiene " + maxContenedor.getCantidadDesechos() + " desechos.");
 
         //Si no se llega a la cantidad de desechos mínimos, se acaba el turno
@@ -59,7 +60,10 @@ public class Nivel {
         // Bucle que se repite mientras haya contenedores sin revisar y el jugador esté vivo
         for (int j = 0; j < contenedores.length; j++) {
             Contenedor contenedorActual = planta.getContenedor(j); // Obtener el i-ésimo contenedor
-            ArrayList<Desecho> desechos = contenedorActual.vaciarContenedor(); // Vaciar el contenedor
+            ArrayList<Desecho> desechos = contenedorActual.vaciarContenedor();// Vaciar el contenedor
+            //VIRI: Falta excepción acá
+            //Jou: Hacer cuadro de diálogo de "No hay desechos en el contenedor" en la excepción (en el catch)
+
             for (int des = 0; des < desechos.size(); des++) {
                 Desecho desecho = desechos.get(des);
                 //Elije tratamiento

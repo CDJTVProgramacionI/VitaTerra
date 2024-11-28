@@ -7,6 +7,7 @@ import Excepciones.RespuestaIncorrectaException;
 import Excepciones.VidasInsuficientesException;
 import GUI.InterfazDeUsuario;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Manager {
@@ -35,8 +36,8 @@ public class Manager {
         this.jugadores = jugadores;
     }
 
-    public void mostrarDialogo(String title, String message) {
-        iu.construirDialogo(title, message);
+    public void mostrarDialogo(Frame ventanaP, String tituloCuadro, String mensaje) {
+        iu.construirDialogo(ventanaP, tituloCuadro, mensaje);
     }
 
     public void jugar(int nivel)
@@ -44,6 +45,7 @@ public class Manager {
         if(nivel == 3)
         {
             //TODO: Pantalla de ganador
+            iu.construirDialogo(,"Ganador","¡Felicidades GANASTE!");
             return;
         }
 
@@ -51,6 +53,8 @@ public class Manager {
         for(Jugador jugador : jugadores)
         {
             niveles[nivel].ejecutar(this, temporizador, jugador);
+            //VIRI: Falta excepción
+            //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
             jugar(nivel + 1);
         }
     }
@@ -63,7 +67,8 @@ public class Manager {
         }
         catch (VidasInsuficientesException ex)
         {
-            iu.construirDialogo("Perdiste", "Se te acabaron las vidas");
+            //JOU: Hacer cuadro de diálogo de "perdiste(esperar a que Dani agregue la pantalla principal)"
+            iu.construirDialogo(,"Perdiste", "Se te acabaron las vidas");
             jugadores.remove(numJugadorActivo);
             jugar(nivelActual);
         }
@@ -71,7 +76,7 @@ public class Manager {
 
     protected void finTiempo() {
         //Cuadro de dialogo se acabó el tiempo y quitar al jugador
-        iu.construirDialogo("Perdiste", "Se te acabó el tiempo");
+        iu.construirDialogo(,"Perdiste", "Se te acabó el tiempo");
         jugadores.remove(numJugadorActivo);
         jugar(nivelActual);
     }
@@ -149,7 +154,7 @@ public class Manager {
         if (desechosCorrectos < desechosMinimos)
         {
             //Cuadro de dialogo no lograste clasificar y tratar suficientes desechos
-            iu.construirDialogo("Fin de tu turno", "No lograste clasificar y tratar suficientes desechos");
+            iu.construirDialogo(,"Fin de tu turno", "No lograste clasificar y tratar suficientes desechos");
             jugadores.remove(jugador);
             throw new DesechosInsuficientesException();
         }
