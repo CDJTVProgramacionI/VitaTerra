@@ -2,6 +2,8 @@ package GUI;
 
 import Game.Manager;
 
+import java.awt.*;
+
 public class InterfazDeUsuario
 {
     private Pantalla[] pantallas;
@@ -27,6 +29,8 @@ public class InterfazDeUsuario
         return pantallas[pantalla];
     }
 
-    public void construirDialogo(String title, String message) {
+    public void construirDialogo(Frame ventanaP, String tituloCuadro, String mensaje) {
+        CuadrosDialogo cuadroUno=new CuadrosDialogo(ventanaP,tituloCuadro,mensaje);
+        cuadroUno.setVisible(true);
     }
 }
