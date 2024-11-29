@@ -60,6 +60,7 @@ public class Nivel {
         // Bucle que se repite mientras haya contenedores sin revisar y el jugador esté vivo
         for (int j = 0; j < contenedores.length; j++) {
             Contenedor contenedorActual = planta.getContenedor(j); // Obtener el i-ésimo contenedor
+             try {
             ArrayList<Desecho> desechos = contenedorActual.vaciarContenedor();// Vaciar el contenedor
             //VIRI: Falta excepción acá
             //Jou: Hacer cuadro de diálogo de "No hay desechos en el contenedor" en la excepción (en el catch)
