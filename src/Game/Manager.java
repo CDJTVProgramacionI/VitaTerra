@@ -53,7 +53,11 @@ public class Manager {
       try {
         niveles[nivel].ejecutar(this, temporizador, jugador);
         jugar(nivel + 1);
-    } catch (VidasInsuficientesException ex) {
+      } catch (VidasInsuficientesException ex) {
+    //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
+    } catch (FinTiempoException ex) {
+    //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
+    } catch (MetodoIncorrectoException ex) {
         //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
     }
 
