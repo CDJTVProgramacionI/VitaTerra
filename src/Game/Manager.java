@@ -53,12 +53,10 @@ public class Manager {
       try {
         niveles[nivel].ejecutar(this, temporizador, jugador);
         jugar(nivel + 1);
-      } catch (VidasInsuficientesException ex) {
+      } catch ( RespuestaIncorrectaException ex) {
     //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
-    } catch (FinTiempoException ex) {
+    } catch (DesechosInsuficientesException ex) {
     //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
-    } catch (MetodoIncorrectoException ex) {
-        //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
     }
 
     public void esperarPantalla(String pantalla, String[] argumentos) throws RespuestaIncorrectaException
