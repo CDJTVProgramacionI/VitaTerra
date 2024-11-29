@@ -45,7 +45,7 @@ public class Manager {
         if(nivel == 3)
         {
             //TODO: Pantalla de ganador
-            iu.construirDialogo(,"Ganador","¡Felicidades GANASTE!");
+            iu.construirDialogo(,"Ganador","¡Felicidades, GANASTE!");
             return;
         }
 
@@ -54,10 +54,11 @@ public class Manager {
         niveles[nivel].ejecutar(this, temporizador, jugador);
         jugar(nivel + 1);
       } catch ( RespuestaIncorrectaException ex) {
-    //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
+          iu.construirDialogo(,"Incorrecto", "Respuesta incorrecta");
     } catch (DesechosInsuficientesException ex) {
-    //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
-    }
+          iu.construirDialogo(,"Perdiste", "Perdiste, no clasifiscaste los desechos suficientes");
+      }
+
 
     public void esperarPantalla(String pantalla, String[] argumentos) throws RespuestaIncorrectaException
     {

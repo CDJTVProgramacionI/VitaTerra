@@ -48,7 +48,7 @@ public class Nivel {
         //Mostrar contenedor con más desechos
         Contenedor maxContenedor = getMaxContenedor();
         //JOU: Hacer cuadro de diálogo de "Contenedor con más desechos"
-        gameManager.mostrarDialogo("Contenedor con más desechos", maxContenedor.getEtiqueta() + " tiene " + maxContenedor.getCantidadDesechos() + " desechos.");
+        gameManager.mostrarDialogo(,"Contenedor con más desechos", maxContenedor.getEtiqueta() + " tiene " + maxContenedor.getCantidadDesechos() + " desechos.");
 
         //Si no se llega a la cantidad de desechos mínimos, se acaba el turno
         if (desechosCorrectos < desechosMinimosParaSeguir) {
@@ -64,7 +64,7 @@ public class Nivel {
         try {
         ArrayList<Desecho> desechos = contenedorActual.vaciarContenedor(); // Vaciar el contenedor
         } catch (ContenedorVacioException ex) {
-        //Jou: Hacer cuadro de diálogo de "No hay desechos en el contenedor" en la excepción (en el catch)
+            iu.construirDialogo(,"Contenedor vacío", "No hay desechos en el contenedor");
     }
             for (int des = 0; des < desechos.size(); des++) {
                 Desecho desecho = desechos.get(des);
