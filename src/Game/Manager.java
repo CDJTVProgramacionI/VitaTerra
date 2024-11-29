@@ -50,13 +50,11 @@ public class Manager {
         }
 
         nivelActual = nivel;
-        for(Jugador jugador : jugadores)
-        {
-            niveles[nivel].ejecutar(this, temporizador, jugador);
-            //VIRI: Falta excepción
-            //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
-            jugar(nivel + 1);
-        }
+      try {
+        niveles[nivel].ejecutar(this, temporizador, jugador);
+        jugar(nivel + 1);
+    } catch () {
+        //JOU: Hacer cuadro de diálogo "Perdiste"(en la excepción, en el catch)
     }
 
     public void esperarPantalla(String pantalla, String[] argumentos) throws RespuestaIncorrectaException
