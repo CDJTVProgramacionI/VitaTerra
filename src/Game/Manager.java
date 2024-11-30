@@ -17,6 +17,7 @@ public class Manager {
     private Nivel[] niveles;
     private int nivelActual;
     private Temporizador temporizador;
+    private manejoArchivos archivo;
 
     //Constructor de clase
     public Manager(Nivel[] niveles) {
@@ -28,6 +29,7 @@ public class Manager {
         jugadores = new ArrayList<>();
         this.niveles = niveles;
         Temporizador temporizador = new Temporizador(this);
+        archivo = new manejoArchivos(this);
 
         iu.mostrarPantalla(0);
     }
@@ -55,8 +57,10 @@ public class Manager {
         jugar(nivel + 1);
       } catch ( RespuestaIncorrectaException ex) {
           iu.construirDialogo(,"Incorrecto", "Respuesta incorrecta");
+          archivo.escribirDatos(jugador);
     } catch (DesechosInsuficientesException ex) {
           iu.construirDialogo(,"Perdiste", "Perdiste, no clasifiscaste los desechos suficientes");
+          archivo.escribirDatos(jugador);
       }
 
 
