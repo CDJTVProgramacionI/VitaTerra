@@ -1,5 +1,8 @@
+package GUI;
+
+import Game.Manager;
+
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,8 +13,17 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public class PantallaDesechos extends Pantallas 
+public class PantallaDesechos extends Pantalla implements IPantallaJuego
 {
+    public PantallaDesechos(InterfazDeUsuario interfaz, Manager manager) {
+        super(interfaz);
+    }
+
+    @Override
+    public void setArgumentos(String[] pasos) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     @Override
     protected void inicializar() {
         String hexColor = "#B7D2B6";
@@ -104,13 +116,4 @@ public class PantallaDesechos extends Pantallas
         panelPrincipal.add(panelBotones, new GridBagConstraints(2, 1, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
         }
-
-    public static void main(String[] args){
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new PantallaDesechos();
-            }
-        });
-    }
 }
