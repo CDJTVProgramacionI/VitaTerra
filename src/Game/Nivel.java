@@ -4,6 +4,7 @@ import Desechos.*;
 import Desechos.Plastico;
 import Excepciones.DesechosInsuficientesException;
 import Excepciones.RespuestaIncorrectaException;
+import Excepciones.ContenedorVacioException;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,7 @@ public class Nivel {
         //Mostrar contenedor con más desechos
         Contenedor maxContenedor = getMaxContenedor();
         //JOU: Hacer cuadro de diálogo de "Contenedor con más desechos"
-        gameManager.mostrarDialogo(,"Contenedor con más desechos", maxContenedor.getEtiqueta() + " tiene " + maxContenedor.getCantidadDesechos() + " desechos.");
+        gameManager.mostrarDialogo("Contenedor con más desechos", maxContenedor.getEtiqueta() + " tiene " + maxContenedor.getCantidadDesechos() + " desechos.");
 
         //Si no se llega a la cantidad de desechos mínimos, se acaba el turno
         if (desechosCorrectos < desechosMinimosParaSeguir) {
@@ -60,50 +61,57 @@ public class Nivel {
         // Bucle que se repite mientras haya contenedores sin revisar y el jugador esté vivo
         for (int j = 0; j < contenedores.length; j++) {
             Contenedor contenedorActual = planta.getContenedor(j); // Obtener el i-ésimo contenedor
-             
-        try {
-        ArrayList<Desecho> desechos = contenedorActual.vaciarContenedor(); // Vaciar el contenedor
-        } catch (ContenedorVacioException ex) {
-            iu.construirDialogo(,"Contenedor vacío", "No hay desechos en el contenedor");
-    }
-            for (int des = 0; des < desechos.size(); des++) {
-                Desecho desecho = desechos.get(des);
-                //Elije tratamiento
-                String metodos = planta.getMetodosParaContenedorN(j);
 
-                temporizador.comenzar();
-                //Mostrar métodos de tratamiento
-                gameManager.esperarPantalla("Métodos",
-                        new String[]
-                                {
-                                        jugadorActual.getInfo(),
-                                        desecho.getInfo(),
-                                        metodos,
-                                        String.valueOf(temporizador.getTiempo())
-                                });
+            try {
+                ArrayList<Desecho> desechos = contenedorActual.vaciarContenedor(); // Vaciar el contenedor
 
-                temporizador.comenzar();
-                for (int k = 0; k < planta.getCantidadPasos(); k++) {
-                    //Mostrar pasos de tratamiento
-                    gameManager.esperarPantalla("Tratamiento",
+                for (int des = 0; des < desechos.size(); des++) {
+                    Desecho desecho = desechos.get(des);
+                    //Elije tratamiento
+                    String metodos = planta.getMetodosParaContenedorN(j);
+
+                    temporizador.comenzar();
+                    //Mostrar métodos de tratamiento
+                    gameManager.esperarPantalla("Métodos",
                             new String[]
                                     {
                                             jugadorActual.getInfo(),
                                             desecho.getInfo(),
-                                            planta.getTratamientoDesorganizado(),
-                                            String.valueOf(temporizador.getTiempo()),
-                                            String.valueOf(k + 1)
+                                            metodos,
+                                            String.valueOf(temporizador.getTiempo())
                                     });
-                }
 
-                if (desechosCorrectos < desechosMinimosParaSeguir) {
-                    throw new DesechosInsuficientesException();
+                    temporizador.comenzar();
+                    for (int k = 0; k < planta.getCantidadPasos(); k++) {
+                        //Mostrar pasos de tratamiento
+                        gameManager.esperarPantalla("Tratamiento",
+                                new String[]
+                                        {
+                                                jugadorActual.getInfo(),
+                                                desecho.getInfo(),
+                                                planta.getTratamientoDesorganizado(),
+                                                String.valueOf(temporizador.getTiempo()),
+                                                String.valueOf(k + 1)
+                                        });
+                    }
+
+                    if (desechosCorrectos < desechosMinimosParaSeguir) {
+                        throw new DesechosInsuficientesException();
+                    }
                 }
+            } catch (ContenedorVacioException ex) {
+                gameManager.mostrarDialogo("Contenedor vacío", "No hay desechos en el contenedor");
             }
+
 
             //Confirmar que jugador ha clasificado y tratado suficientes desechos
             gameManager.confirmarJugadorConDesechosMinimos(desechosMinimosParaSeguir, desechosCorrectos);
         }
+    }
+
+    public void clasificar()
+    {
+
     }
 
     private String generarListaContenedores() {
@@ -152,10 +160,6 @@ public class Nivel {
 
     public Contenedor getContenedor(int i) {
         return contenedores[i];
-    }
-
-    private boolean respuestaCorrectaYMultijugador(boolean ultimaRespuestaCorrecta, int numJugadores) {
-        return ultimaRespuestaCorrecta && numJugadores > 1;
     }
 
     public int getPuntos() {

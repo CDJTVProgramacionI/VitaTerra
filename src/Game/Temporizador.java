@@ -23,7 +23,7 @@ public class Temporizador
 
     public Temporizador(Manager gameManager)
     {
-        this.segundos = 0;
+        this.segundos = 1;
         this.timer = new Timer();
         this.decremento = 0;
         this.gameManager = gameManager;

@@ -7,12 +7,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PantallaMetodos extends Pantalla
+public class PantallaMetodos extends Pantalla implements IPantallaJuego
 {
+    String[] metodos;
+    JComboBox<String> metodosComboBox;
+
     public PantallaMetodos(InterfazDeUsuario iu, Manager manager)
     {
         super(iu);
+        this.metodos = new String[1];
     }
+
+    @Override
+    public void setArgumentos(String[] metodos)
+    {
+        this.metodos = metodos;
+        for(String metodo : metodos)
+        {
+            metodosComboBox.addItem(metodo);
+        }
+    }
+
     @Override
     protected void inicializar() {
         String hexColor = "#B7D2B6";
@@ -51,8 +66,7 @@ public class PantallaMetodos extends Pantalla
 
 
         //ComboBox
-        String[] metodos = {"Método 1", "Método 2", "Método 3"};
-        JComboBox<String> metodosComboBox = new JComboBox<>(metodos);
+        metodosComboBox = new JComboBox<>();
         panelMetodo.add(metodosComboBox);
 
         //Botón de confirmación

@@ -7,6 +7,8 @@ import Excepciones.RespuestaIncorrectaException;
 import Excepciones.VidasInsuficientesException;
 import GUI.InterfazDeUsuario;
 import Data.manejoArchivos;
+import GUI.PantallaMetodos;
+import GUI.PantallaTratamiento;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class Manager {
         iu = new InterfazDeUsuario(this);
         jugadores = new ArrayList<>();
         this.niveles = niveles;
-        Temporizador temporizador = new Temporizador(this);
+        temporizador = new Temporizador(this);
         archivo = new manejoArchivos("Bitácora");
 
         iu.mostrarPantalla(0);
@@ -39,14 +41,13 @@ public class Manager {
         this.jugadores = jugadores;
     }
 
-    public void mostrarDialogo(Frame ventanaP, String tituloCuadro, String mensaje) {
-        iu.construirDialogo(ventanaP, tituloCuadro, mensaje);
+    public void mostrarDialogo(String tituloCuadro, String mensaje) {
+        iu.construirDialogo(tituloCuadro, mensaje);
     }
 
     public void jugar(int nivel) {
         if (nivel == 3) {
-            //TODO: Pantalla de ganador
-            iu.construirDialogo(, "Ganador", "¡Felicidades, GANASTE!");
+            iu.construirDialogo("Ganador", "¡Felicidades, GANASTE!");
             return;
         }
 
@@ -57,10 +58,10 @@ public class Manager {
                 niveles[nivel].ejecutar(this, temporizador, jugador);
                 jugar(nivel + 1);
             } catch (RespuestaIncorrectaException ex) {
-                iu.construirDialogo(, "Incorrecto", "Respuesta incorrecta");
+                iu.construirDialogo("Incorrecto", "Respuesta incorrecta");
                 archivo.escribirDatos(jugador);
             } catch (DesechosInsuficientesException ex) {
-                iu.construirDialogo(, "Perdiste", "Perdiste, no clasifiscaste los desechos suficientes");
+                iu.construirDialogo("Perdiste", "Perdiste, no clasifiscaste los desechos suficientes");
                 archivo.escribirDatos(jugador);
             }
         }
@@ -70,9 +71,24 @@ public class Manager {
     public void esperarPantalla(String pantalla, String[] argumentos) throws RespuestaIncorrectaException {
         try {
             //TODO: Esperar a que se obtenga una respuesta de la pantalla en turno
+            switch (pantalla) {
+                case "Clasificar":
+                    break;
+                case "Métodos":
+                    PantallaMetodos pantallaMetodos = (PantallaMetodos) iu.getPantallaJuego(6);
+                    pantallaMetodos.setArgumentos(argumentos);
+                    pantallaMetodos.mostrar();
+                    break;
+                case "Tratar":
+                    PantallaTratamiento pantallaTratamiento = (PantallaTratamiento) iu.getPantallaJuego(7);
+                    pantallaTratamiento.setArgumentos(argumentos);
+                    pantallaTratamiento.mostrar();
+                    break;
+                default:
+                    throw new VidasInsuficientesException();
+            }
         } catch (VidasInsuficientesException ex) {
-            //JOU: Hacer cuadro de diálogo de "perdiste(esperar a que Dani agregue la pantalla principal)"
-            iu.construirDialogo(, "Perdiste", "Se te acabaron las vidas");
+            iu.construirDialogo("Perdiste", "Se te acabaron las vidas");
             jugadores.remove(numJugadorActivo);
             jugar(nivelActual);
         }
@@ -80,7 +96,7 @@ public class Manager {
 
     protected void finTiempo() {
         //Cuadro de dialogo se acabó el tiempo y quitar al jugador
-        iu.construirDialogo(, "Perdiste", "Se te acabó el tiempo");
+        iu.construirDialogo( "Perdiste", "Se te acabó el tiempo");
         jugadores.remove(numJugadorActivo);
         jugar(nivelActual);
     }
@@ -148,7 +164,7 @@ public class Manager {
         Jugador jugador = jugadores.get(numJugadorActivo);
         if (desechosCorrectos < desechosMinimos) {
             //Cuadro de dialogo no lograste clasificar y tratar suficientes desechos
-            iu.construirDialogo(, "Fin de tu turno", "No lograste clasificar y tratar suficientes desechos");
+            iu.construirDialogo( "Fin de tu turno", "No lograste clasificar y tratar suficientes desechos");
             jugadores.remove(jugador);
             throw new DesechosInsuficientesException();
         }

@@ -8,16 +8,32 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class PantallaTratamiento extends Pantalla
+public class PantallaTratamiento extends Pantalla implements IPantallaJuego
 {
     String[] pasos;
-    public PantallaTratamiento(InterfazDeUsuario iu, Manager manager, String[] pasos)
+    ArrayList<JComboBox<String>> comboBoxes;
+    JPanel panelTratamiento;
+    public PantallaTratamiento(InterfazDeUsuario iu, Manager manager)
     {
         super(iu);
-        this.pasos = pasos;
-        inicializar();
-        setVisible(true);
+        this.pasos = new String[1];
+        comboBoxes = new ArrayList<>();
     }
+
+    public void setArgumentos(String[] pasos)
+    {
+        this.pasos = pasos;
+
+        //ComboBoxes
+        comboBoxes = new ArrayList<>();
+        for (int i = 0; i < pasos.length; i++)
+        {
+            JComboBox<String> pasosCombo = new JComboBox<>(pasos);
+            comboBoxes.add(pasosCombo);
+            panelTratamiento.add(pasosCombo, new GridBagConstraints(i, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        }
+    }
+
     @Override
     protected void inicializar() {
         String hexColor = "#B7D2B6";
@@ -43,7 +59,7 @@ public class PantallaTratamiento extends Pantalla
         panelPrincipal.add(panelEtiquetas, new GridBagConstraints(1, 1, 1, 5, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.VERTICAL, new Insets(0, 0, 0, 0), 0, 0));
 
         //Panel organizar tratamiento
-        JPanel panelTratamiento = new JPanel();
+        panelTratamiento = new JPanel();
         panelTratamiento.setLayout(new GridBagLayout());
         panelTratamiento.setBackground(Color.decode(hexColor));
 
@@ -51,14 +67,7 @@ public class PantallaTratamiento extends Pantalla
         JLabel desechoLabel = new JLabel("Info");
         panelTratamiento.add(desechoLabel, new GridBagConstraints(0, 0, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-        //ComboBoxes
-        ArrayList<JComboBox<String>> comboBoxes = new ArrayList<>();
-        for (int i = 0; i < pasos.length; i++)
-        {
-            JComboBox<String> pasosCombo = new JComboBox<>(pasos);
-            comboBoxes.add(pasosCombo);
-            panelTratamiento.add(pasosCombo, new GridBagConstraints(i, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-        }
+
 
         //Botón de confirmación
         JButton confirmar = new JButton("Confirmar");
@@ -69,7 +78,7 @@ public class PantallaTratamiento extends Pantalla
                 //Aqui va la lógica de confirmar el método
             }
         });
-        panelTratamiento.add(confirmar, new GridBagConstraints(0, 2, pasos.length, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        panelTratamiento.add(confirmar, new GridBagConstraints(0, 2, 5, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
         //Agregando los componentes al panel principal
         panelPrincipal.add(panelTratamiento, new GridBagConstraints(2, 1, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));

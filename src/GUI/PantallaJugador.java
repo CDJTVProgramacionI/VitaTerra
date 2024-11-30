@@ -27,7 +27,7 @@ public class PantallaJugador extends Pantalla {
         setTitle("Menu");
 
         Font font = new Font("Bauhaus 93", Font.BOLD, 18);
-        JLabel InicioLabel = new JLabel("1 Game.Jugador",SwingConstants.CENTER);
+        JLabel InicioLabel = new JLabel("1 Jugador",SwingConstants.CENTER);
         InicioLabel.setBounds(300,49,110,37);
         InicioLabel.setFont(font);
         panelPrincipal.add(InicioLabel);

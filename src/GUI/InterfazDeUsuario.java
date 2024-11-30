@@ -7,6 +7,7 @@ import java.awt.*;
 public class InterfazDeUsuario
 {
     private Pantalla[] pantallas;
+    private Pantalla pantallaActual;
 
     public InterfazDeUsuario(Manager gameManager)
     {
@@ -18,19 +19,29 @@ public class InterfazDeUsuario
                         new PantallaJugador(this, gameManager), //3
                         new Pantalla2Jugadores(this, gameManager), //4
                         //TODO: Pantalla clasificacion desechos //5
-                        //TODO: Pantalla tratamiento desechos //6
-                        //TODO: Pantalla organización de tratamiento //7
+                        new PantallaMetodos(this, gameManager), //6
+                        new PantallaTratamiento(this, gameManager), //7
                 };
     }
 
-    public Pantalla mostrarPantalla(int pantalla)
+    public void mostrarPantalla(int pantalla)
     {
         pantallas[pantalla].mostrar();
-        return pantallas[pantalla];
+        pantallaActual = pantallas[pantalla];
     }
 
-    public void construirDialogo(Frame ventanaP, String tituloCuadro, String mensaje) {
-        CuadrosDialogo cuadroUno=new CuadrosDialogo(ventanaP,tituloCuadro,mensaje);
+    public IPantallaJuego getPantallaJuego(int pantalla) throws IllegalArgumentException
+    {
+        if (pantalla <5 || pantalla > 7)
+        {
+            throw new IllegalArgumentException("La pantalla solicitada no es de juego");
+        }
+
+        return (IPantallaJuego) pantallas[pantalla];
+    }
+
+    public void construirDialogo(String tituloCuadro, String mensaje) {
+        CuadrosDialogo cuadroUno=new CuadrosDialogo(pantallaActual,tituloCuadro,mensaje);
         cuadroUno.setVisible(true);
     }
 }

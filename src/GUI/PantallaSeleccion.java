@@ -28,13 +28,12 @@ public class PantallaSeleccion extends Pantalla {
         panelPrincipal.add(InicioLabel); 
     
         // Crear boton que se supone va a llevar a las instrucciones  
-        JButton boton1Jugador = new JButton("1 Game.Jugador");
+        JButton boton1Jugador = new JButton("1 Jugador");
         boton1Jugador.setBounds(220,115,260,61);
         boton1Jugador.setBackground(Color.decode(hexColor2));
         boton1Jugador.addActionListener(new ActionListener() {
             @Override 
             public void actionPerformed(ActionEvent e){
-                //lleva a la ventana de instrucciones (no se como hacerle perdon)
                 //new Pantallas();
                 iu.mostrarPantalla(3);
                 dispose();  //Cierra el menu
