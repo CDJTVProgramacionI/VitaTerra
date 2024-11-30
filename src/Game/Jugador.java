@@ -2,7 +2,8 @@ package Game;
 
 import Excepciones.DatosIncorrectosException;
 import Excepciones.VidasInsuficientesException;
-
+import java.util.ArrayList;
+import java.io.Serializable;
 public class Jugador {
 
     //Atributos
@@ -10,6 +11,7 @@ public class Jugador {
     private int puntos; //Cantidad de puntos del jugador
     private int vidas; //Cantidad de vidas del jugador
     private int edad; // Edad del jugador
+    private ArrayList<String> pasos; //Pasos seleccionados por el jugador
 
     //Constructor
     public Jugador(String nombre, int edad) throws DatosIncorrectosException {
@@ -23,6 +25,7 @@ public class Jugador {
 
         this.puntos = 0; //Inicializa en 0 la cantidad de puntos
         this.vidas = 5; //Inicializa en 5 la cantidad de vidas iniciales
+        this.pasos = new ArrayList<>(); // Inicializa el arrayList de pasos
     }
 
 
