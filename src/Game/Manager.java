@@ -9,8 +9,6 @@ import GUI.InterfazDeUsuario;
 import Data.manejoArchivos;
 import GUI.PantallaMetodos;
 import GUI.PantallaTratamiento;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Manager {
@@ -70,7 +68,6 @@ public class Manager {
 
     public void esperarPantalla(String pantalla, String[] argumentos) throws RespuestaIncorrectaException {
         try {
-            //TODO: Esperar a que se obtenga una respuesta de la pantalla en turno
             switch (pantalla) {
                 case "Clasificar":
                     break;
