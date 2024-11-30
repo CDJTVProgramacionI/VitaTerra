@@ -46,6 +46,7 @@ public class Manager {
     public void jugar(int nivel) {
         if (nivel == 3) {
             iu.construirDialogo("Ganador", "¡Felicidades, GANASTE!");
+            iu.mostrarPantalla(0);
             return;
         }
 
