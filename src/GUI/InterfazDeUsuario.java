@@ -24,6 +24,11 @@ public class InterfazDeUsuario
                 };
     }
 
+    public void setPantalla(int numPantalla, Pantalla pantalla)
+    {
+        pantallas[numPantalla] = pantalla;
+    }
+
     public void mostrarPantalla(int pantalla)
     {
         pantallas[pantalla].mostrar();

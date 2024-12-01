@@ -5,11 +5,9 @@ import Excepciones.DesechosInsuficientesException;
 import Excepciones.MetodoIncorrectoException;
 import Excepciones.RespuestaIncorrectaException;
 import Excepciones.VidasInsuficientesException;
-import GUI.InterfazDeUsuario;
+import GUI.*;
 import Data.manejoArchivos;
-import GUI.PantallaDesechos;
-import GUI.PantallaMetodos;
-import GUI.PantallaTratamiento;
+
 import java.util.ArrayList;
 
 public class Manager {
@@ -61,6 +59,14 @@ public class Manager {
         }
 
         nivelActual = nivel;
+
+        if(nivel == 1)
+        {
+            iu.setPantalla(5, new PantallaDesechos2(iu, this));
+        }
+        else {
+            iu.setPantalla(5, new PantallaDesechos(iu, this));
+        }
 
         niveles[nivel].configurar(temporizador);
         iu.mostrarPantalla(5);

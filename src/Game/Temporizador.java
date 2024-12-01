@@ -17,7 +17,7 @@ public class Temporizador
         @Override
         public void run() {
             segundos -= decremento;
-            tiempoRestante.setText("Tiempo restante: " + segundos);
+            tiempoRestante.setText("Tiempo restante: " + segAMinutos());
             if (segundos == 0) {;
                 decremento = 0;
                 gameManager.finTiempo();
@@ -64,6 +64,16 @@ public class Temporizador
     {
         decremento = 0;
         this.segundos = segundos;
+    }
+
+    public String segAMinutos()
+    {
+        int minutos = segundos / 60;
+        int segundos = this.segundos % 60;
+        if (segundos < 10) {
+            return minutos + ":0" + segundos;
+        }
+        return minutos + ":" + segundos;
     }
 
 }
