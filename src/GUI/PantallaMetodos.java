@@ -66,6 +66,7 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
     {
         if(numContenedor >= nivelData.getContenedores().length)
         {
+            numContenedor = 0;
             dispose();
             gameManager.ganar();
             return;

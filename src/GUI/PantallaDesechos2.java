@@ -74,7 +74,7 @@ public class PantallaDesechos2 extends Pantalla implements IPantallaJuego {
         JPanel panelBotones = new JPanel();
         Font font = new Font("Bauhaus 93", Font.BOLD, 18);
         Font font2 = new Font("MoolBoran", Font.BOLD, 14);
-        panelBotones.setLayout(new GridLayout(4, 4));
+        panelBotones.setLayout(new GridLayout(3, 4));
         panelBotones.setBackground(Color.decode(hexColor));
 
 
