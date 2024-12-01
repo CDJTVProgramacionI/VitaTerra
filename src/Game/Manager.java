@@ -54,13 +54,8 @@ public class Manager {
 
     public void jugar(int nivel) {
         if (jugadores.isEmpty()){
-            iu.construirDialogo("Fin del juego", "Se te acabaron las vidas");
-            iu.mostrarPantalla(0);
-            return;
-        }
-
-        if (nivel == 3) {
-            iu.construirDialogo("Ganador", "¡Felicidades, GANASTE!");
+            iu.construirDialogo("Fin del juego", "Ya no hay jugadores");
+            iu.cierraPantalla();
             iu.mostrarPantalla(0);
             return;
         }
@@ -69,14 +64,23 @@ public class Manager {
 
         niveles[nivel].configurar(temporizador);
         iu.mostrarPantalla(5);
-        //jugar(nivel + 1);
     }
 
-    public void perder()
+    public Jugador getJugadorActual()
     {
-        iu.construirDialogo("Perdiste", "Se te acabaron las vidas");
+        return jugadores.get(numJugadorActivo);
+    }
+
+    public void perder(String message)
+    {
+        iu.construirDialogo("Perdiste", message);
         archivo.escribirDatos(jugadores.get(numJugadorActivo));
-        iu.mostrarPantalla(0);
+        jugadores.remove(numJugadorActivo);
+        if(jugadores.isEmpty())
+        {
+            iu.cierraPantalla();
+            iu.mostrarPantalla(0);
+        }
     }
 
     public void esperarPantalla(String pantalla, String[] argumentos) throws RespuestaIncorrectaException {
@@ -182,5 +186,23 @@ public class Manager {
             throw new DesechosInsuficientesException();
         }
 
+    }
+
+    public void ganar()
+    {
+        if (nivelActual == 2) {
+            archivo.escribirDatos(getJugadorActual());
+            iu.construirDialogo("Ganador", "¡Felicidades, GANASTE!");
+            iu.cierraPantalla();
+            iu.mostrarPantalla(0);
+        }
+
+        numJugadorActivo++;
+        if(numJugadorActivo >= jugadores.size())
+        {
+            numJugadorActivo = 0;
+            nivelActual++;
+        }
+        jugar(nivelActual);
     }
 }

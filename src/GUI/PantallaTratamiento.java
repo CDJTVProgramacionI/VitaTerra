@@ -1,6 +1,11 @@
 package GUI;
 
+import Excepciones.DesechosInsuficientesException;
+import Excepciones.RespuestaIncorrectaException;
+import Excepciones.VidasInsuficientesException;
 import Game.Manager;
+import Game.Nivel;
+import Game.PlantaTratadora;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,16 +18,68 @@ public class PantallaTratamiento extends Pantalla implements IPantallaJuego
     String[] pasos;
     ArrayList<JComboBox<String>> comboBoxes;
     JPanel panelTratamiento;
+    Manager gameManager;
+    Nivel nivelData;
     public PantallaTratamiento(InterfazDeUsuario iu, Manager manager)
     {
         super(iu);
         this.pasos = new String[1];
         comboBoxes = new ArrayList<>();
+        this.gameManager = manager;
+    }
+
+    @Override
+    public void mostrar() {
+        nivelData = gameManager.getNivelActual();
+        panelPrincipal.removeAll();
+        comboBoxes.clear();
+        super.mostrar();
+        organizarPasos();
+    }
+
+    private void organizarPasos()
+    {
+        //Llena datos de etiquetas
+        String[] info = gameManager.getJugadorActual().getInfo();
+        turnoLabel.setText("Turno: " + info[0]);
+        puntosLabel.setText("Puntos: " + info[1]);
+        vidasLabel.setText("Vidas: " + info[2]);
+
+        String[] pasos = nivelData.getPlantaTratadora().getTratamientoDesorganizado();
+        for (int i = 0; i < pasos.length; i++) {
+            comboBoxes.add(new JComboBox<>(pasos));
+            panelTratamiento.add(comboBoxes.get(i), new GridBagConstraints(i+1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        }
+        gameManager.getTemporizador().comenzar();
     }
 
     @Override
     public void responder(int opc) {
-
+        try {
+            ArrayList<Integer> pasos = new ArrayList<>();
+            for (JComboBox<String> comboBox : comboBoxes) {
+                pasos.add(comboBox.getSelectedIndex());
+            }
+            gameManager.procesarRespuesta(pasos, nivelData.getPlantaTratadora());
+            dispose();
+            iu.mostrarPantalla(6);
+        }
+        catch (VidasInsuficientesException e) {
+            gameManager.perder(e.getMessage());
+        }
+        catch (RespuestaIncorrectaException e)
+        {
+            try {
+                nivelData.decrementaDesechosCorrectos();
+            }
+            catch (DesechosInsuficientesException ex)
+            {
+                gameManager.perder(ex.getMessage());
+            }
+            gameManager.mostrarDialogo("Respuesta incorrecta", "La respuesta no es correcta");
+            dispose();
+            iu.mostrarPantalla(6);
+        }
     }
 
     @Override
@@ -51,10 +108,7 @@ public class PantallaTratamiento extends Pantalla implements IPantallaJuego
         panelTratamiento.setBackground(Color.decode(hexColor));
 
         //Etiqueta info
-        JLabel desechoLabel = new JLabel("Info");
-        panelTratamiento.add(desechoLabel, new GridBagConstraints(0, 0, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-
-
+        panelTratamiento.add(desechosLabel, new GridBagConstraints(0, 0, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
         //Botón de confirmación
         JButton confirmar = new JButton("Confirmar");
@@ -62,10 +116,10 @@ public class PantallaTratamiento extends Pantalla implements IPantallaJuego
         confirmar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Aqui va la lógica de confirmar el método
+                responder(0);
             }
         });
-        panelTratamiento.add(confirmar, new GridBagConstraints(0, 2, 5, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        panelTratamiento.add(confirmar, new GridBagConstraints(0, 2, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
         //Agregando los componentes al panel principal
         panelPrincipal.add(panelTratamiento, new GridBagConstraints(2, 1, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));

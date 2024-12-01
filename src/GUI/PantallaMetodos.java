@@ -20,9 +20,8 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
     Manager gameManager;
     JComboBox<String> metodosComboBox;
     Desecho desechoActual;
-    ArrayList<Desecho> listaDesechos;
     Nivel nivelData;
-    int desecho;
+    int numContenedor;
 
     public PantallaMetodos(InterfazDeUsuario iu, Manager manager)
     {
@@ -34,18 +33,20 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
     public void mostrar() {
         nivelData = gameManager.getNivelActual();
         nivelData.setPlantaTratadora();
+        panelPrincipal.removeAll();
         super.mostrar();
-        vacíaContenedor(0);
+        trataDesecho();
     }
 
     @Override
     public void responder(int opc) {
         try {
             gameManager.procesarRespuesta(opc + 1, desechoActual, nivelData.getPlantaTratadora());
-            trataDesecho();
+            iu.mostrarPantalla(7);
+            dispose();
         }
         catch (VidasInsuficientesException e) {
-            gameManager.perder();
+            gameManager.perder(e.getMessage());
         }
         catch (RespuestaIncorrectaException e)
         {
@@ -57,49 +58,42 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
             }
             catch (DesechosInsuficientesException ex)
             {
-                gameManager.mostrarDialogo("Fin del juego", "No clasificaste los suficientes desechos");
-                iu.mostrarPantalla(0);
+                gameManager.perder(ex.getMessage());
             }
 
         }
-    }
-
-    private void vacíaContenedor(int numContenedor)
-    {
-        Contenedor[] contenedores = nivelData.getContenedores();
-        if(numContenedor >= contenedores.length)
-        {
-            //Se trataron todos los desechos
-            iu.mostrarPantalla(7);
-            return;
-        }
-
-        try {
-            listaDesechos = nivelData.getContenedor(numContenedor).vaciarContenedor();
-            metodosComboBox.removeAllItems();
-            for(String metodo : nivelData.getPlantaTratadora().getMetodosParaContenedorN(numContenedor))
-            {
-                metodosComboBox.addItem(metodo);
-            }
-            desecho = 0;
-            trataDesecho();
-        }
-        catch (ContenedorVacioException e) {
-            vacíaContenedor(numContenedor + 1);
-        }
-
     }
 
     private void trataDesecho()
     {
-        if(desecho >= listaDesechos.size())
+        if(numContenedor >= nivelData.getContenedores().length)
         {
-            vacíaContenedor(1);
+            gameManager.ganar();
             return;
         }
-        desechoActual = listaDesechos.get(desecho);
-        desechosLabel.setText("Desecho: " + desechoActual.getInfo());
-        desecho++;
+        //Llena datos de etiquetas
+        String[] info = gameManager.getJugadorActual().getInfo();
+        turnoLabel.setText("Turno: " + info[0]);
+        puntosLabel.setText("Puntos: " + info[1]);
+        vidasLabel.setText("Vidas: " + info[2]);
+
+        try
+        {
+            metodosComboBox.removeAllItems();
+            for (String metodo : nivelData.getPlantaTratadora().getMetodosParaContenedorN(numContenedor))
+            {
+                metodosComboBox.addItem(metodo);
+            }
+            desechoActual = nivelData.getContenedor(numContenedor).sacarDesecho();
+            desechosLabel.setText("Desecho: " + desechoActual.getInfo());
+            gameManager.getTemporizador().comenzar();
+        }
+        catch (ContenedorVacioException e)
+        {
+            numContenedor++;
+            trataDesecho();
+        }
+
     }
 
     @Override

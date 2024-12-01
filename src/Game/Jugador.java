@@ -21,6 +21,8 @@ public class Jugador {
             throw new DatosIncorrectosException("El nombre no puede estar vacío.");
         }
 
+        this.nombre = nombre;
+
         setEdad(edad);
 
         this.puntos = 0; //Inicializa en 0 la cantidad de puntos
@@ -32,9 +34,9 @@ public class Jugador {
     //METODOS
 
     //Metodo para obtener info
-    public String getInfo() {
+    public String[] getInfo() {
         //Retorna el nombre, los puntos y las vidas del jugador
-        return nombre + " Puntos:" + puntos + " Vidas:" + vidas;
+        return new String[] { nombre, String.valueOf(puntos), String.valueOf(vidas)};
     }
 
     public String getNombre() {

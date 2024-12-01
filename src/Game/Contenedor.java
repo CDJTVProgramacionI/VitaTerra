@@ -27,14 +27,15 @@ public class Contenedor {
         }
     }
 
-    public ArrayList<Desecho> vaciarContenedor() throws ContenedorVacioException {
+    public Desecho sacarDesecho() throws ContenedorVacioException {
         if (desechos.isEmpty()) {
             // Si el contenedor está vacío, lanzamos la excepción
             throw new ContenedorVacioException();
         }
-        ArrayList<Desecho> desechosVaciados = new ArrayList<Desecho>(this.desechos); // Crea una copia de la lista de desechos
-        this.desechos.clear(); // Limpia la lista de desechos
-        return desechosVaciados; // Retorna la lista de desechos vaciados
+
+        Desecho desecho = desechos.get(0); // Obtenemos el primer desecho
+        desechos.remove(0);
+        return desecho; // Retornamos el desecho
     }
 
     // Método para obtener la etiqueta

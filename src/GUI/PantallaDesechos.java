@@ -29,11 +29,18 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego {
     @Override
     public void mostrar() {
         nivelData = gameManager.getNivelActual();
+        panelPrincipal.removeAll();
         super.mostrar();
         generaDesecho();
     }
 
     private void generaDesecho() {
+        //Llena datos de etiquetas
+        String[] info = gameManager.getJugadorActual().getInfo();
+        turnoLabel.setText("Turno: " + info[0]);
+        puntosLabel.setText("Puntos: " + info[1]);
+        vidasLabel.setText("Vidas: " + info[2]);
+
         desechoActual = generarDesechoAleatorio(nivelData.getContenedores());
         //Mostrar desecho en pantalla
         desechosLabel.setText("Desecho: " + desechoActual.getNombre());
@@ -149,6 +156,7 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego {
                 nivelData.verificaDesechos();
 
                 iu.mostrarPantalla(6); //Tratamiento pt 1
+                dispose();
             }
             else
             {
@@ -156,7 +164,8 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego {
                 generaDesecho();
             }
         } catch (VidasInsuficientesException |DesechosInsuficientesException ex) {
-            gameManager.perder();
+            gameManager.perder(ex.getMessage());
+            dispose();
         } catch (RespuestaIncorrectaException ex) {
             gameManager.mostrarDialogo("Incorrecto", "Respuesta incorrecta");
             generaDesecho();

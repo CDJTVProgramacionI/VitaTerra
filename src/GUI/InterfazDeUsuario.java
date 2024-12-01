@@ -27,12 +27,12 @@ public class InterfazDeUsuario
     public void mostrarPantalla(int pantalla)
     {
         pantallas[pantalla].mostrar();
-        try
-        {
-            pantallaActual.dispose();
-        }
-        catch (NullPointerException e){}
         pantallaActual = pantallas[pantalla];
+    }
+
+    public void cierraPantalla()
+    {
+        pantallaActual.dispose();
     }
 
     public IPantallaJuego getPantallaJuego(int pantalla) throws IllegalArgumentException

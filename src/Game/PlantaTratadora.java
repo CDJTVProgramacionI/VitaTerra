@@ -51,13 +51,9 @@ public class PlantaTratadora {
         return pasosDesorganizados;
     }
 
-    public String getTratamientoDesorganizado()
+    public String[] getTratamientoDesorganizado()
     {
-        String texto = "";
-        for (int i = 0; i < tratamientoDesorganizado.length; i++) {
-            texto += (i + 1) + ". " + tratamientoDesorganizado[i] + "\n";
-        }
-        return texto;
+        return tratamientoDesorganizado;
     }
 
     public Contenedor getContenedor(int i) {
@@ -84,7 +80,7 @@ public class PlantaTratadora {
 
     public boolean realizarTratamiento(ArrayList<Integer> pasosJugador) throws RespuestaIncorrectaException {
         for (int i = 0; i < pasosJugador.size(); i++) {
-            if (!tratamientoDesorganizado[pasosJugador.get(i) - 1].equals(tratamiento[i])) {
+            if (!tratamientoDesorganizado[pasosJugador.get(i)].equals(tratamiento[i])) {
                 throw new RespuestaIncorrectaException("Respuesta incorrecta: " + pasosJugador.get(i));
             }
         }
