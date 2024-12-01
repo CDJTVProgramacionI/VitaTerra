@@ -80,9 +80,4 @@ public class PantallaBitacora extends Pantalla {
         panelPrincipal.add(etiquetaInstrucciones, disposicion1);
         panelPrincipal.add(cuadroBitacora, disposicion2);
     }
-
-    public static void main(String[] args) {
-        PantallaBitacora pantalla = new PantallaBitacora(new InterfazDeUsuario(new Manager(null)));
-        pantalla.mostrar();
-    }
 }

@@ -21,6 +21,7 @@ public class InterfazDeUsuario
                         new PantallaDesechos(this, gameManager), //5
                         new PantallaMetodos(this, gameManager), //6
                         new PantallaTratamiento(this, gameManager), //7
+                        new PantallaBitacora(this), //8
                 };
     }
 

@@ -10,7 +10,6 @@ public class PantallaMenu extends Pantalla {
     public PantallaMenu(InterfazDeUsuario iu) {
         super(iu);
     }
-
     @Override
     protected void inicializar() {
         String hexColor="#B7D2B6";
@@ -20,21 +19,19 @@ public class PantallaMenu extends Pantalla {
         setTitle("Menu");
 
         Font font = new Font("Bauhaus 93", Font.BOLD, 18);
-        JLabel InicioLabel = new JLabel("VITA TERRA",SwingConstants.CENTER);
+        JLabel InicioLabel = new JLabel("VITA TERRA", SwingConstants.CENTER);
         InicioLabel.setBounds(300,49,110,37);
         InicioLabel.setFont(font);
         panelPrincipal.add(InicioLabel); 
     
-        // Crear boton que lleva a jugar
+        // Crear boton que va a llevar a las instrucciones  
         JButton botonJugar = new JButton("Jugar");
         botonJugar.setBounds(220,115,260,61);
         botonJugar.setBackground(Color.decode(hexColor2));
         botonJugar.addActionListener(new ActionListener() {
             @Override 
             public void actionPerformed(ActionEvent e){
-                //lleva a la ventana de instrucciones (no se como hacerle perdon)
-                //new Pantallas();
-                iu.mostrarPantalla(1);
+                iu.mostrarPantalla(1); //Lleva a la pantalla de seleccion
                 dispose();  //Cierra el menu
             } 
         });
@@ -47,15 +44,28 @@ public class PantallaMenu extends Pantalla {
         botonInstruccion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                //LLeva a la ventana de instrucciones
-                iu.mostrarPantalla(2);
+                iu.mostrarPantalla(2); //Lleva a la pantalla de instrucciones
                 dispose(); 
             }
         });
         panelPrincipal.add(botonInstruccion);
 
+        //Crear boton para ver archivos
+        JButton botonarc = new JButton("Archivos"); 
+        botonarc.setBounds(220,263,260,61);
+        botonarc.setBackground(Color.decode(hexColor2));
+        botonarc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                iu.mostrarPantalla(8); //Lleva a la pantalla de archivos
+                dispose();
+            }
+        });
+        panelPrincipal.add(botonarc); 
+
+        //Crear boton para salir 
         JButton botonSalir = new JButton("Salir"); 
-        botonSalir.setBounds(220,264,260,61);
+        botonSalir.setBounds(220,337,260,61);
         botonSalir.setBackground(Color.decode(hexColor2));
         botonSalir.addActionListener(new ActionListener() {
             @Override
