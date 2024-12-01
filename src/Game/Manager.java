@@ -1,7 +1,6 @@
 package Game;
 
 import Desechos.Desecho;
-import Excepciones.DesechosInsuficientesException;
 import Excepciones.MetodoIncorrectoException;
 import Excepciones.RespuestaIncorrectaException;
 import Excepciones.VidasInsuficientesException;
@@ -84,35 +83,10 @@ public class Manager {
         jugadores.remove(numJugadorActivo);
         if(jugadores.isEmpty())
         {
-            iu.cierraPantalla();
             iu.mostrarPantalla(0);
         }
-    }
-
-    public void esperarPantalla(String pantalla, String[] argumentos) throws RespuestaIncorrectaException {
-        try {
-            switch (pantalla) {
-                case "Clasificar":
-                    PantallaDesechos pantallaDesechos = (PantallaDesechos) iu.getPantallaJuego(5);
-                    //pantallaDesechos.setArgumentos(argumentos);
-                    iu.mostrarPantalla(5);
-                    break;
-                case "Métodos":
-                    PantallaMetodos pantallaMetodos = (PantallaMetodos) iu.getPantallaJuego(6);
-                    //pantallaMetodos.setArgumentos(argumentos);
-                    iu.mostrarPantalla(6);
-                    break;
-                case "Tratar":
-                    PantallaTratamiento pantallaTratamiento = (PantallaTratamiento) iu.getPantallaJuego(7);
-                    //pantallaTratamiento.setArgumentos(argumentos);
-                    iu.mostrarPantalla(7);
-                    break;
-                default:
-                    throw new VidasInsuficientesException();
-            }
-        } catch (VidasInsuficientesException ex) {
-            iu.construirDialogo("Perdiste", "Se te acabaron las vidas");
-            jugadores.remove(numJugadorActivo);
+        else
+        {
             jugar(nivelActual);
         }
     }
@@ -185,17 +159,6 @@ public class Manager {
         }
     }
 
-    public void confirmarJugadorConDesechosMinimos(int desechosMinimos, int desechosCorrectos) throws DesechosInsuficientesException {
-        Jugador jugador = jugadores.get(numJugadorActivo);
-        if (desechosCorrectos < desechosMinimos) {
-            //Cuadro de dialogo no lograste clasificar y tratar suficientes desechos
-            iu.construirDialogo( "Fin de tu turno", "No lograste clasificar y tratar suficientes desechos");
-            jugadores.remove(jugador);
-            throw new DesechosInsuficientesException();
-        }
-
-    }
-
     public void ganar()
     {
         if (nivelActual == 2) {
@@ -206,14 +169,15 @@ public class Manager {
         }
         else {
             iu.cierraPantalla();
+            numJugadorActivo++;
+            if(numJugadorActivo >= jugadores.size())
+            {
+                numJugadorActivo = 0;
+                nivelActual++;
+            }
+            jugar(nivelActual);
         }
 
-        numJugadorActivo++;
-        if(numJugadorActivo >= jugadores.size())
-        {
-            numJugadorActivo = 0;
-            nivelActual++;
-        }
-        jugar(nivelActual);
+
     }
 }

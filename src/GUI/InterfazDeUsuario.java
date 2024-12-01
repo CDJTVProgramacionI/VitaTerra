@@ -40,16 +40,6 @@ public class InterfazDeUsuario
         pantallaActual.dispose();
     }
 
-    public IPantallaJuego getPantallaJuego(int pantalla) throws IllegalArgumentException
-    {
-        if (pantalla <5 || pantalla > 7)
-        {
-            throw new IllegalArgumentException("La pantalla solicitada no es de juego");
-        }
-
-        return (IPantallaJuego) pantallas[pantalla];
-    }
-
     public void construirDialogo(String tituloCuadro, String mensaje) {
         CuadrosDialogo cuadroUno=new CuadrosDialogo(pantallaActual,tituloCuadro,mensaje);
         cuadroUno.setVisible(true);
