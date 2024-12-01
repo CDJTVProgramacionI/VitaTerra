@@ -1,5 +1,6 @@
 package Game;
 
+import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -9,14 +10,18 @@ public class Temporizador
     private int decremento;
     private Timer timer;
     private Manager gameManager;
+    private JLabel tiempoRestante;
+    private JDialog dialog;
 
     private TimerTask decrementTask = new TimerTask() {
         @Override
         public void run() {
             segundos -= decremento;
+            tiempoRestante.setText("Tiempo restante: " + segundos);
             if (segundos == 0) {;
                 decremento = 0;
                 gameManager.finTiempo();
+                dialog.setVisible(false);
             }
         }
     };
@@ -27,32 +32,32 @@ public class Temporizador
         this.timer = new Timer();
         this.decremento = 0;
         this.gameManager = gameManager;
+        dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
+        dialog.setSize(200, 100);
+        dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        dialog.setResizable(false);
+
+        tiempoRestante = new JLabel();
+        dialog.add(tiempoRestante);
         timer.schedule(decrementTask, 0, 1000);
     }
 
     public void comenzar()
     {
         decremento = 1;
+        dialog.setVisible(true);
     }
 
     public void detener()
     {
         decremento = 0;
-    }
-
-    public boolean restaTiempo()
-    {
-        return segundos > 0;
+        dialog.setVisible(false);
     }
 
     public void dispose()
     {
         timer.cancel();
-    }
-
-    public int getTiempo()
-    {
-        return segundos;
     }
 
     public void setTiempo(int segundos)

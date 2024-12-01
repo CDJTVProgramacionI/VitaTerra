@@ -5,7 +5,6 @@ import Excepciones.ContenedorVacioException;
 import Excepciones.DesechosInsuficientesException;
 import Excepciones.RespuestaIncorrectaException;
 import Excepciones.VidasInsuficientesException;
-import Game.Contenedor;
 import Game.Manager;
 import Game.Nivel;
 
@@ -13,7 +12,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class PantallaMetodos extends Pantalla implements IPantallaJuego
 {
@@ -52,8 +50,8 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
         {
             try
             {
-                nivelData.decrementaDesechosCorrectos();
                 gameManager.mostrarDialogo("Respuesta incorrecta", "La respuesta no es correcta");
+                nivelData.decrementaDesechosCorrectos();
                 trataDesecho();
             }
             catch (DesechosInsuficientesException ex)
@@ -68,6 +66,7 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
     {
         if(numContenedor >= nivelData.getContenedores().length)
         {
+            dispose();
             gameManager.ganar();
             return;
         }
@@ -147,7 +146,7 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
         panelPrincipal.add(panelMetodo, new GridBagConstraints(2, 1, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
         //Imagen alusiva
-        Image img = new ImageIcon("C:\\Users\\nanib\\Pictures\\Copias de seguridad\\Septiembre 2024\\WhatsApp Images\\IMG-20240906-WA0072.jpg").getImage();
+        Image img = new ImageIcon("src/Imagenes/PlantaTratadora.jpg").getImage();
         ImageIcon icon = new ImageIcon(img.getScaledInstance(570, 400, Image.SCALE_SMOOTH));
         JLabel imagen = new JLabel();
         imagen.setIcon(icon);

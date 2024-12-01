@@ -130,13 +130,15 @@ public class Manager {
         //Obtener nivel actual
         Nivel nivelData = niveles[nivelActual];
 
-        boolean esCorrecta = nivelData.getContenedor(respuesta).insertarDesecho(desecho);
-
-        if (esCorrecta) {
+        try
+        {
+            nivelData.getContenedor(respuesta).insertarDesecho(desecho);
             jugador.aumentarPuntosEn(nivelData.getPuntos());
-        } else {
+        }
+        catch (RespuestaIncorrectaException ex)
+        {
             jugador.disminuirVidasEn(nivelData.getVidas());
-            throw new RespuestaIncorrectaException(desecho.getNombre() + " se debe clasificar en " + desecho.getClasificacion());
+            throw new RespuestaIncorrectaException(ex.getMessage());
         }
     }
 
@@ -195,6 +197,9 @@ public class Manager {
             iu.construirDialogo("Ganador", "¡Felicidades, GANASTE!");
             iu.cierraPantalla();
             iu.mostrarPantalla(0);
+        }
+        else {
+            iu.cierraPantalla();
         }
 
         numJugadorActivo++;

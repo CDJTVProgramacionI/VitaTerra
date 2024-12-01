@@ -23,13 +23,13 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego {
     public PantallaDesechos(InterfazDeUsuario interfaz, Manager manager) {
         super(interfaz);
         this.gameManager = manager;
-        this.desechos = 0;
     }
 
     @Override
     public void mostrar() {
         nivelData = gameManager.getNivelActual();
         panelPrincipal.removeAll();
+        desechos = 0;
         super.mostrar();
         generaDesecho();
     }
@@ -148,19 +148,19 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego {
     public void responder(int opc) {
         try {
             gameManager.procesarRespuesta(opc, desechoActual);
+            nivelData.aumentaDesechosCorrectos();
             if (desechos >= 10)
             {
+                nivelData.verificaDesechos();
                 //Mostrar contenedor con más desechos
                 Contenedor maxContenedor = nivelData.getMaxContenedor();
                 gameManager.mostrarDialogo("Contenedor con más desechos", maxContenedor.getEtiqueta() + " tiene " + maxContenedor.getCantidadDesechos() + " desechos.");
-                nivelData.verificaDesechos();
 
                 iu.mostrarPantalla(6); //Tratamiento pt 1
                 dispose();
             }
             else
             {
-                nivelData.aumentaDesechosCorrectos();
                 generaDesecho();
             }
         } catch (VidasInsuficientesException |DesechosInsuficientesException ex) {

@@ -18,10 +18,9 @@ public class Contenedor {
     }
 
     // Método para insertar un desecho
-    public boolean insertarDesecho(Desecho desecho) throws RespuestaIncorrectaException {
+    public void insertarDesecho(Desecho desecho) throws RespuestaIncorrectaException {
         if (desecho.getClasificacion().equals(etiqueta)) {
             desechos.add(desecho);
-            return true;
         } else {
             throw new RespuestaIncorrectaException(desecho.getNombre() + " se debe clasificar en " + desecho.getClasificacion());
         }

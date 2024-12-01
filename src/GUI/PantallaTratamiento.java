@@ -70,13 +70,14 @@ public class PantallaTratamiento extends Pantalla implements IPantallaJuego
         catch (RespuestaIncorrectaException e)
         {
             try {
+                gameManager.mostrarDialogo("Respuesta incorrecta", "La respuesta no es correcta");
                 nivelData.decrementaDesechosCorrectos();
             }
             catch (DesechosInsuficientesException ex)
             {
                 gameManager.perder(ex.getMessage());
+                return;
             }
-            gameManager.mostrarDialogo("Respuesta incorrecta", "La respuesta no es correcta");
             dispose();
             iu.mostrarPantalla(6);
         }
@@ -125,7 +126,7 @@ public class PantallaTratamiento extends Pantalla implements IPantallaJuego
         panelPrincipal.add(panelTratamiento, new GridBagConstraints(2, 1, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
         //Imagen alusiva
-        Image img = new ImageIcon("C:\\Users\\nanib\\Pictures\\Copias de seguridad\\Septiembre 2024\\WhatsApp Images\\IMG-20240906-WA0072.jpg").getImage();
+        Image img = new ImageIcon("src/Imagenes/PlantaTratadora.jpg").getImage();
         ImageIcon icon = new ImageIcon(img.getScaledInstance(570, 400, Image.SCALE_SMOOTH));
         JLabel imagen = new JLabel();
         imagen.setIcon(icon);
