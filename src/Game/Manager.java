@@ -5,7 +5,7 @@ import Excepciones.MetodoIncorrectoException;
 import Excepciones.RespuestaIncorrectaException;
 import Excepciones.VidasInsuficientesException;
 import GUI.*;
-import Data.manejoArchivos;
+import Data.ManejoArchivos;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class Manager {
     private Nivel[] niveles;
     private int nivelActual;
     private Temporizador temporizador;
-    private manejoArchivos archivo;
+    private ManejoArchivos archivo;
 
     //Constructor de clase
     public Manager(Nivel[] niveles) {
@@ -27,7 +27,7 @@ public class Manager {
         jugadores = new ArrayList<>();
         this.niveles = niveles;
         temporizador = new Temporizador(this);
-        archivo = new manejoArchivos("Bitácora.vtr");
+        archivo = new ManejoArchivos("Bitácora.vtr");
         iu = new InterfazDeUsuario(this);
 
         iu.mostrarPantalla(0);

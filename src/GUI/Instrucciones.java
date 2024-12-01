@@ -19,7 +19,7 @@ public class Instrucciones extends Pantalla {
         //se define color de la pantalla 
         panelPrincipal.setBackground(Color.decode(hexColor));
         //CREAR ETIQUETA QUE DIGA INSTRUCCIONES
-        JLabel etiquetaInstrucciones = new JLabel("GUI.Instrucciones");
+        JLabel etiquetaInstrucciones = new JLabel("Instrucciones");
         //Ponerle fuente al texto
         etiquetaInstrucciones.setFont(new Font("Arial",Font.BOLD,30));
         //Ponerle color al texto

@@ -4,13 +4,13 @@ import java.io.*;
 import Game.Jugador;
 
 
-public class manejoArchivos {
+public class ManejoArchivos {
 
     //Atributos
     private String nombreArchivo;
 
     //Constructor
-    public manejoArchivos (String nombreArchivo){
+    public ManejoArchivos(String nombreArchivo){
 
         this.nombreArchivo = nombreArchivo;
     }
