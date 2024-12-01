@@ -18,7 +18,7 @@ public class InterfazDeUsuario
                         new Instrucciones(this), //2
                         new PantallaJugador(this, gameManager), //3
                         new Pantalla2Jugadores(this, gameManager), //4
-                        //TODO: Pantalla clasificacion desechos //5
+                        new PantallaDesechos(this, gameManager), //5
                         new PantallaMetodos(this, gameManager), //6
                         new PantallaTratamiento(this, gameManager), //7
                 };

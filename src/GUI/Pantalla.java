@@ -15,11 +15,10 @@ public abstract class Pantalla extends JFrame {
 
         panelPrincipal = new JPanel();
         add(panelPrincipal);
-
-        inicializar();
     }
 
     public void mostrar() {
+        inicializar();
         setVisible(true);
     }
 

@@ -7,6 +7,7 @@ import Excepciones.RespuestaIncorrectaException;
 import Excepciones.VidasInsuficientesException;
 import GUI.InterfazDeUsuario;
 import Data.manejoArchivos;
+import GUI.PantallaDesechos;
 import GUI.PantallaMetodos;
 import GUI.PantallaTratamiento;
 import java.util.ArrayList;
@@ -26,11 +27,11 @@ public class Manager {
          * Se crean las pantallas a través de la interfaz de usuario
          * Se crean los jugadores sin valores iniciales
          */
-        iu = new InterfazDeUsuario(this);
         jugadores = new ArrayList<>();
         this.niveles = niveles;
         temporizador = new Temporizador(this);
-        archivo = new manejoArchivos("Bitácora");
+        archivo = new manejoArchivos("Bitácora.vtr");
+        iu = new InterfazDeUsuario(this);
 
         iu.mostrarPantalla(0);
     }
@@ -39,11 +40,25 @@ public class Manager {
         this.jugadores = jugadores;
     }
 
+    public Temporizador getTemporizador() {
+        return temporizador;
+    }
+
+    public Nivel getNivelActual() {
+        return niveles[nivelActual];
+    }
+
     public void mostrarDialogo(String tituloCuadro, String mensaje) {
         iu.construirDialogo(tituloCuadro, mensaje);
     }
 
     public void jugar(int nivel) {
+        if (jugadores.isEmpty()){
+            iu.construirDialogo("Fin del juego", "Se te acabaron las vidas");
+            iu.mostrarPantalla(0);
+            return;
+        }
+
         if (nivel == 3) {
             iu.construirDialogo("Ganador", "¡Felicidades, GANASTE!");
             iu.mostrarPantalla(0);
@@ -52,35 +67,34 @@ public class Manager {
 
         nivelActual = nivel;
 
-        for (Jugador jugador : jugadores) {
-            try {
-                niveles[nivel].ejecutar(this, temporizador, jugador);
-                jugar(nivel + 1);
-            } catch (RespuestaIncorrectaException ex) {
-                iu.construirDialogo("Incorrecto", "Respuesta incorrecta");
-                archivo.escribirDatos(jugador);
-            } catch (DesechosInsuficientesException ex) {
-                iu.construirDialogo("Perdiste", "Perdiste, no clasifiscaste los desechos suficientes");
-                archivo.escribirDatos(jugador);
-            }
-        }
+        niveles[nivel].configurar(temporizador);
+        iu.mostrarPantalla(5);
+        //jugar(nivel + 1);
     }
 
+    public void perder()
+    {
+        iu.construirDialogo("Perdiste", "Se te acabaron las vidas");
+        archivo.escribirDatos(jugadores.get(numJugadorActivo));
+    }
 
     public void esperarPantalla(String pantalla, String[] argumentos) throws RespuestaIncorrectaException {
         try {
             switch (pantalla) {
                 case "Clasificar":
+                    PantallaDesechos pantallaDesechos = (PantallaDesechos) iu.getPantallaJuego(5);
+                    //pantallaDesechos.setArgumentos(argumentos);
+                    iu.mostrarPantalla(5);
                     break;
                 case "Métodos":
                     PantallaMetodos pantallaMetodos = (PantallaMetodos) iu.getPantallaJuego(6);
-                    pantallaMetodos.setArgumentos(argumentos);
-                    pantallaMetodos.mostrar();
+                    //pantallaMetodos.setArgumentos(argumentos);
+                    iu.mostrarPantalla(6);
                     break;
                 case "Tratar":
                     PantallaTratamiento pantallaTratamiento = (PantallaTratamiento) iu.getPantallaJuego(7);
-                    pantallaTratamiento.setArgumentos(argumentos);
-                    pantallaTratamiento.mostrar();
+                    //pantallaTratamiento.setArgumentos(argumentos);
+                    iu.mostrarPantalla(7);
                     break;
                 default:
                     throw new VidasInsuficientesException();

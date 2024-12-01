@@ -20,20 +20,6 @@ public class PantallaTratamiento extends Pantalla implements IPantallaJuego
         comboBoxes = new ArrayList<>();
     }
 
-    public void setArgumentos(String[] pasos)
-    {
-        this.pasos = pasos;
-
-        //ComboBoxes
-        comboBoxes = new ArrayList<>();
-        for (int i = 0; i < pasos.length; i++)
-        {
-            JComboBox<String> pasosCombo = new JComboBox<>(pasos);
-            comboBoxes.add(pasosCombo);
-            panelTratamiento.add(pasosCombo, new GridBagConstraints(i, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-        }
-    }
-
     @Override
     protected void inicializar() {
         String hexColor = "#B7D2B6";
@@ -48,10 +34,6 @@ public class PantallaTratamiento extends Pantalla implements IPantallaJuego
         panelEtiquetas.setBackground(Color.decode(hexColor));
 
         //Etiquetas turno, vidas y puntos
-        JLabel turnoLabel = new JLabel("Turno");
-        JLabel vidasLabel = new JLabel("Vidas");
-        JLabel puntosLabel = new JLabel("Puntos");
-
         panelEtiquetas.add(turnoLabel);
         panelEtiquetas.add(vidasLabel);
         panelEtiquetas.add(puntosLabel);

@@ -19,16 +19,6 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
     }
 
     @Override
-    public void setArgumentos(String[] metodos)
-    {
-        this.metodos = metodos;
-        for(String metodo : metodos)
-        {
-            metodosComboBox.addItem(metodo);
-        }
-    }
-
-    @Override
     protected void inicializar() {
         String hexColor = "#B7D2B6";
         String hexColor2 = "#638C80";
@@ -42,10 +32,6 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
         panelEtiquetas.setBackground(Color.decode(hexColor));
 
         //Etiquetas turno, vidas y puntos
-        JLabel turnoLabel = new JLabel("Turno");
-        JLabel vidasLabel = new JLabel("Vidas");
-        JLabel puntosLabel = new JLabel("Puntos");
-
         panelEtiquetas.add(turnoLabel);
         panelEtiquetas.add(vidasLabel);
         panelEtiquetas.add(puntosLabel);
