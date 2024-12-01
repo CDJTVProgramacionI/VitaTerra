@@ -1,21 +1,105 @@
 package GUI;
 
+import Desechos.Desecho;
+import Excepciones.ContenedorVacioException;
+import Excepciones.DesechosInsuficientesException;
+import Excepciones.RespuestaIncorrectaException;
+import Excepciones.VidasInsuficientesException;
+import Game.Contenedor;
 import Game.Manager;
+import Game.Nivel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class PantallaMetodos extends Pantalla implements IPantallaJuego
 {
-    String[] metodos;
+    Manager gameManager;
     JComboBox<String> metodosComboBox;
+    Desecho desechoActual;
+    ArrayList<Desecho> listaDesechos;
+    Nivel nivelData;
+    int desecho;
 
     public PantallaMetodos(InterfazDeUsuario iu, Manager manager)
     {
         super(iu);
-        this.metodos = new String[1];
+        this.gameManager = manager;
+    }
+
+    @Override
+    public void mostrar() {
+        nivelData = gameManager.getNivelActual();
+        nivelData.setPlantaTratadora();
+        super.mostrar();
+        vacíaContenedor(0);
+    }
+
+    @Override
+    public void responder(int opc) {
+        try {
+            gameManager.procesarRespuesta(opc + 1, desechoActual, nivelData.getPlantaTratadora());
+            trataDesecho();
+        }
+        catch (VidasInsuficientesException e) {
+            gameManager.perder();
+        }
+        catch (RespuestaIncorrectaException e)
+        {
+            try
+            {
+                nivelData.decrementaDesechosCorrectos();
+                gameManager.mostrarDialogo("Respuesta incorrecta", "La respuesta no es correcta");
+                trataDesecho();
+            }
+            catch (DesechosInsuficientesException ex)
+            {
+                gameManager.mostrarDialogo("Fin del juego", "No clasificaste los suficientes desechos");
+                iu.mostrarPantalla(0);
+            }
+
+        }
+    }
+
+    private void vacíaContenedor(int numContenedor)
+    {
+        Contenedor[] contenedores = nivelData.getContenedores();
+        if(numContenedor >= contenedores.length)
+        {
+            //Se trataron todos los desechos
+            iu.mostrarPantalla(7);
+            return;
+        }
+
+        try {
+            listaDesechos = nivelData.getContenedor(numContenedor).vaciarContenedor();
+            metodosComboBox.removeAllItems();
+            for(String metodo : nivelData.getPlantaTratadora().getMetodosParaContenedorN(numContenedor))
+            {
+                metodosComboBox.addItem(metodo);
+            }
+            desecho = 0;
+            trataDesecho();
+        }
+        catch (ContenedorVacioException e) {
+            vacíaContenedor(numContenedor + 1);
+        }
+
+    }
+
+    private void trataDesecho()
+    {
+        if(desecho >= listaDesechos.size())
+        {
+            vacíaContenedor(1);
+            return;
+        }
+        desechoActual = listaDesechos.get(desecho);
+        desechosLabel.setText("Desecho: " + desechoActual.getInfo());
+        desecho++;
     }
 
     @Override
@@ -44,8 +128,7 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
         panelMetodo.setBackground(Color.decode(hexColor));
 
         //Etiqueta desecho
-        JLabel desechoLabel = new JLabel("Desecho");
-        panelMetodo.add(desechoLabel);
+        panelMetodo.add(desechosLabel);
 
         //Grid [1,1] vacio
         panelMetodo.add(new JLabel());
@@ -61,7 +144,7 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
         confirmar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Aqui va la lógica de confirmar el método
+                responder(metodosComboBox.getSelectedIndex());
             }
         });
         panelMetodo.add(confirmar);

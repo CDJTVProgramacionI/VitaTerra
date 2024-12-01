@@ -1,6 +1,7 @@
 package GUI;
 
 import Desechos.*;
+import Excepciones.DesechosInsuficientesException;
 import Excepciones.RespuestaIncorrectaException;
 import Excepciones.VidasInsuficientesException;
 import Game.Contenedor;
@@ -13,26 +14,26 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public class PantallaDesechos extends Pantalla implements IPantallaJuego
-{
+public class PantallaDesechos extends Pantalla implements IPantallaJuego {
     Manager gameManager;
     Nivel nivelData;
     int desechos;
     Desecho desechoActual;
+
     public PantallaDesechos(InterfazDeUsuario interfaz, Manager manager) {
         super(interfaz);
         this.gameManager = manager;
-        nivelData = gameManager.getNivelActual();
         this.desechos = 0;
     }
 
     @Override
     public void mostrar() {
+        nivelData = gameManager.getNivelActual();
         super.mostrar();
         generaDesecho();
     }
-    private void generaDesecho()
-    {
+
+    private void generaDesecho() {
         desechoActual = generarDesechoAleatorio(nivelData.getContenedores());
         //Mostrar desecho en pantalla
         desechosLabel.setText("Desecho: " + desechoActual.getNombre());
@@ -45,12 +46,12 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego
     protected void inicializar() {
         String hexColor = "#B7D2B6";
         String hexColor2 = "#638C80";
-        String hexColor3 = "#FFFFFF"; 
+        String hexColor3 = "#FFFFFF";
 
         panelPrincipal.setBackground(Color.decode(hexColor));
         panelPrincipal.setLayout(new GridBagLayout());
         setTitle("Desechos");
-     
+
         //Panel etiquetas
         JPanel panelEtiquetas = new JPanel();
         panelEtiquetas.setLayout(new GridLayout(3, 0));
@@ -64,9 +65,9 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego
 
         //Panel Botones de desechos
         JPanel panelBotones = new JPanel();
-        Font font= new Font("Bauhaus 93", Font.BOLD, 18);
+        Font font = new Font("Bauhaus 93", Font.BOLD, 18);
         Font font2 = new Font("MoolBoran", Font.BOLD, 14);
-        panelBotones.setLayout(new GridLayout(3,3)); 
+        panelBotones.setLayout(new GridLayout(3, 3));
         panelBotones.setBackground(Color.decode(hexColor));
 
 
@@ -74,10 +75,10 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego
         desechosLabel.setForeground(Color.decode(hexColor2));
         panelBotones.add(desechosLabel);
 
-        JLabel vac = new JLabel(" ",SwingConstants.CENTER); 
-        panelBotones.add(vac); 
+        JLabel vac = new JLabel(" ", SwingConstants.CENTER);
+        panelBotones.add(vac);
 
-        JLabel vac2 = new JLabel(" ",SwingConstants.CENTER); 
+        JLabel vac2 = new JLabel(" ", SwingConstants.CENTER);
         panelBotones.add(vac2);
 
         //Botones de los desechos 
@@ -90,8 +91,7 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego
         Des1.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 responder(0);
             }
         });
@@ -123,35 +123,45 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego
         });
         panelBotones.add(Des3);
 
-        JLabel vac4 = new JLabel(" ",SwingConstants.CENTER); 
-        panelBotones.add(vac4); 
+        JLabel vac4 = new JLabel(" ", SwingConstants.CENTER);
+        panelBotones.add(vac4);
 
-        JLabel vac5 = new JLabel(" ",SwingConstants.CENTER); 
+        JLabel vac5 = new JLabel(" ", SwingConstants.CENTER);
         panelBotones.add(vac5);
-        
-        JLabel vac6 = new JLabel(" ",SwingConstants.CENTER); 
-        panelBotones.add(vac6); 
+
+        JLabel vac6 = new JLabel(" ", SwingConstants.CENTER);
+        panelBotones.add(vac6);
 
 
         panelPrincipal.add(panelBotones, new GridBagConstraints(2, 1, 3, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-        }
+    }
 
-        private void responder(int opc)
-        {
-            try {
-                gameManager.procesarRespuesta(opc, desechoActual);
-                if(desechos >= 10) iu.mostrarPantalla(6); //Tratamiento pt 1
-                else generaDesecho();
+    @Override
+    public void responder(int opc) {
+        try {
+            gameManager.procesarRespuesta(opc, desechoActual);
+            if (desechos >= 10)
+            {
+                //Mostrar contenedor con más desechos
+                Contenedor maxContenedor = nivelData.getMaxContenedor();
+                gameManager.mostrarDialogo("Contenedor con más desechos", maxContenedor.getEtiqueta() + " tiene " + maxContenedor.getCantidadDesechos() + " desechos.");
+                nivelData.verificaDesechos();
+
+                iu.mostrarPantalla(6); //Tratamiento pt 1
             }
-            catch (VidasInsuficientesException ex) {
-                gameManager.perder();
-            }
-            catch (RespuestaIncorrectaException ex) {
-                gameManager.mostrarDialogo("Incorrecto", "Respuesta incorrecta");
+            else
+            {
+                nivelData.aumentaDesechosCorrectos();
                 generaDesecho();
             }
+        } catch (VidasInsuficientesException |DesechosInsuficientesException ex) {
+            gameManager.perder();
+        } catch (RespuestaIncorrectaException ex) {
+            gameManager.mostrarDialogo("Incorrecto", "Respuesta incorrecta");
+            generaDesecho();
         }
+    }
 
     private Desecho generarDesechoAleatorio(Contenedor[] contenedores) {
         //Generar numero aleatorio entre 0 y la cantidad de contenedores

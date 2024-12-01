@@ -1,10 +1,11 @@
 package Game;
 
+import Excepciones.MetodoIncorrectoException;
 import Excepciones.RespuestaIncorrectaException;
 
 import java.util.ArrayList;
 
-class PlantaTratadora {
+public class PlantaTratadora {
     private Contenedor[] contenedores;
     private String[] tratamiento;
     private String[] tratamientoDesorganizado;
@@ -26,7 +27,8 @@ class PlantaTratadora {
         this.contenedores = contenedores; // Asignar la lista recibida
     }
 
-    public void setTratamiento(String[] pasos) {
+    public void setTratamiento(String[] pasos) throws MetodoIncorrectoException {
+        if (pasos == null) throw new MetodoIncorrectoException();
         this.tratamiento = pasos;
         tratamientoDesorganizado = desorganizarTratamiento();
     }
@@ -63,20 +65,20 @@ class PlantaTratadora {
     }
 
 
-    public String getMetodosParaContenedorN(int i) {
+    public String[] getMetodosParaContenedorN(int i) {
         String etiqueta = contenedores[i].getEtiqueta();
         return switch (etiqueta) {
-            case "Baterías" -> metodosBaterias;
-            case "Biológicos" -> metodosBiologicos;
-            case "Cartón" -> metodosCarton;
-            case "Electrónicos" -> metodosElectronicos;
-            case "Medicamentos" -> metodosMedicamentos;
-            case "Orgánico" -> metodosOrganicos;
-            case "Papel" -> metodosPapel;
-            case "Plástico" -> metodosPlasticos;
-            case "Químicos" -> metodosQuimicos;
-            case "Vidrio" -> metodosVidrio;
-            default -> "No se encontraron métodos para el contenedor";
+            case "Baterías" -> metodosBaterias.split("\n");
+            case "Biológicos" -> metodosBiologicos.split("\n");
+            case "Cartón" -> metodosCarton.split("\n");
+            case "Electrónicos" -> metodosElectronicos.split("\n");
+            case "Medicamentos" -> metodosMedicamentos.split("\n");
+            case "Orgánico" -> metodosOrganicos.split("\n");
+            case "Papel" -> metodosPapel.split("\n");
+            case "Plástico" -> metodosPlasticos.split("\n");
+            case "Químicos" -> metodosQuimicos.split("\n");
+            case "Vidrio" -> metodosVidrio.split("\n");
+            default -> null;
         };
     }
 

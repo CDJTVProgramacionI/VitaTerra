@@ -27,6 +27,11 @@ public class InterfazDeUsuario
     public void mostrarPantalla(int pantalla)
     {
         pantallas[pantalla].mostrar();
+        try
+        {
+            pantallaActual.dispose();
+        }
+        catch (NullPointerException e){}
         pantallaActual = pantallas[pantalla];
     }
 

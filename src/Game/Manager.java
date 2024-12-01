@@ -76,6 +76,7 @@ public class Manager {
     {
         iu.construirDialogo("Perdiste", "Se te acabaron las vidas");
         archivo.escribirDatos(jugadores.get(numJugadorActivo));
+        iu.mostrarPantalla(0);
     }
 
     public void esperarPantalla(String pantalla, String[] argumentos) throws RespuestaIncorrectaException {

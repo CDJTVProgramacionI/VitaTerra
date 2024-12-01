@@ -14,6 +14,7 @@ public class Nivel {
     private int desechosMinimosParaSeguir;
     private int segundosPorTurno;
     private int desechosCorrectos;
+    private PlantaTratadora plantaTratadora;
 
     public Nivel(int puntosPorRespuestaCorrecta, int vidasRespuestaIncorrecta, Contenedor[] contenedores, int desechosMinimosParaSeguir, int segundosPorTurno) {
         this.puntosPorRespuestaCorrecta = puntosPorRespuestaCorrecta;
@@ -28,17 +29,6 @@ public class Nivel {
         temporizador.setTiempo(segundosPorTurno);
     }
 
-    private String generarListaContenedores() {
-
-        String texto = "";
-        for (int i = 0; i < contenedores.length; i++) {
-
-            String etiqueta = contenedores[i].getEtiqueta();
-            texto += (i + 1) + ". " + etiqueta + "\n";
-        }
-        return texto;
-    }
-
     public Contenedor[] getContenedores() {
         return contenedores;
     }
@@ -47,7 +37,13 @@ public class Nivel {
         desechosCorrectos++;
     }
 
-    private Contenedor getMaxContenedor() {
+    public void decrementaDesechosCorrectos() throws DesechosInsuficientesException
+    {
+        desechosCorrectos--;
+        verificaDesechos();
+    }
+
+    public Contenedor getMaxContenedor() {
         Contenedor max = contenedores[0];
         for (Contenedor contenedor : contenedores) {
             if (contenedor.getCantidadDesechos() > max.getCantidadDesechos()) {
@@ -55,6 +51,23 @@ public class Nivel {
             }
         }
         return max;
+    }
+
+    public void setPlantaTratadora() {
+        this.plantaTratadora = new PlantaTratadora(contenedores);
+    }
+
+    public PlantaTratadora getPlantaTratadora() {
+        return plantaTratadora;
+    }
+
+
+    public void verificaDesechos() throws DesechosInsuficientesException
+    {
+        //Si no se llega a la cantidad de desechos mínimos, se acaba el turno
+        if (desechosCorrectos < desechosMinimosParaSeguir) {
+            throw new DesechosInsuficientesException();
+        }
     }
 
     public Contenedor getContenedor(int i) {

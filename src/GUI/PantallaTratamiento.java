@@ -21,6 +21,11 @@ public class PantallaTratamiento extends Pantalla implements IPantallaJuego
     }
 
     @Override
+    public void responder(int opc) {
+
+    }
+
+    @Override
     protected void inicializar() {
         String hexColor = "#B7D2B6";
         String hexColor2 = "#638C80";
