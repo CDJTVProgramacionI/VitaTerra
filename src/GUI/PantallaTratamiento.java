@@ -42,8 +42,8 @@ public class PantallaTratamiento extends Pantalla implements IPantallaJuego
         //Llena datos de etiquetas
         String[] info = gameManager.getJugadorActual().getInfo();
         turnoLabel.setText("Turno: " + info[0]);
-        puntosLabel.setText("Puntos: " + info[1]);
-        vidasLabel.setText("Vidas: " + info[2]);
+        puntosLabel.setText("Puntos: " + info[2]);
+        vidasLabel.setText("Vidas: " + info[3]);
 
         String[] pasos = nivelData.getPlantaTratadora().getTratamientoDesorganizado();
         for (int i = 0; i < pasos.length; i++) {

@@ -4,14 +4,14 @@ import Excepciones.DatosIncorrectosException;
 import Excepciones.VidasInsuficientesException;
 import java.util.ArrayList;
 import java.io.Serializable;
-public class Jugador {
+public class Jugador implements Serializable {
 
     //Atributos
     private String nombre; //Nombre del jugador
     private int puntos; //Cantidad de puntos del jugador
     private int vidas; //Cantidad de vidas del jugador
     private int edad; // Edad del jugador
-    private ArrayList<String> pasos; //Pasos seleccionados por el jugador
+    //private ArrayList<String> pasos; //Pasos seleccionados por el jugador
 
     //Constructor
     public Jugador(String nombre, int edad) throws DatosIncorrectosException {
@@ -27,7 +27,6 @@ public class Jugador {
 
         this.puntos = 0; //Inicializa en 0 la cantidad de puntos
         this.vidas = 5; //Inicializa en 5 la cantidad de vidas iniciales
-        this.pasos = new ArrayList<>(); // Inicializa el arrayList de pasos
     }
 
 
@@ -36,7 +35,7 @@ public class Jugador {
     //Metodo para obtener info
     public String[] getInfo() {
         //Retorna el nombre, los puntos y las vidas del jugador
-        return new String[] { nombre, String.valueOf(puntos), String.valueOf(vidas)};
+        return new String[] { nombre, String.valueOf(edad), String.valueOf(puntos), String.valueOf(vidas)};
     }
 
     public String getNombre() {
