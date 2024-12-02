@@ -19,7 +19,6 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
     JComboBox<String> metodosComboBox;
     Desecho desechoActual;
     Nivel nivelData;
-    int numContenedor;
 
     public PantallaMetodos(InterfazDeUsuario iu, Manager manager)
     {
@@ -33,7 +32,7 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
         nivelData.setPlantaTratadora();
         panelPrincipal.removeAll();
         super.mostrar();
-        trataDesecho();
+        trataDesecho(0);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
             {
                 gameManager.mostrarDialogo("Respuesta incorrecta", "La respuesta no es correcta");
                 nivelData.decrementaDesechosCorrectos();
-                trataDesecho();
+                trataDesecho(0);
             }
             catch (DesechosInsuficientesException ex)
             {
@@ -62,11 +61,10 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
         }
     }
 
-    private void trataDesecho()
+    private void trataDesecho(int numContenedor)
     {
         if(numContenedor >= nivelData.getContenedores().length)
         {
-            numContenedor = 0;
             dispose();
             gameManager.ganar();
             return;
@@ -90,8 +88,7 @@ public class PantallaMetodos extends Pantalla implements IPantallaJuego
         }
         catch (ContenedorVacioException e)
         {
-            numContenedor++;
-            trataDesecho();
+            trataDesecho(numContenedor + 1);
         }
 
     }
