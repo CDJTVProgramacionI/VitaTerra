@@ -91,7 +91,11 @@ public class Pantalla2Jugadores extends Pantalla {
                 }
                 catch (DatosIncorrectosException ex)
                 {
-                    //Aquí va la pantallita de Jou
+                    gameManager.mostrarDialogo("Error", ex.getMessage());
+                }
+                catch (NumberFormatException ex)
+                {
+                    gameManager.mostrarDialogo("Error", "La edad debe ser un número entero");
                 }
                 dispose();  //Cierra el menu
             }

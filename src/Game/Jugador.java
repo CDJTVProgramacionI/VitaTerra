@@ -48,7 +48,7 @@ public class Jugador implements Serializable {
 
     public void setEdad(int edad) throws DatosIncorrectosException {
         // Valida que la edad no sea negativa
-        if (edad < 0) {
+        if (edad <= 0) {
             throw new DatosIncorrectosException("La edad debe ser mayor que 0");
         }
         this.edad = edad;

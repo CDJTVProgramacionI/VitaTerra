@@ -64,12 +64,16 @@ public class PantallaJugador extends Pantalla {
                     jugadores.add(new Jugador(campoNombre.getText(), Integer.parseInt(campoEdad.getText())));
                     gameManager.setJugadores(jugadores);
                     gameManager.jugar(0);
+                    dispose();  //Cierra el menu
                 }
                 catch (DatosIncorrectosException ex)
                 {
-                    //TODO: Cuadro de dialogo con error
+                    gameManager.mostrarDialogo("Error", ex.getMessage());
                 }
-                dispose();  //Cierra el menu
+                catch (NumberFormatException ex)
+                {
+                    gameManager.mostrarDialogo("Error", "La edad debe ser un número entero.");
+                }
             }
         });
         panelPrincipal.add(botonJugar);

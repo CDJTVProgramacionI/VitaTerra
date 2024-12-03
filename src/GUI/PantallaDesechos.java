@@ -149,7 +149,7 @@ public class PantallaDesechos extends Pantalla implements IPantallaJuego {
         try {
             gameManager.procesarRespuesta(opc, desechoActual);
             nivelData.aumentaDesechosCorrectos();
-            if (desechos >= 10)
+            if (desechos >= 10)   //jou empieza aqui
             {
                 nivelData.verificaDesechos();
                 //Mostrar contenedor con más desechos
